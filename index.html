@@ -232,24 +232,14 @@
     .parallax-banner {
       position: relative; z-index: 1;
       height: 260px;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    /* The real parallax magic:
-       This inner div is taller than the banner (inset: -80px).
-       JS translates it at 40% of scroll speed — slower than the page.
-       Result: the dot pattern appears to slide at a different rate = parallax.
-       Works on ALL devices including iOS (no background-attachment:fixed needed). */
-    .parallax-banner-bg {
-      position: absolute;
-      top: -80px; left: 0; right: 0; bottom: -80px;
-      z-index: 0; pointer-events: none;
-      will-change: transform;
       background:
-        linear-gradient(rgba(17,17,17,.80), rgba(17,17,17,.80)),
-        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle fill='%23c6a75e' cx='40' cy='40' r='1.5' opacity='.22'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='10' r='1' opacity='.15'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='10' r='1' opacity='.13'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='70' r='1' opacity='.13'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='70' r='1' opacity='.15'/%3E%3C/g%3E%3C/svg%3E");
+        linear-gradient(rgba(17,17,17,.78), rgba(17,17,17,.78)),
+        /* SVG pattern: repeating olive leaf dots that scroll at a different rate */
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle fill='%23c6a75e' cx='40' cy='40' r='1.5' opacity='.18'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='10' r='1' opacity='.12'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='10' r='1' opacity='.1'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='70' r='1' opacity='.1'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='70' r='1' opacity='.12'/%3E%3C/g%3E%3C/svg%3E");
+      background-attachment: fixed;      /* ← THE parallax: bg stays still, content scrolls over */
       background-size: auto, 80px 80px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
     }
 
     .parallax-banner-inner {
@@ -284,14 +274,13 @@
       padding: 100px 6vw;
     }
 
-    /* Process section parallax bg — a real div driven by JS (iOS-safe) */
-    #processBg {
-      position: absolute;
-      top: -80px; left: 0; right: 0; bottom: -80px;
-      z-index: 0; pointer-events: none;
-      will-change: transform;
+    /* second parallax banner INSIDE process — background-attachment:fixed */
+    #process::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
-        url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23c6a75e' stroke-width='.5' opacity='.09'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23c6a75e' stroke-width='.4' opacity='.06'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23c6a75e' stroke-width='.4' opacity='.06'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23c6a75e' stroke-width='.3' opacity='.04'/%3E%3C/svg%3E");
+      background-attachment: fixed;     /* ← parallax: this texture scrolls slower */
       background-size: 120px 120px;
     }
 
@@ -382,7 +371,9 @@
       .hero-sub { margin: 0 auto 36px; }
       .hero-ctas { justify-content: center; }
       .deco-line { margin-left: auto; margin-right: auto; }
-      .parallax-banner { height: 200px; }
+      /* Disable background-attachment:fixed on mobile (iOS bug) */
+      .parallax-banner { background-attachment: scroll; height: 200px; }
+      #process::before { background-attachment: scroll; }
       .process-inner { grid-template-columns: 1fr; gap: 44px; }
       .contact-grid { grid-template-columns: 1fr; }
     }
@@ -447,9 +438,8 @@
   </div>
 </section>
 
-<!-- ════ PARALLAX QUOTE BANNER — JS-driven, works on iOS too ════ -->
+<!-- ════ PARALLAX QUOTE BANNER (CSS background-attachment:fixed) ════ -->
 <div class="parallax-banner">
-  <div class="parallax-banner-bg" id="bannerBg"></div>
   <div class="parallax-banner-inner">
     <span class="parallax-banner-quote">"</span>
     <p>Κάθε σταγόνα φέρει τη <em>φροντίδα</em> της φύσης και την ακρίβεια της επιστήμης.</p>
@@ -458,7 +448,6 @@
 
 <!-- ══════════ PROCESS ══════════ -->
 <section id="process">
-  <div id="processBg"></div>
   <div class="process-inner">
     <div>
       <div class="section-label">Η Διαδικασία μας</div>
@@ -571,49 +560,31 @@ $(function () {
   });
 
   /* ════════════════════════════════════════════
-     UNIVERSAL PARALLAX — works on ALL devices including iOS.
+     MULTI-LAYER PARALLAX
+     Each element has a data-plx speed multiplier.
+     Negative = moves up as you scroll down (rises)
+     Closer to 0 = barely moves (feels "behind")
+     Closer to -1 = moves almost as fast as scroll (feels "in front")
 
-     Strategy: instead of background-attachment:fixed (broken on iOS)
-     or disabling on mobile, we use JS translateY on all layers.
-
-     On mobile we use gentler speed multipliers so the effect is
-     visible but never breaks the layout or causes overflow.
-
-     data-plx speeds:
-       -0.15  = barely moves (deep background, feels far away)
-       -0.30  = medium (decorative ring)
-       -0.50  = fast (bottle, feels closest)
-
-     Banner bg uses a separate positive offset (scrolls slower
-     than the page, creating the classic "fixed bg" illusion).
+     The result: standing in front of the hero,
+     background glows barely move → ring moves a bit →
+     bottle rises noticeably = real depth layering.
   ════════════════════════════════════════════ */
-
-  var isMobile  = window.innerWidth <= 860;
-  var mobileMul = 0.45; // on mobile, dampen all speeds to 45% to stay safe
+  var isMobile = window.innerWidth <= 860;
 
   function doParallax() {
+    if (isMobile) return;
     var scrollY = $(window).scrollTop();
-    var mul     = isMobile ? mobileMul : 1;
 
-    /* Hero layers — translate each at its own speed */
+    /* Elements with data-plx inside the hero */
     $('[data-plx]').each(function () {
-      var speed  = parseFloat($(this).data('plx')) * mul;
-      $(this).css('transform', 'translateY(' + (scrollY * speed) + 'px)');
+      var speed  = parseFloat($(this).data('plx'));
+      var offset = scrollY * speed;
+      $(this).css('transform', 'translateY(' + offset + 'px)');
     });
-
-    /* Banner background — translate at 40% of scroll speed.
-       The div is 160px taller than its container (80px each side),
-       so even with full scroll it never shows a gap. */
-    var bannerTop = $('#bannerBg').closest('.parallax-banner').offset().top;
-    var bannerOffset = (scrollY - bannerTop) * (isMobile ? 0.22 : 0.38);
-    $('#bannerBg').css('transform', 'translateY(' + bannerOffset + 'px)');
-
-    /* Process section texture — same trick via its ::before pseudo-element workaround */
-    var processTop = $('#process').offset().top;
-    var processOffset = (scrollY - processTop) * (isMobile ? 0.12 : 0.22);
-    $('#processBg').css('transform', 'translateY(' + processOffset + 'px)');
   }
 
+  /* Use rAF for butter-smooth 60fps */
   var ticking = false;
   $(window).on('scroll', function () {
     if (!ticking) {
@@ -622,9 +593,12 @@ $(function () {
     }
   });
 
-  $(window).on('resize', function () { isMobile = window.innerWidth <= 860; });
+  $(window).on('resize', function () {
+    isMobile = window.innerWidth <= 860;
+    if (isMobile) $('[data-plx]').css('transform', '');
+  });
 
-  doParallax();
+  doParallax(); // run once on load
 });
 </script>
 </body>
