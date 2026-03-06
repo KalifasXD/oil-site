@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>Drosia Drops — Φυσικό Έλαιο Premium</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,16 +42,46 @@
     .logo { display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .logo img { height: 42px; width: auto; display: block; }
 
-    .contact-btn {
-      display: flex; align-items: center; gap: 7px; flex-shrink: 0;
-      background: transparent; color: var(--gold);
-      font-family: 'Noto Sans', sans-serif; font-size: .72rem; font-weight: 500;
-      letter-spacing: .16em; text-transform: uppercase;
-      padding: 10px 20px; border: 1px solid rgba(198,167,94,.35); border-radius: 2px;
-      cursor: pointer; text-decoration: none; white-space: nowrap;
-      transition: background .25s, border-color .25s, transform .2s;
+    .logo-text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.3rem;
+      letter-spacing: .06em;
+      color: var(--gold);
+      text-decoration: none;
     }
-    .contact-btn:hover { background: rgba(198,167,94,.09); border-color: var(--gold); transform: translateY(-1px); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1px solid rgba(198,167,94,.35);
+      color: var(--gold);
+      font-family: 'Noto Sans', sans-serif;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: transparent;
+      white-space: nowrap;
+      transition: background .25s, border-color .25s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(198,167,94,.09);
+      border-color: var(--gold);
+    }
+
+    .nav-btn svg {
+      flex-shrink: 0;
+    }
 
     /* ════════════════════════════════════════════
        HERO — the outermost wrapper is the stage
@@ -266,12 +296,12 @@
     }
 
     /* ════════════════════════════════════════════
-       PROCESS
+       PROCESS / ABOUT
     ════════════════════════════════════════════ */
     #process {
       position: relative; z-index: 1;
       background: var(--bg2);
-      padding: 100px 6vw;
+      padding: 110px 6vw 80px;
     }
 
     /* second parallax banner INSIDE process — background-attachment:fixed */
@@ -280,7 +310,7 @@
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
         url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23c6a75e' stroke-width='.4' opacity='.06'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23c6a75e' stroke-width='.3' opacity='.04'/%3E%3C/svg%3E");
-      background-attachment: fixed;     /* ← parallax: this texture scrolls slower */
+      background-attachment: fixed;
       background-size: 120px 120px;
     }
 
@@ -294,63 +324,348 @@
     h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.6vw, 3rem); font-weight: 400; line-height: 1.16; color: var(--text); margin-bottom: 20px; }
     h2 em { font-style: italic; color: var(--gold); }
 
-    .process-desc { font-size: .93rem; font-weight: 300; color: var(--mid); line-height: 1.9; max-width: 440px; margin-top: 4px; }
+    /* ── About container ── */
+    .about-wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
 
-    .features { display: flex; flex-direction: column; gap: 34px; }
+    .about-intro { margin-bottom: 90px; }
 
-    .feature-item {
-      display: flex; align-items: flex-start; gap: 20px;
-      opacity: 0; transform: translateX(24px);
+    /* ── Alternating rows ── */
+    .about-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 120px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .85s ease, transform .85s ease;
+    }
+
+    .about-row.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .about-row.reverse .about-img { order: -1; }
+
+    /* ── Text side ── */
+    .about-text {}
+
+    .about-eyebrow {
+      font-size: .63rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gold); display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+
+    .about-eyebrow::before {
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--gold); flex-shrink: 0;
+    }
+
+    .about-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 400;
+      line-height: 1.18;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .about-text h3 em { font-style: italic; color: var(--gold); }
+
+    .about-text p {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: var(--mid);
+      margin-bottom: 14px;
+    }
+
+    /* ── Image side ── */
+    .about-img {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .85s ease .2s, transform .85s ease .2s;
+    }
+
+    .about-row.visible .about-img {
+      opacity: 1;
+      transform: none;
+    }
+
+    .about-img img {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 2px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Variety row (reverse) — nutrition label image should be visually dominant */
+    .about-row.reverse .about-img img {
+      max-width: 640px;
+    }
+
+    /* ── Nutrition grid ── */
+    .nutrition-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px;
+    }
+
+    .nutrition-card {
+      border-top: 1px solid rgba(198,167,94,.25);
+      padding: 16px 0 0;
+      opacity: 0;
+      transform: translateY(20px);
       transition: opacity .6s ease, transform .6s ease;
     }
-    .feature-item.visible { opacity: 1; transform: none; }
-    .feature-item:nth-child(2) { transition-delay: .15s; }
-    .feature-item:nth-child(3) { transition-delay: .3s; }
 
-    .feature-icon {
-      flex-shrink: 0; width: 48px; height: 48px;
-      background: var(--surface); border: 1px solid rgba(198,167,94,.2); border-radius: 2px;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color .3s, background .3s;
+    .nutrition-card.visible {
+      opacity: 1;
+      transform: none;
     }
-    .feature-item:hover .feature-icon { border-color: rgba(198,167,94,.45); background: var(--surface2); }
-    .feature-icon svg { width: 20px; height: 20px; }
 
-    .feature-text h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .feature-text p  { font-size: .85rem; font-weight: 300; color: var(--mid); line-height: 1.7; }
+    .nutrition-card h5 {
+      font-family: 'Playfair Display', serif; font-size: .9rem; font-weight: 600;
+      color: var(--gold); margin-bottom: 6px;
+    }
+
+    .nutrition-card p {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: .95rem; color: var(--mid); line-height: 1.6; max-width: none;
+    }
+
+    /* ── Scientific metrics ── */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .metric {
+      border-top: 1px solid rgba(198,167,94,.3);
+      padding-top: 20px;
+    }
+
+    .metric-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      font-variant-numeric: tabular-nums;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .metric-unit {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--gold-lt);
+    }
+
+    .metric-label {
+      font-size: .7rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 10px;
+    }
+
+    .metric-desc {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: .95rem; color: var(--mid); line-height: 1.6;
+    }
+
+    /* ── Taste bars ── */
+    .taste-bars { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
+
+    .taste-bar-row { display: flex; align-items: center; gap: 16px; }
+
+    .taste-bar-label {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem; color: var(--text); width: 110px; flex-shrink: 0;
+    }
+
+    .taste-bar-track {
+      flex: 1; height: 3px; background: rgba(198,167,94,.12); position: relative;
+    }
+
+    .taste-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      width: 0;
+      transition: width 2.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    .taste-bar-val {
+      font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600;
+      color: var(--gold); width: 34px; text-align: right; flex-shrink: 0;
+    }
+
+    /* ── Two bottles visual ── */
+    .about-bottles {
+      text-align: center; margin-top: 20px;
+      opacity: 0; transform: translateY(40px);
+      transition: opacity .85s ease, transform .85s ease;
+    }
+
+    .about-bottles.visible { opacity: 1; transform: none; }
+
+    .about-bottles img {
+      width: 100%; max-width: 580px;
+      border-radius: 2px;
+      object-fit: cover;
+      display: block; margin: 0 auto;
+    }
+
+    .about-bottles-caption {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--dim); margin-top: 16px;
+    }
+
+    /* old classes kept for safety */
+    .process-full { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+    .process-block { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s ease; }
+    .process-block.visible { opacity: 1; transform: none; }
 
     /* ════════════════════════════════════════════
        CONTACT
     ════════════════════════════════════════════ */
     #contact { position: relative; z-index: 1; background: var(--bg); padding: 100px 6vw; }
 
+    .contact-layout {
+      display: grid;
+      grid-template-columns: auto 1px auto;
+      gap: 60px;
+      align-items: center;
+      margin: 48px 0 0 0;
+      width: fit-content;
+      background: var(--surface);
+      border: 1px solid rgba(198,167,94,.1);
+      padding: 40px 48px;
+    }
+
+    .contact-divider {
+      width: 1px;
+      align-self: stretch;
+      background: rgba(198,167,94,.15);
+    }
+
     .contact-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: rgba(198,167,94,.1);
-      border: 1px solid rgba(198,167,94,.1); border-radius: 3px;
-      overflow: hidden; margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      /* entrance animation */
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .contact-grid.visible {
+      opacity: 1;
+      transform: none;
     }
 
     .contact-card {
-      background: var(--surface); padding: 44px 28px; text-align: center;
-      text-decoration: none; display: block; transition: background .25s;
+      width: 260px;
+      justify-content: flex-start;
+      background: transparent; padding: 18px 22px; text-align: left;
+      text-decoration: none; display: flex; align-items: center; gap: 18px;
+      transition: background .25s; border: 1px solid rgba(198,167,94,.08);
     }
     .contact-card:hover { background: var(--surface2); }
 
-    .contact-card svg { width: 26px; height: 26px; display: block; margin: 0 auto 18px; color: var(--gold); }
-    .contact-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    .contact-card p  { font-size: .82rem; font-weight: 300; color: var(--mid); line-height: 1.7; }
+    .contact-card svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--gold); }
+    .contact-card h4 { font-family: 'Playfair Display', serif; font-size: .95rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .contact-card p  { font-family: 'EB Garamond', Georgia, serif; font-size: .95rem; font-weight: 400; color: var(--mid); line-height: 1.5; }
 
-    .disclaimer { margin-top: 40px; font-size: .73rem; color: var(--dim); line-height: 1.8; max-width: 620px; }
+    /* Contact form */
+    .contact-form-wrap {
+      /* entrance animation */
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity .7s ease .15s, transform .7s ease .15s;
+    }
+
+    .contact-form-wrap.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .contact-form-title {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 400; color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .contact-form-sub {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: var(--mid);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .contact-form-wrap form {
+      display: flex; flex-direction: column; gap: 24px;
+      max-width: 620px;
+    }
+
+    .contact-form-wrap input,
+    .contact-form-wrap textarea {
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--text); padding: 20px;
+      font-family: 'Noto Sans', sans-serif; font-size: .95rem;
+      border-radius: 2px;
+      transition: border-color .25s;
+    }
+
+    .contact-form-wrap input:focus,
+    .contact-form-wrap textarea:focus {
+      outline: none; border-color: var(--gold);
+    }
+
+    .contact-form-wrap textarea { min-height: 160px; resize: vertical; }
+
+    .contact-form-wrap button {
+      background: var(--gold); border: none; padding: 16px;
+      cursor: pointer; font-family: 'Noto Sans', sans-serif;
+      font-size: .72rem; font-weight: 500; letter-spacing: .18em;
+      text-transform: uppercase; color: #111;
+      border-radius: 2px;
+      transition: background .25s;
+    }
+
+    .contact-form-wrap button:hover { background: var(--gold-lt); }
+
+    .disclaimer { margin-top: 48px; font-size: .73rem; color: var(--dim); line-height: 1.8; max-width: 620px; }
 
     /* ════════════════════════════════════════════
        FOOTER
     ════════════════════════════════════════════ */
     footer {
       position: relative; z-index: 1;
-      background: #0c0c0c; color: var(--dim);
-      text-align: center; font-size: .72rem; font-weight: 300; letter-spacing: .1em;
-      padding: 28px 6vw; border-top: 1px solid rgba(198,167,94,.07);
+      background: #0c0c0c;
+      padding: 60px 6vw; border-top: 1px solid rgba(198,167,94,.07);
+      text-align: center;
+    }
+
+    .footer-logo {
+      display: block;
+      margin: 0 auto;
+      max-width: 280px;
+      opacity: .8;
+    }
+
+    .footer-copy {
+      margin-top: 26px;
+      font-size: .72rem;
+      color: var(--dim);
+      letter-spacing: .08em;
+    }
+
+    .footer-meta {
+      font-size: .7rem;
+      color: var(--dim);
+      margin-top: 6px;
     }
 
     /* ════════════════════════════════════════════
@@ -371,23 +686,28 @@
       .hero-sub { margin: 0 auto 36px; }
       .hero-ctas { justify-content: center; }
       .deco-line { margin-left: auto; margin-right: auto; }
-      /* Disable background-attachment:fixed on mobile (iOS bug) */
       .parallax-banner { background-attachment: scroll; height: 200px; }
       #process::before { background-attachment: scroll; }
-      .process-inner { grid-template-columns: 1fr; gap: 44px; }
-      .contact-grid { grid-template-columns: 1fr; }
+      .about-row { grid-template-columns: 1fr; gap: 40px; margin-bottom: 80px; }
+      .about-row.reverse .about-img { order: 0; }
+      .nutrition-grid { grid-template-columns: repeat(2, 1fr); }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .contact-layout { grid-template-columns: 1fr; width: 100%; padding: 28px 24px; gap: 0; }
+      .contact-divider { width: 100%; height: 1px; align-self: auto; background: rgba(198,167,94,.15); margin: 28px 0; }
+      .contact-grid { width: 100%; align-items: stretch; }
+      .contact-card { width: 100%; }
     }
 
     @media (max-width: 480px) {
       nav { padding: 14px 5vw; }
-      .logo img { height: 34px; }
-      .contact-btn { font-size: .65rem; padding: 8px 12px; letter-spacing: .08em; }
-      .contact-btn svg { display: none; }
+      .logo-text { font-size: 1.7rem; }
+      .nav-btn { font-size: .62rem; padding: 7px 10px; letter-spacing: .08em; }
       h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
       .hero-sub { font-size: .88rem; }
       .btn-primary, .btn-outline { font-size: .68rem; padding: 12px 22px; }
       #process, #contact { padding: 70px 5vw; }
-      .contact-card { padding: 36px 20px; }
+      .nutrition-grid { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr 1fr; gap: 20px; }
     }
   </style>
 </head>
@@ -395,15 +715,23 @@
 
 <!-- ══════════ NAV ══════════ -->
 <nav id="navbar">
-  <a class="logo" href="#">
-    <img src="logo_drosia_drops_nobg.png" alt="Drosia Drops"/>
-  </a>
-  <a class="contact-btn" href="#contact">
-    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.36-.36a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-    </svg>
-    Επικοινωνία
-  </a>
+  <a class="logo-text" href="#">Drosia Drops</a>
+  <div class="nav-actions">
+    <a class="nav-btn" href="https://instagram.com/drosia_drops" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <a class="nav-btn" href="#contact">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Επικοινωνία
+    </a>
+  </div>
 </nav>
 
 <!-- ══════════ HERO ══════════ -->
@@ -429,7 +757,7 @@
     <!-- Layer 3: bottle — moves fastest (rises most) via JS -->
     <div class="hero-visual">
       <div class="bottle-wrap">
-        <img id="bottleImg" class="bottle-img" src="basic_oil_nobg.png"
+        <img id="bottleImg" class="bottle-img" src="Product_Photo_NoBackGround.png"
              alt="Drosia Drops — Φυσικό Έλαιο Premium 500mg" draggable="false"
              data-plx="-0.5"/>
         <div class="bottle-badge">500 mg · Αγνό</div>
@@ -446,51 +774,137 @@
   </div>
 </div>
 
-<!-- ══════════ PROCESS ══════════ -->
+<!-- ══════════ PROCESS / ABOUT ══════════ -->
 <section id="process">
-  <div class="process-inner">
-    <div>
-      <div class="section-label">Η Διαδικασία μας</div>
-      <h2>Δημιουργημένο<br><em>με Φροντίδα</em></h2>
-      <p class="process-desc">Το έλαιό μας εξάγεται με ελεγχόμενες μεθόδους που διατηρούν την αγνότητα και την αποτελεσματικότητά του. Κάθε φιάλη μετράται, σφραγίζεται και συσκευάζεται για τη διασφάλιση σταθερής ποιότητας — από την πρώτη έως την τελευταία σταγόνα.</p>
+  <div class="about-wrap">
+
+    <!-- Section header -->
+    <div class="about-intro">
+      <div class="section-label">Σχετικά με Εμάς</div>
+      <h2>Αγνή Προέλευση.<br><em>Επιστημονική</em> Αξία.</h2>
     </div>
 
-    <div class="features">
-      <div class="feature-item">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#c6a75e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.5"/>
-          </svg>
-        </div>
-        <div class="feature-text">
-          <h4>Προσεκτικά Επιλεγμένες Πρώτες Ύλες</h4>
-          <p>Κάθε υλικό επιλέγεται βάσει αυστηρών κριτηρίων για τη διασφάλιση της φυσικής καθαρότητας και της αξιόπιστης προέλευσής του.</p>
-        </div>
+    <!-- ROW 1: Μεσσηνιακή Γη — text left, image right (two_bottles) -->
+    <div class="about-row">
+      <div class="about-text">
+        <div class="about-eyebrow">01 · Προέλευση</div>
+        <h3>Μεσσηνιακή <em>Γη</em></h3>
+        <p>Η Μεσσηνία, στο νοτιοδυτικό άκρο της Πελοποννήσου, είναι μια από τις σημαντικότερες ελαιοπαραγωγικές περιοχές της Ελλάδας. Αιώνες παράδοσης, η αργιλώδης γη και το μεσογειακό κλίμα δημιουργούν τις ιδανικές συνθήκες για ελαιόδεντρα που παράγουν έλαιο εξαιρετικής ποιότητας.</p>
+        <p>Οι ελιές μας καλλιεργούνται σε παραδοσιακούς ελαιώνες, συχνά αιωνόβιους, διατηρώντας την αυθεντικότητα κάθε σταγόνας.</p>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#c6a75e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-          </svg>
-        </div>
-        <div class="feature-text">
-          <h4>Ελεγχόμενη Διαδικασία Εκχύλισης</h4>
-          <p>Η μέθοδός μας διατηρεί την πλήρη αποτελεσματικότητα και το φυσικό προφίλ του ελαίου μέσω ακριβούς ελέγχου θερμοκρασίας και πίεσης.</p>
-        </div>
+      <div class="about-img">
+        <img src="two_bottles.jpeg" alt="Drosia Drops — Φιάλες Ελαιολάδου"/>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#c6a75e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
-          </svg>
-        </div>
-        <div class="feature-text">
-          <h4>Ασφαλής Εμφιάλωση σε Γυάλινη Φιάλη</h4>
-          <p>Κάθε δόση 500mg σφραγίζεται σε premium γυάλινη φιάλη — διαφυλάσσοντας την αγνότητα, τη φρεσκάδα και τη διάρκεια ζωής του προϊόντος.</p>
+    </div>
+
+    <!-- ROW 2: Ποικιλία Κορωνέικη — image left, text right -->
+    <div class="about-row reverse">
+      <div class="about-text">
+        <div class="about-eyebrow">02 · Ποικιλία</div>
+        <h3>Ποικιλία <em>Κορωνέικη</em></h3>
+        <p>Η Κορωνέικη θεωρείται η «βασίλισσα» των ελληνικών ποικιλιών ελιάς. Παράγει έλαιο με εξαιρετικά υψηλή περιεκτικότητα σε πολυφαινόλες — τις φυσικές αντιοξειδωτικές ενώσεις που προστατεύουν τον οργανισμό.</p>
+        <p>Το έλαιο Κορωνέικης διακρίνεται για τον έντονο αρωματικό χαρακτήρα του, τις φρουτώδεις νότες και την χαρακτηριστική πικάντικη επίγευση.</p>
+      </div>
+      <div class="about-img">
+        <img src="nutritionLabel.jpeg" alt="Drosia Drops — Διατροφικές Πληροφορίες"/>
+      </div>
+    </div>
+
+    <!-- ROW 3: Διατροφική Αξία — text left, nutrition grid -->
+    <div class="about-row">
+      <div class="about-text" style="grid-column: 1 / -1;">
+        <div class="about-eyebrow">03 · Διατροφή</div>
+        <h3>Διατροφική <em>Αξία</em></h3>
+        <p>Το έλαιό μας είναι φυσική πηγή απαραίτητων θρεπτικών συστατικών που συμβάλλουν στη διατήρηση της υγείας και της ευεξίας.</p>
+        <div class="nutrition-grid">
+          <div class="nutrition-card">
+            <h5>Μονοακόρεστα</h5>
+            <p>Ωφέλιμα λιπαρά που υποστηρίζουν την υγεία της καρδιάς και μειώνουν τη φλεγμονή.</p>
+          </div>
+          <div class="nutrition-card">
+            <h5>Πολυφαινόλες</h5>
+            <p>Ισχυρά αντιοξειδωτικά που προστατεύουν τα κύτταρα από το οξειδωτικό στρες.</p>
+          </div>
+          <div class="nutrition-card">
+            <h5>Βιταμίνη Ε</h5>
+            <p>Λιποδιαλυτή βιταμίνη με αντιοξειδωτική δράση, απαραίτητη για το ανοσοποιητικό.</p>
+          </div>
+          <div class="nutrition-card">
+            <h5>Βιταμίνη Κ</h5>
+            <p>Συμβάλλει στην πήξη του αίματος και στην υγεία των οστών.</p>
+          </div>
+          <div class="nutrition-card">
+            <h5>Σκουαλένιο</h5>
+            <p>Φυσικό αντιοξειδωτικό με προστατευτικές ιδιότητες για το δέρμα και τα κύτταρα.</p>
+          </div>
+          <div class="nutrition-card">
+            <h5>Φυτοστερόλες</h5>
+            <p>Φυτικές ενώσεις που βοηθούν στη μείωση της LDL χοληστερόλης στο αίμα.</p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- ROW 4: Επιστημονικοί Δείκτες — full width metrics -->
+    <div class="about-row">
+      <div class="about-text" style="grid-column: 1 / -1;">
+        <div class="about-eyebrow">04 · Επιστήμη</div>
+        <h3>Επιστημονικοί <em>Δείκτες</em></h3>
+        <p>Κάθε παρτίδα αναλύεται σε πιστοποιημένα εργαστήρια. Τα αποτελέσματα επιβεβαιώνουν τη συνεχή δέσμευσή μας στην ανώτατη ποιότητα.</p>
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-number">76<span class="metric-unit">%</span></div>
+            <div class="metric-label">Μονοακόρεστα Λιπαρά</div>
+            <div class="metric-desc">Εξαιρετικά υψηλή αναλογία ολεϊκού οξέος — ο βασικός δείκτης ποιότητας και καρδιαγγειακής προστασίας.</div>
+          </div>
+          <div class="metric">
+            <div class="metric-number">658.9<span class="metric-unit"> mg/kg</span></div>
+            <div class="metric-label">Πολυφαινόλες</div>
+            <div class="metric-desc">Τριπλάσιο από τον μέσο όρο εξαιρετικά παρθένων ελαιολάδων. Δείκτης ισχυρής αντιοξειδωτικής δράσης.</div>
+          </div>
+          <div class="metric">
+            <div class="metric-number">0.23<span class="metric-unit">%</span></div>
+            <div class="metric-label">Οξύτητα</div>
+            <div class="metric-desc">Πολύ κάτω από το όριο 0.8% για εξαιρετικά παρθένο ελαιόλαδο. Ενδείξη άριστης ποιότητας καρπού.</div>
+          </div>
+          <div class="metric">
+            <div class="metric-number">3.36<span class="metric-unit"> mEq/kg</span></div>
+            <div class="metric-label">Υπεροξείδια</div>
+            <div class="metric-desc">Εξαιρετικά χαμηλός δείκτης οξείδωσης. Πιστοποιεί τη φρεσκάδα και τη σωστή επεξεργασία.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 5: Γευστικό Προφίλ — text with taste bars -->
+    <div class="about-row" id="taste-row">
+      <div class="about-text">
+        <div class="about-eyebrow">05 · Γεύση</div>
+        <h3>Γευστικό <em>Προφίλ</em></h3>
+        <p>Η οργανοληπτική ανάλυση αποκαλύπτει ένα πλούσιο, πολυσύνθετο προφίλ γεύσης — χαρακτηριστικό των κορυφαίων ελαιολάδων Κορωνέικης.</p>
+        <div class="taste-bars">
+          <div class="taste-bar-row">
+            <div class="taste-bar-label">Φρουτώδες</div>
+            <div class="taste-bar-track"><div class="taste-bar-fill" data-target="100" data-value="5.0"></div></div>
+            <div class="taste-bar-val">0.0</div>
+          </div>
+          <div class="taste-bar-row">
+            <div class="taste-bar-label">Πικρό</div>
+            <div class="taste-bar-track"><div class="taste-bar-fill" data-target="70" data-value="3.5"></div></div>
+            <div class="taste-bar-val">0.0</div>
+          </div>
+          <div class="taste-bar-row">
+            <div class="taste-bar-label">Πικάντικο</div>
+            <div class="taste-bar-track"><div class="taste-bar-fill" data-target="82" data-value="4.1"></div></div>
+            <div class="taste-bar-val">0.0</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-img">
+        <img src="two_bottles.jpeg" alt="Drosia Drops — Γευστικό Προφίλ"/>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -501,29 +915,52 @@
   <div class="section-label">Επικοινωνήστε μαζί μας</div>
   <h2>Είμαστε στη <em>Διάθεσή σας</em></h2>
 
-  <div class="contact-grid">
-    <a class="contact-card" href="tel:+300000000000">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.36-.36a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-      </svg>
-      <h4>Τηλέφωνο</h4>
-      <p>+30 000 000 0000<br>Δευτ–Σαβ, 9:00–18:00</p>
-    </a>
-    <a class="contact-card" href="mailto:info@drosiadrops.gr">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-        <polyline points="22,6 12,13 2,6"/>
-      </svg>
-      <h4>Email</h4>
-      <p>info@drosiadrops.gr<br>Απαντάμε εντός 24 ωρών</p>
-    </a>
-    <a class="contact-card" href="https://wa.me/300000000000" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
-      </svg>
-      <h4>WhatsApp</h4>
-      <p>Άμεση επικοινωνία<br>Γρήγορη ανταπόκριση</p>
-    </a>
+  <div class="contact-layout">
+    <div class="contact-grid">
+      <a class="contact-card" href="tel:+300000000000">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.36-.36a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
+        <div>
+          <h4>Τηλέφωνο</h4>
+          <p>+30 000 000 0000<br>Δευτ–Σαβ, 9:00–18:00</p>
+        </div>
+      </a>
+      <a class="contact-card" href="mailto:contact@drosiadrops.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <div>
+          <h4>Email</h4>
+          <p>contact@drosiadrops.com<br>Απαντάμε εντός 24 ωρών</p>
+        </div>
+      </a>
+      <a class="contact-card" href="https://instagram.com/drosia_drops" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        <div>
+          <h4>Instagram</h4>
+          <p>@drosia_drops</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="contact-divider"></div>
+
+    <div class="contact-form-wrap">
+      <div class="contact-form-title">Θα χαρούμε να σας ακούσουμε</div>
+      <div class="contact-form-sub">Επικοινωνήστε μαζί μας για συνεργασίες, πληροφορίες ή παραγγελίες.</div>
+      <form>
+        <input type="text" placeholder="Όνομα"/>
+        <input type="email" placeholder="Email"/>
+        <textarea placeholder="Μήνυμα"></textarea>
+        <button type="submit">Αποστολή</button>
+      </form>
+    </div>
   </div>
 
   <p class="disclaimer">* Το προϊόν προορίζεται για χρήση σύμφωνα με τις οδηγίες. Συνιστάται η διαβούλευση με ειδικό επαγγελματία πριν από τη χρήση, εφόσον υπάρχουν ανησυχίες σχετικές με την υγεία σας. Οι πληροφορίες παρέχονται αποκλειστικά για γενική ενημέρωση.</p>
@@ -531,11 +968,12 @@
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  <img src="logo_drosia_drops_nobg.png" alt="Drosia Drops" style="height:128px;width:auto;display:block;margin:0 auto 12px;opacity:.65;"/>
-  © 2026 · Premium Φυσικό Έλαιο · Με επιφύλαξη παντός δικαιώματος.
+  <img src="FooterLogo.png" alt="Drosia Drops" class="footer-logo"/>
+  <p class="footer-copy">© 2026 Drosia Drops. All rights reserved.</p>
+  <p class="footer-meta">Kalamata, Messinia · Greece</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 $(function () {
 
   /* ── Nav shadow ── */
@@ -543,7 +981,7 @@ $(function () {
     $('#navbar').toggleClass('scrolled', $(this).scrollTop() > 40);
   });
 
-  /* ── Scroll reveal ── */
+  /* ── Scroll reveal: feature items (legacy) ── */
   function revealOnScroll() {
     $('.feature-item').each(function () {
       if ($(this)[0].getBoundingClientRect().top < window.innerHeight - 70)
@@ -552,6 +990,83 @@ $(function () {
   }
   $(window).on('scroll', revealOnScroll);
   revealOnScroll();
+
+  /* ── Scroll reveal: about rows ── */
+  function revealAboutRows() {
+    $('.about-row').each(function () {
+      if (this.getBoundingClientRect().top < window.innerHeight - 80) {
+        $(this).addClass('visible');
+      }
+    });
+  }
+  $(window).on('scroll', revealAboutRows);
+  revealAboutRows();
+
+  /* ── Nutrition cards: sequential reveal ── */
+  var nutritionRevealed = false;
+  function revealNutritionCards() {
+    if (nutritionRevealed) return;
+    var $grid = $('.nutrition-grid');
+    if ($grid.length && $grid[0].getBoundingClientRect().top < window.innerHeight - 60) {
+      nutritionRevealed = true;
+      $grid.find('.nutrition-card').each(function (i) {
+        var $card = $(this);
+        setTimeout(function () {
+          $card.addClass('visible');
+        }, i * 120);
+      });
+    }
+  }
+  $(window).on('scroll', revealNutritionCards);
+  revealNutritionCards();
+
+  /* ── Taste bar animation (300ms delay after trigger) ── */
+  var tasteBarsAnimated = false;
+  function animateTasteBars() {
+    if (tasteBarsAnimated) return;
+    var $row = $('#taste-row');
+    if ($row.length && $row[0].getBoundingClientRect().top < window.innerHeight - 60) {
+      tasteBarsAnimated = true;
+      setTimeout(function () {
+        $('.taste-bar-fill').each(function () {
+          var $fill = $(this);
+          var targetW = $fill.data('target');
+          var targetV = parseFloat($fill.data('value'));
+          var $val = $fill.closest('.taste-bar-row').find('.taste-bar-val');
+          /* Animate bar width */
+          $fill.css('width', targetW + '%');
+          /* Count up number over 2.2s */
+          var duration = 2200;
+          var startTime = null;
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var progress = Math.min((timestamp - startTime) / duration, 1);
+            var eased = progress < 0.5 ? 2*progress*progress : -1+(4-2*progress)*progress;
+            $val.text((eased * targetV).toFixed(1));
+            if (progress < 1) requestAnimationFrame(step);
+            else $val.text(targetV.toFixed(1));
+          }
+          requestAnimationFrame(step);
+        });
+      }, 300);
+    }
+  }
+  $(window).on('scroll', animateTasteBars);
+  animateTasteBars();
+
+  /* ── Contact section entrance animation ── */
+  var contactRevealed = false;
+  function revealContact() {
+    if (contactRevealed) return;
+    var $section = $('#contact');
+    if ($section.length && $section[0].getBoundingClientRect().top < window.innerHeight - 60) {
+      contactRevealed = true;
+      $('.contact-grid').addClass('visible');
+      $('.contact-form-wrap').addClass('visible');
+    }
+  }
+  $(window).on('scroll', revealContact);
+  revealContact();
 
   /* ── Smooth anchor scroll ── */
   $('a[href^="#"]').on('click', function (e) {
@@ -592,13 +1107,8 @@ $(function () {
       ticking = true;
     }
   });
+  doParallax();
 
-  $(window).on('resize', function () {
-    isMobile = window.innerWidth <= 860;
-    if (isMobile) $('[data-plx]').css('transform', '');
-  });
-
-  doParallax(); // run once on load
 });
 </script>
 </body>
