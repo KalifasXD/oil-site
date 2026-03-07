@@ -316,23 +316,6 @@
       background-size: 120px 120px;
     }
 
-    /* Ambient drifting orbs — child divs, not pseudo-elements */
-    .process-orb {
-      position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
-    }
-    .process-orb--a {
-      width: 600px; height: 600px;
-      top: -100px; right: -80px;
-      background: radial-gradient(ellipse at center, rgba(198,167,94,.06) 0%, transparent 70%);
-      animation: orbDrift 20s ease-in-out infinite;
-    }
-    .process-orb--b {
-      width: 500px; height: 500px;
-      bottom: -80px; left: -60px;
-      background: radial-gradient(ellipse at center, rgba(63,93,58,.07) 0%, transparent 70%);
-      animation: orbDriftB 25s ease-in-out infinite;
-    }
-
     .process-inner {
       position: relative; z-index: 1;
       display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
@@ -556,35 +539,7 @@
     /* ════════════════════════════════════════════
        CONTACT
     ════════════════════════════════════════════ */
-    #contact { position: relative; z-index: 1; background: var(--bg); padding: 100px 6vw; overflow: hidden; }
-
-    /* Ambient breathing glow */
-    #contact::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(198,167,94,.08) 0%, transparent 65%);
-      animation: glowPulse 7s ease-in-out infinite;
-    }
-
-    /* Drifting secondary orb */
-    #contact::after {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 40% 35% at 15% 80%, rgba(63,93,58,.07) 0%, transparent 60%),
-        radial-gradient(ellipse 35% 30% at 85% 15%, rgba(198,167,94,.06) 0%, transparent 60%);
-      animation: orbDriftB 22s ease-in-out infinite;
-    }
-
-    /* Ensure content sits above the orbs */
-    #contact .section-label,
-    #contact h2,
-    .contact-intro,
-    .contact-methods,
-    .contact-divider-line,
-    .contact-form-wrap,
-    .disclaimer { position: relative; z-index: 1; }
+    #contact { position: relative; z-index: 1; background: var(--bg); padding: 100px 6vw; }
 
     #contact .section-label,
     #contact h2,
@@ -745,18 +700,6 @@
     @keyframes fadeUp { to { opacity: 1; transform: none; } }
     @keyframes fadeIn { to { opacity: 1; } }
 
-    /* ── Floating particles ── */
-    .particles {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-    }
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: var(--gold);
-      opacity: 0;
-      animation: particleDrift linear infinite;
-    }
-
     /* ── Ambient background motion ── */
     @keyframes orbDrift {
       0%   { transform: translate(0, 0) scale(1); }
@@ -764,21 +707,9 @@
       66%  { transform: translate(-25px, 20px) scale(.95); }
       100% { transform: translate(0, 0) scale(1); }
     }
-    @keyframes orbDriftB {
-      0%   { transform: translate(0, 0) scale(1); }
-      33%  { transform: translate(-35px, 25px) scale(1.05); }
-      66%  { transform: translate(30px, -20px) scale(.97); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
     @keyframes glowPulse {
       0%, 100% { opacity: .13; }
       50%       { opacity: .22; }
-    }
-    @keyframes particleDrift {
-      0%   { transform: translateY(0)   translateX(0)   opacity(0); opacity: 0; }
-      10%  { opacity: 1; }
-      90%  { opacity: 1; }
-      100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
     }
 
     /* ════════════════════════════════════════════
@@ -803,22 +734,11 @@
       .contact-card { width: 100%; min-width: unset; }
       .contact-form-wrap { margin: 0 auto; }
 
-      /* ── Particles: hide on mobile to avoid jank ── */
-      .particles { display: none; }
-
       /* ── Hero ring: shrink so it doesn't overwhelm small screens ── */
       .plx-ring { width: 320px; height: 320px; top: -20px; right: -60px; animation: none; }
 
       /* ── Hero glow: disable animation, let JS parallax own the transform ── */
       .plx-bg { animation: none; }
-
-      /* ── Process orbs: scale down significantly ── */
-      .process-orb--a { width: 280px; height: 280px; top: -60px; right: -40px; }
-      .process-orb--b { width: 240px; height: 240px; bottom: -40px; left: -30px; }
-
-      /* ── Contact orbs: tone down, no animation ── */
-      #contact::before { animation: none; opacity: .08; }
-      #contact::after  { animation: none; }
     }
 
     @media (max-width: 480px) {
@@ -838,10 +758,7 @@
 
     /* ── Respect reduced motion preference ── */
     @media (prefers-reduced-motion: reduce) {
-      .plx-bg, .plx-ring,
-      .process-orb--a, .process-orb--b,
-      #contact::before, #contact::after,
-      .particle { animation: none !important; }
+      .plx-bg, .plx-ring { animation: none !important; }
       .contact-card,
       #contact .section-label,
       #contact h2,
@@ -920,8 +837,6 @@
 
 <!-- ══════════ PROCESS / ABOUT ══════════ -->
 <section id="process">
-  <div class="process-orb process-orb--a" aria-hidden="true"></div>
-  <div class="process-orb process-orb--b" aria-hidden="true"></div>
   <div class="about-wrap">
 
     <!-- Section header -->
@@ -1054,20 +969,6 @@
   </div>
 </section>
 
-<!-- ══════════ FLOATING PARTICLES ══════════ -->
-<div class="particles" aria-hidden="true">
-  <span class="particle" style="left:8%;  top:12%; animation-duration:12s; animation-delay:0s;    width:2px; height:2px;"></span>
-  <span class="particle" style="left:23%; top:55%; animation-duration:17s; animation-delay:2s;    width:1px; height:1px;"></span>
-  <span class="particle" style="left:40%; top:30%; animation-duration:14s; animation-delay:5s;    width:2px; height:2px;"></span>
-  <span class="particle" style="left:62%; top:70%; animation-duration:19s; animation-delay:1s;    width:1px; height:1px;"></span>
-  <span class="particle" style="left:75%; top:20%; animation-duration:15s; animation-delay:3.5s;  width:2px; height:2px;"></span>
-  <span class="particle" style="left:88%; top:48%; animation-duration:11s; animation-delay:7s;    width:1px; height:1px;"></span>
-  <span class="particle" style="left:15%; top:80%; animation-duration:20s; animation-delay:4s;    width:2px; height:2px;"></span>
-  <span class="particle" style="left:52%; top:90%; animation-duration:16s; animation-delay:6s;    width:1px; height:1px;"></span>
-  <span class="particle" style="left:33%; top:10%; animation-duration:13s; animation-delay:8s;    width:2px; height:2px;"></span>
-  <span class="particle" style="left:92%; top:85%; animation-duration:18s; animation-delay:2.5s;  width:1px; height:1px;"></span>
-</div>
-
 <div class="section-fade"></div>
 
 <!-- ══════════ CONTACT ══════════ -->
@@ -1079,7 +980,7 @@
   <div class="contact-methods">
     <a class="contact-card" href="tel:+300000000000">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.36-.36a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.47 11.47 0 00.57 3.58 1 1 0 01-.25 1.01l-2.2 2.2z"/>
       </svg>
       <div>
         <h4>Τηλέφωνο</h4>
