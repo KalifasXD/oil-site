@@ -1013,13 +1013,16 @@
   <div class="contact-divider-line"></div>
 
   <div class="contact-form-wrap">
-    <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="contact"/>
-      <input type="hidden" name="bot-field" style="display:none"/>
+    <form id="contact-form">
+      <input type="hidden" name="access_key" value="1fd5cf26-daaf-438f-b9b4-3f6bc41cbe6e"/>
+      <input type="hidden" name="subject" value="Νέο μήνυμα από Drosia Drops"/>
+      <input type="hidden" name="from_name" value="Drosia Drops Website"/>
+      <input type="checkbox" name="botcheck" style="display:none"/>
       <input type="text" name="name" placeholder="Όνομα" required/>
       <input type="email" name="email" placeholder="Email" required/>
       <textarea name="message" placeholder="Μήνυμα" required></textarea>
-      <button type="submit">Αποστολή</button>
+      <button type="submit" id="submit-btn">Αποστολή</button>
+      <p id="form-result" style="display:none; font-family:'EB Garamond',Georgia,serif; font-size:1rem; margin-top:8px;"></p>
     </form>
   </div>
 
@@ -1218,6 +1221,43 @@ $(function () {
     }
   });
   doParallax();
+
+  /* ── Web3Forms contact submission ── */
+  $('#contact-form').on('submit', function(e) {
+    e.preventDefault();
+    var $btn = $('#submit-btn');
+    var $result = $('#form-result');
+    $btn.text('Αποστολή...').prop('disabled', true);
+    $result.hide();
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: new FormData(this)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.success) {
+        $result
+          .text('Το μήνυμά σας στάλθηκε με επιτυχία. Σας ευχαριστούμε!')
+          .css('color', 'var(--gold)')
+          .show();
+        $('#contact-form')[0].reset();
+      } else {
+        $result
+          .text('Κάτι πήγε στραβά. Παρακαλώ δοκιμάστε ξανά.')
+          .css('color', '#e07070')
+          .show();
+      }
+      $btn.text('Αποστολή').prop('disabled', false);
+    })
+    .catch(function() {
+      $result
+        .text('Σφάλμα σύνδεσης. Παρακαλώ δοκιμάστε ξανά.')
+        .css('color', '#e07070')
+        .show();
+      $btn.text('Αποστολή').prop('disabled', false);
+    });
+  });
 
 });
 </script>
