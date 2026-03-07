@@ -98,13 +98,14 @@
     /* ── Layer 0: deep background radial glow (moves slowest) ── */
     .plx-bg {
       position: absolute;
-      inset: -30% 0;                      /* oversized so it never gaps */
+      inset: -30% 0;
       z-index: 0;
       pointer-events: none;
       background:
         radial-gradient(ellipse 70% 90% at 70% 45%, rgba(198,167,94,.13) 0%, transparent 60%),
         radial-gradient(ellipse 50% 60% at 15% 80%, rgba(63,93,58,.12) 0%, transparent 55%);
       will-change: transform;
+      animation: glowPulse 9s ease-in-out infinite;
     }
 
     /* ── Layer 1: floating abstract ring / circle (moves medium) ── */
@@ -116,6 +117,7 @@
       border: 1px solid rgba(198,167,94,.12);
       z-index: 0; pointer-events: none;
       will-change: transform;
+      animation: orbDrift 26s ease-in-out infinite;
     }
     .plx-ring::after {
       content: '';
@@ -314,6 +316,23 @@
       background-size: 120px 120px;
     }
 
+    /* Ambient drifting orbs — child divs, not pseudo-elements */
+    .process-orb {
+      position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+    }
+    .process-orb--a {
+      width: 600px; height: 600px;
+      top: -100px; right: -80px;
+      background: radial-gradient(ellipse at center, rgba(198,167,94,.06) 0%, transparent 70%);
+      animation: orbDrift 20s ease-in-out infinite;
+    }
+    .process-orb--b {
+      width: 500px; height: 500px;
+      bottom: -80px; left: -60px;
+      background: radial-gradient(ellipse at center, rgba(63,93,58,.07) 0%, transparent 70%);
+      animation: orbDriftB 25s ease-in-out infinite;
+    }
+
     .process-inner {
       position: relative; z-index: 1;
       display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
@@ -444,10 +463,18 @@
     .metric {
       border-top: 1px solid rgba(198,167,94,.3);
       padding-top: 20px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .metric.visible {
+      opacity: 1;
+      transform: none;
     }
 
     .metric-number {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Great Vibes', serif;
       font-size: 2.6rem;
       font-weight: 600;
       letter-spacing: .04em;
@@ -496,8 +523,8 @@
     }
 
     .taste-bar-val {
-      font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600;
-      color: var(--gold); width: 34px; text-align: right; flex-shrink: 0;
+      font-family: 'Great Vibes', cursive; font-size: 1.6rem; font-weight: 400;
+      color: var(--gold); width: 44px; text-align: right; flex-shrink: 0;
     }
 
     /* ── Two bottles visual ── */
@@ -529,48 +556,107 @@
     /* ════════════════════════════════════════════
        CONTACT
     ════════════════════════════════════════════ */
-    #contact { position: relative; z-index: 1; background: var(--bg); padding: 100px 6vw; }
+    #contact { position: relative; z-index: 1; background: var(--bg); padding: 100px 6vw; overflow: hidden; }
 
-    .contact-layout {
-      display: grid;
-      grid-template-columns: auto 1px auto;
-      gap: 60px;
-      align-items: center;
-      margin: 48px 0 0 0;
-      width: fit-content;
-      background: var(--surface);
-      border: 1px solid rgba(198,167,94,.1);
-      padding: 40px 48px;
+    /* Ambient breathing glow */
+    #contact::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(198,167,94,.08) 0%, transparent 65%);
+      animation: glowPulse 7s ease-in-out infinite;
     }
 
-    .contact-divider {
-      width: 1px;
-      align-self: stretch;
-      background: rgba(198,167,94,.15);
+    /* Drifting secondary orb */
+    #contact::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 40% 35% at 15% 80%, rgba(63,93,58,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 35% 30% at 85% 15%, rgba(198,167,94,.06) 0%, transparent 60%);
+      animation: orbDriftB 22s ease-in-out infinite;
     }
 
-    .contact-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: center;
-      /* entrance animation */
+    /* Ensure content sits above the orbs */
+    #contact .section-label,
+    #contact h2,
+    .contact-intro,
+    .contact-methods,
+    .contact-divider-line,
+    .contact-form-wrap,
+    .disclaimer { position: relative; z-index: 1; }
+
+    #contact .section-label,
+    #contact h2,
+    .contact-intro {
       opacity: 0;
-      transform: translateX(-20px);
-      transition: opacity .7s ease, transform .7s ease;
+      transform: translateY(22px);
+      transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
     }
 
-    .contact-grid.visible {
+    #contact .section-label.visible,
+    #contact h2.visible,
+    .contact-intro.visible {
       opacity: 1;
       transform: none;
     }
 
+    .contact-intro {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem;
+      color: var(--mid);
+      margin-top: 12px;
+      margin-bottom: 28px;
+    }
+
+    .contact-form-wrap input,
+    .contact-form-wrap textarea,
+    .contact-form-wrap button {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+    }
+
+    .contact-form-wrap input.visible,
+    .contact-form-wrap textarea.visible,
+    .contact-form-wrap button.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .contact-methods {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+
+    .contact-divider-line {
+      height: 1px;
+      margin: 50px auto;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      width: 0;
+      transition: opacity .8s ease, width .8s ease;
+    }
+
+    .contact-divider-line.visible {
+      opacity: 1;
+      width: 120px;
+    }
+
     .contact-card {
-      width: 260px;
+      width: auto;
+      min-width: 220px;
       justify-content: flex-start;
       background: transparent; padding: 18px 22px; text-align: left;
       text-decoration: none; display: flex; align-items: center; gap: 18px;
-      transition: background .25s; border: 1px solid rgba(198,167,94,.08);
+      transition: background .25s, opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
+      border: 1px solid rgba(198,167,94,.08);
+      opacity: 0;
+      transform: translateY(20px);
     }
     .contact-card:hover { background: var(--surface2); }
 
@@ -580,10 +666,8 @@
 
     /* Contact form */
     .contact-form-wrap {
-      /* entrance animation */
-      opacity: 0;
-      transform: translateX(20px);
-      transition: opacity .7s ease .15s, transform .7s ease .15s;
+      max-width: 720px;
+      margin: 0 auto;
     }
 
     .contact-form-wrap.visible {
@@ -591,22 +675,9 @@
       transform: none;
     }
 
-    .contact-form-title {
-      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 400; color: var(--text);
-      margin-bottom: 10px;
-    }
-
-    .contact-form-sub {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1rem;
-      color: var(--mid);
-      margin-bottom: 28px;
-      line-height: 1.6;
-    }
-
     .contact-form-wrap form {
       display: flex; flex-direction: column; gap: 24px;
-      max-width: 620px;
+      max-width: 720px;
     }
 
     .contact-form-wrap input,
@@ -643,7 +714,7 @@
     ════════════════════════════════════════════ */
     footer {
       position: relative; z-index: 1;
-      background: #0c0c0c;
+      background: #c9d7c3;
       padding: 60px 6vw; border-top: 1px solid rgba(198,167,94,.07);
       text-align: center;
     }
@@ -674,6 +745,42 @@
     @keyframes fadeUp { to { opacity: 1; transform: none; } }
     @keyframes fadeIn { to { opacity: 1; } }
 
+    /* ── Floating particles ── */
+    .particles {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      animation: particleDrift linear infinite;
+    }
+
+    /* ── Ambient background motion ── */
+    @keyframes orbDrift {
+      0%   { transform: translate(0, 0) scale(1); }
+      33%  { transform: translate(40px, -30px) scale(1.08); }
+      66%  { transform: translate(-25px, 20px) scale(.95); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes orbDriftB {
+      0%   { transform: translate(0, 0) scale(1); }
+      33%  { transform: translate(-35px, 25px) scale(1.05); }
+      66%  { transform: translate(30px, -20px) scale(.97); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: .13; }
+      50%       { opacity: .22; }
+    }
+    @keyframes particleDrift {
+      0%   { transform: translateY(0)   translateX(0)   opacity(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
+    }
+
     /* ════════════════════════════════════════════
        RESPONSIVE ≤ 860px
     ════════════════════════════════════════════ */
@@ -692,10 +799,26 @@
       .about-row.reverse .about-img { order: 0; }
       .nutrition-grid { grid-template-columns: repeat(2, 1fr); }
       .metrics { grid-template-columns: repeat(2, 1fr); }
-      .contact-layout { grid-template-columns: 1fr; width: 100%; padding: 28px 24px; gap: 0; }
-      .contact-divider { width: 100%; height: 1px; align-self: auto; background: rgba(198,167,94,.15); margin: 28px 0; }
-      .contact-grid { width: 100%; align-items: stretch; }
-      .contact-card { width: 100%; }
+      .contact-methods { flex-direction: column; align-items: stretch; gap: 12px; }
+      .contact-card { width: 100%; min-width: unset; }
+      .contact-form-wrap { margin: 0 auto; }
+
+      /* ── Particles: hide on mobile to avoid jank ── */
+      .particles { display: none; }
+
+      /* ── Hero ring: shrink so it doesn't overwhelm small screens ── */
+      .plx-ring { width: 320px; height: 320px; top: -20px; right: -60px; animation: none; }
+
+      /* ── Hero glow: disable animation, let JS parallax own the transform ── */
+      .plx-bg { animation: none; }
+
+      /* ── Process orbs: scale down significantly ── */
+      .process-orb--a { width: 280px; height: 280px; top: -60px; right: -40px; }
+      .process-orb--b { width: 240px; height: 240px; bottom: -40px; left: -30px; }
+
+      /* ── Contact orbs: tone down, no animation ── */
+      #contact::before { animation: none; opacity: .08; }
+      #contact::after  { animation: none; }
     }
 
     @media (max-width: 480px) {
@@ -708,6 +831,27 @@
       #process, #contact { padding: 70px 5vw; }
       .nutrition-grid { grid-template-columns: 1fr; }
       .metrics { grid-template-columns: 1fr 1fr; gap: 20px; }
+
+      /* ── Process orbs: hide entirely on very small screens ── */
+      .process-orb { display: none; }
+    }
+
+    /* ── Respect reduced motion preference ── */
+    @media (prefers-reduced-motion: reduce) {
+      .plx-bg, .plx-ring,
+      .process-orb--a, .process-orb--b,
+      #contact::before, #contact::after,
+      .particle { animation: none !important; }
+      .contact-card,
+      #contact .section-label,
+      #contact h2,
+      .contact-intro,
+      .contact-divider-line,
+      .contact-form-wrap input,
+      .contact-form-wrap textarea,
+      .contact-form-wrap button {
+        transition-duration: .01ms !important;
+      }
     }
   </style>
 </head>
@@ -776,6 +920,8 @@
 
 <!-- ══════════ PROCESS / ABOUT ══════════ -->
 <section id="process">
+  <div class="process-orb process-orb--a" aria-hidden="true"></div>
+  <div class="process-orb process-orb--b" aria-hidden="true"></div>
   <div class="about-wrap">
 
     <!-- Section header -->
@@ -908,59 +1054,70 @@
   </div>
 </section>
 
+<!-- ══════════ FLOATING PARTICLES ══════════ -->
+<div class="particles" aria-hidden="true">
+  <span class="particle" style="left:8%;  top:12%; animation-duration:12s; animation-delay:0s;    width:2px; height:2px;"></span>
+  <span class="particle" style="left:23%; top:55%; animation-duration:17s; animation-delay:2s;    width:1px; height:1px;"></span>
+  <span class="particle" style="left:40%; top:30%; animation-duration:14s; animation-delay:5s;    width:2px; height:2px;"></span>
+  <span class="particle" style="left:62%; top:70%; animation-duration:19s; animation-delay:1s;    width:1px; height:1px;"></span>
+  <span class="particle" style="left:75%; top:20%; animation-duration:15s; animation-delay:3.5s;  width:2px; height:2px;"></span>
+  <span class="particle" style="left:88%; top:48%; animation-duration:11s; animation-delay:7s;    width:1px; height:1px;"></span>
+  <span class="particle" style="left:15%; top:80%; animation-duration:20s; animation-delay:4s;    width:2px; height:2px;"></span>
+  <span class="particle" style="left:52%; top:90%; animation-duration:16s; animation-delay:6s;    width:1px; height:1px;"></span>
+  <span class="particle" style="left:33%; top:10%; animation-duration:13s; animation-delay:8s;    width:2px; height:2px;"></span>
+  <span class="particle" style="left:92%; top:85%; animation-duration:18s; animation-delay:2.5s;  width:1px; height:1px;"></span>
+</div>
+
 <div class="section-fade"></div>
 
 <!-- ══════════ CONTACT ══════════ -->
 <section id="contact">
   <div class="section-label">Επικοινωνήστε μαζί μας</div>
   <h2>Είμαστε στη <em>Διάθεσή σας</em></h2>
+  <p class="contact-intro">Επικοινωνήστε μαζί μας για συνεργασίες, πληροφορίες ή παραγγελίες.</p>
 
-  <div class="contact-layout">
-    <div class="contact-grid">
-      <a class="contact-card" href="tel:+300000000000">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.36-.36a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-        </svg>
-        <div>
-          <h4>Τηλέφωνο</h4>
-          <p>+30 000 000 0000<br>Δευτ–Σαβ, 9:00–18:00</p>
-        </div>
-      </a>
-      <a class="contact-card" href="mailto:contact@drosiadrops.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-          <polyline points="22,6 12,13 2,6"/>
-        </svg>
-        <div>
-          <h4>Email</h4>
-          <p>contact@drosiadrops.com<br>Απαντάμε εντός 24 ωρών</p>
-        </div>
-      </a>
-      <a class="contact-card" href="https://instagram.com/drosia_drops" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-        <div>
-          <h4>Instagram</h4>
-          <p>@drosia_drops</p>
-        </div>
-      </a>
-    </div>
+  <div class="contact-methods">
+    <a class="contact-card" href="tel:+300000000000">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.36-.36a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      <div>
+        <h4>Τηλέφωνο</h4>
+        <p>+30 000 000 0000<br>Δευτ–Σαβ, 9:00–18:00</p>
+      </div>
+    </a>
+    <a class="contact-card" href="/cdn-cgi/l/email-protection#b6d5d9d8c2d7d5c2f6d2c4d9c5dfd7d2c4d9c6c598d5d9db">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      <div>
+        <h4>Email</h4>
+        <p><span class="__cf_email__" data-cfemail="9cfff3f2e8fdffe8dcf8eef3eff5fdf8eef3ecefb2fff3f1">[email&#160;protected]</span><br>Απαντάμε εντός 24 ωρών</p>
+      </div>
+    </a>
+    <a class="contact-card" href="https://instagram.com/drosia_drops" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      <div>
+        <h4>Instagram</h4>
+        <p>@drosia_drops</p>
+      </div>
+    </a>
+  </div>
 
-    <div class="contact-divider"></div>
+  <div class="contact-divider-line"></div>
 
-    <div class="contact-form-wrap">
-      <div class="contact-form-title">Θα χαρούμε να σας ακούσουμε</div>
-      <div class="contact-form-sub">Επικοινωνήστε μαζί μας για συνεργασίες, πληροφορίες ή παραγγελίες.</div>
-      <form>
-        <input type="text" placeholder="Όνομα"/>
-        <input type="email" placeholder="Email"/>
-        <textarea placeholder="Μήνυμα"></textarea>
-        <button type="submit">Αποστολή</button>
-      </form>
-    </div>
+  <div class="contact-form-wrap">
+    <form>
+      <input type="text" placeholder="Όνομα"/>
+      <input type="email" placeholder="Email"/>
+      <textarea placeholder="Μήνυμα"></textarea>
+      <button type="submit">Αποστολή</button>
+    </form>
   </div>
 
   <p class="disclaimer">* Το προϊόν προορίζεται για χρήση σύμφωνα με τις οδηγίες. Συνιστάται η διαβούλευση με ειδικό επαγγελματία πριν από τη χρήση, εφόσον υπάρχουν ανησυχίες σχετικές με την υγεία σας. Οι πληροφορίες παρέχονται αποκλειστικά για γενική ενημέρωση.</p>
@@ -973,7 +1130,7 @@
   <p class="footer-meta">Kalamata, Messinia · Greece</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 $(function () {
 
   /* ── Nav shadow ── */
@@ -1020,6 +1177,24 @@ $(function () {
   $(window).on('scroll', revealNutritionCards);
   revealNutritionCards();
 
+  /* ── Metrics: sequential reveal ── */
+  var metricsRevealed = false;
+  function revealMetrics() {
+    if (metricsRevealed) return;
+    var $grid = $('.metrics');
+    if ($grid.length && $grid[0].getBoundingClientRect().top < window.innerHeight - 60) {
+      metricsRevealed = true;
+      $grid.find('.metric').each(function (i) {
+        var $m = $(this);
+        setTimeout(function () {
+          $m.addClass('visible');
+        }, i * 180);
+      });
+    }
+  }
+  $(window).on('scroll', revealMetrics);
+  revealMetrics();
+
   /* ── Taste bar animation (300ms delay after trigger) ── */
   var tasteBarsAnimated = false;
   function animateTasteBars() {
@@ -1061,8 +1236,40 @@ $(function () {
     var $section = $('#contact');
     if ($section.length && $section[0].getBoundingClientRect().top < window.innerHeight - 60) {
       contactRevealed = true;
-      $('.contact-grid').addClass('visible');
-      $('.contact-form-wrap').addClass('visible');
+      var delay = 0;
+      var step = 160;
+
+      // 1. Section label
+      setTimeout(function() { $('#contact .section-label').addClass('visible'); }, delay);
+      delay += step;
+
+      // 2. H2 title
+      setTimeout(function() { $('#contact h2').addClass('visible'); }, delay);
+      delay += step;
+
+      // 3. Intro subtitle
+      setTimeout(function() { $('.contact-intro').addClass('visible'); }, delay);
+      delay += step + 100;
+
+      // 4. Cards — staggered
+      $('.contact-methods .contact-card').each(function(i) {
+        var $card = $(this);
+        setTimeout(function() {
+          $card.css({ opacity: 1, transform: 'none' });
+        }, delay + i * 180);
+      });
+      delay += 3 * 180 + 120;
+
+      // 5. Divider line — draws itself out
+      setTimeout(function() { $('.contact-divider-line').addClass('visible'); }, delay);
+      delay += 600;
+
+      // 6. Form fields — staggered
+      var $fields = $('.contact-form-wrap input, .contact-form-wrap textarea, .contact-form-wrap button');
+      $fields.each(function(i) {
+        var $el = $(this);
+        setTimeout(function() { $el.addClass('visible'); }, delay + i * 150);
+      });
     }
   }
   $(window).on('scroll', revealContact);
