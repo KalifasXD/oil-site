@@ -1013,10 +1013,12 @@
   <div class="contact-divider-line"></div>
 
   <div class="contact-form-wrap">
-    <form>
-      <input type="text" placeholder="Όνομα"/>
-      <input type="email" placeholder="Email"/>
-      <textarea placeholder="Μήνυμα"></textarea>
+    <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact"/>
+      <input type="hidden" name="bot-field" style="display:none"/>
+      <input type="text" name="name" placeholder="Όνομα" required/>
+      <input type="email" name="email" placeholder="Email" required/>
+      <textarea name="message" placeholder="Μήνυμα" required></textarea>
       <button type="submit">Αποστολή</button>
     </form>
   </div>
