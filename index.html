@@ -159,7 +159,7 @@
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 4.8vw, 4.5rem); font-weight: 400; line-height: 1.13;
+      font-size: clamp(2rem, 3.2vw, 3.2rem); font-weight: 400; line-height: 1.13;
       color: var(--text); margin-bottom: 24px;
       opacity: 0; transform: translateY(22px);
       animation: fadeUp .75s .25s forwards;
@@ -171,6 +171,13 @@
       max-width: 420px; margin-bottom: 40px;
       opacity: 0; transform: translateY(22px);
       animation: fadeUp .75s .42s forwards;
+    }
+
+    .hero-subheadline {
+      font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+      opacity: 0; transform: translateY(22px);
+      animation: fadeUp .75s .35s forwards;
     }
 
     .hero-ctas {
@@ -198,6 +205,44 @@
       transition: border-color .25s, color .25s, transform .2s;
     }
     .btn-outline:hover { border-color: rgba(245,245,245,.45); color: #fff; transform: translateY(-2px); }
+
+    .deco-line { width: 50px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-top: 42px; }
+    .health-claim-badge-wrap {
+      display: flex; align-items: center; gap: 16px;
+      margin: 20px 0 32px;
+      padding: 14px 20px;
+      border: 1px solid rgba(198,167,94,.2);
+      background: rgba(198,167,94,.04);
+      border-radius: 2px;
+      flex-wrap: wrap;
+    }
+    .health-claim-badge {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: .62rem; font-weight: 500;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 5px 12px;
+      white-space: nowrap;
+      border-radius: 1px;
+    }
+    .health-claim-text {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: .95rem; color: var(--mid); line-height: 1.6;
+    }
+
+    /* ── Taste bar description lines ── */
+    .taste-bar-desc-line {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: .85rem; font-style: italic;
+      color: var(--dim); margin: -14px 0 20px 0;
+      padding-left: 2px;
+    }
+
+    /* ── About img object-fit for new images ── */
+    .about-img img { object-fit: cover; height: 460px; }
+    .about-row.reverse .about-img img { height: 400px; max-width: 560px; }
+    #taste-row .about-img img { height: 500px; object-position: center top; }
 
     .deco-line { width: 50px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-top: 42px; }
 
@@ -243,49 +288,99 @@
       filter: drop-shadow(0 8px 18px rgba(0,0,0,.7)) drop-shadow(0 28px 52px rgba(0,0,0,.5));
     }
 
-    .bottle-badge {
-      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--gold) 0%, #b8914a 100%);
-      color: #111; font-family: 'Noto Sans', sans-serif;
-      font-size: .68rem; font-weight: 500; letter-spacing: .13em; text-transform: uppercase;
-      white-space: nowrap; padding: 9px 20px; border-radius: 2px;
-      box-shadow: 0 8px 22px rgba(198,167,94,.28); z-index: 2;
-      animation: floatBadge 3.2s ease-in-out infinite;
-    }
-    @keyframes floatBadge {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(-7px); }
-    }
-
     /* ════════════════════════════════════════════
        PARALLAX BANNER — between hero and process
        Full-width strip with fixed background = classic CSS parallax
     ════════════════════════════════════════════ */
     .parallax-banner {
       position: relative; z-index: 1;
-      height: 260px;
       background:
-        linear-gradient(rgba(17,17,17,.78), rgba(17,17,17,.78)),
-        /* SVG pattern: repeating olive leaf dots that scroll at a different rate */
+        linear-gradient(rgba(17,17,17,.82), rgba(17,17,17,.82)),
         url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle fill='%23c6a75e' cx='40' cy='40' r='1.5' opacity='.18'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='10' r='1' opacity='.12'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='10' r='1' opacity='.1'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='70' r='1' opacity='.1'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='70' r='1' opacity='.12'/%3E%3C/g%3E%3C/svg%3E");
-      background-attachment: fixed;      /* ← THE parallax: bg stays still, content scrolls over */
+      background-attachment: fixed;
       background-size: auto, 80px 80px;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
 
+    /* ── Quote block ── */
     .parallax-banner-inner {
-      text-align: center; padding: 0 6vw; position: relative; z-index: 1;
+      text-align: center;
+      padding: 80px 6vw 90px;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%;
     }
-    .parallax-banner-inner p {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 400; font-style: italic;
-      color: var(--text); line-height: 1.5; max-width: 720px;
-    }
-    .parallax-banner-inner p em { color: var(--gold); font-style: normal; }
+
     .parallax-banner-quote {
-      font-size: 2.5rem; color: var(--gold); opacity: .4;
-      font-family: 'Playfair Display', serif; display: block; margin-bottom: 8px;
+      font-size: 3rem; color: var(--gold); opacity: .35;
+      font-family: 'Playfair Display', serif;
+      display: block; line-height: 1; margin-bottom: 4px;
+    }
+
+    .parallax-banner-inner > p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2.4vw, 1.9rem); font-weight: 400; font-style: italic;
+      color: var(--text); line-height: 1.6; max-width: 680px;
+      margin-bottom: 0;
+    }
+    .parallax-banner-inner > p em { color: var(--gold); font-style: normal; }
+
+    /* ── Divider between quote and award ── */
+    .award-divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(198,167,94,.5), transparent);
+      margin: 48px auto 52px;
+    }
+
+    /* ── Award block ── */
+    .award-img-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0; width: 100%;
+    }
+
+    /* Glow stage — positions the soft radial light behind the image */
+    .award-glow-stage {
+      position: relative;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 36px;
+    }
+    .award-glow-stage::before {
+      content: '';
+      position: absolute;
+      width: 130%; height: 130%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center,
+        rgba(198,167,94,.18) 0%,
+        rgba(198,167,94,.06) 45%,
+        transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .award-glow-stage img {
+      position: relative; z-index: 1;
+      width: min(380px, 78vw); height: auto;
+      border-radius: 4px;
+      box-shadow:
+        0 4px 24px rgba(0,0,0,.55),
+        0 0 0 1px rgba(198,167,94,.12),
+        0 16px 60px rgba(0,0,0,.4);
+    }
+
+    /* ── Award caption ── */
+    .award-caption {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(1rem, 1.8vw, 1.18rem); font-style: italic;
+      color: var(--mid); letter-spacing: .03em;
+      max-width: 500px; text-align: center; line-height: 1.8;
+    }
+    .award-caption em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      .parallax-banner-inner { padding: 60px 5vw 70px; }
+      .award-divider { margin: 36px auto 40px; }
+      .award-glow-stage img { width: min(300px, 88vw); }
+      .award-caption { font-size: 1rem; }
     }
 
     /* ════════════════════════════════════════════
@@ -662,7 +757,7 @@
 
     .contact-form-wrap button:hover { background: var(--gold-lt); }
 
-    .disclaimer { margin-top: 48px; font-size: .73rem; color: var(--dim); line-height: 1.8; max-width: 620px; }
+
 
     /* ════════════════════════════════════════════
        FOOTER
@@ -724,7 +819,7 @@
       .hero-sub { margin: 0 auto 36px; }
       .hero-ctas { justify-content: center; }
       .deco-line { margin-left: auto; margin-right: auto; }
-      .parallax-banner { background-attachment: scroll; height: 200px; }
+      .parallax-banner { background-attachment: scroll; }
       #process::before { background-attachment: scroll; }
       .about-row { grid-template-columns: 1fr; gap: 40px; margin-bottom: 80px; }
       .about-row.reverse .about-img { order: 0; }
@@ -805,9 +900,10 @@
   <!-- Layer 2: content at normal scroll speed -->
   <div class="hero-content">
     <div class="hero-text">
-      <div class="hero-eyebrow">Premium Φυσικό Έλαιο 500mg</div>
-      <h1>Αγνό. Φυσικό.<br><em>Προσεκτικά</em> Παρασκευασμένο.</h1>
-      <p class="hero-sub">Φυσικό έλαιο 500mg, παρασκευασμένο με ακρίβεια και φροντίδα — από την πηγή έως τη σφράγιση, κάθε σταγόνα αντικατοπτρίζει τη δέσμευσή μας στην ποιότητα.</p>
+      <div class="hero-eyebrow">Premium EVOO · Μονοποικιλιακό Κορωνέικη · Single Grove · Limited</div>
+      <h1>Από τους ελαιώνες της Δροσιάς Μεσσηνίας — η αγνότητα της ελληνικής φύσης σε κάθε σταγόνα.</h1>
+      <div class="hero-subheadline">Ψυχρής έκθλιψης · πλούσιο σε πολυφαινόλες και βιταμίνες</div>
+      <p class="hero-sub">Κορωνέικη Μεσσηνίας — από τον ελαιώνα στο μπουκάλι, χωρίς συμβιβασμούς.</p>
       <div class="hero-ctas">
         <a class="btn-primary" href="#contact">Επικοινωνήστε μαζί μας</a>
         <a class="btn-outline" href="#process">Μάθετε Περισσότερα</a>
@@ -819,9 +915,8 @@
     <div class="hero-visual">
       <div class="bottle-wrap">
         <img id="bottleImg" class="bottle-img" src="Product_Photo_NoBackGround.png"
-             alt="Drosia Drops — Φυσικό Έλαιο Premium 500mg" draggable="false"
+             alt="Drosia Drops — Εξαιρετικό Παρθένο Ελαιόλαδο 500ml" draggable="false"
              data-plx="-0.5"/>
-        <div class="bottle-badge">500 mg · Αγνό</div>
       </div>
     </div>
   </div>
@@ -830,8 +925,23 @@
 <!-- ════ PARALLAX QUOTE BANNER (CSS background-attachment:fixed) ════ -->
 <div class="parallax-banner">
   <div class="parallax-banner-inner">
+
+    <!-- 1. Quote -->
     <span class="parallax-banner-quote">"</span>
     <p>Κάθε σταγόνα φέρει τη <em>φροντίδα</em> της φύσης και την ακρίβεια της επιστήμης.</p>
+
+    <!-- Divider -->
+    <div class="award-divider"></div>
+
+    <!-- 2. Award -->
+    <div class="award-img-wrap">
+      <div class="award-glow-stage">
+        <img src="AwardWin.jpeg" alt="FoodExpo Gold Award — Drosia Drops"/>
+      </div>
+      <!-- 3. Caption -->
+      <p class="award-caption">Αξιολογήθηκε από διεθνές Panel γευσιγνωσίας και απέσπασε το <em>Χρυσό Βραβείο</em> — η ποιότητα που νιώθεις σε κάθε σταγόνα, τώρα και επίσημα αναγνωρισμένη.</p>
+    </div>
+
   </div>
 </div>
 
@@ -845,50 +955,50 @@
       <h2>Αγνή Προέλευση.<br><em>Επιστημονική</em> Αξία.</h2>
     </div>
 
-    <!-- ROW 1: Μεσσηνιακή Γη — text left, image right (two_bottles) -->
+    <!-- ROW 1: Μεσσηνιακή Γη — text left, olive tree image right -->
     <div class="about-row">
       <div class="about-text">
         <div class="about-eyebrow">01 · Προέλευση</div>
         <h3>Μεσσηνιακή <em>Γη</em></h3>
-        <p>Η Μεσσηνία, στο νοτιοδυτικό άκρο της Πελοποννήσου, είναι μια από τις σημαντικότερες ελαιοπαραγωγικές περιοχές της Ελλάδας. Αιώνες παράδοσης, η αργιλώδης γη και το μεσογειακό κλίμα δημιουργούν τις ιδανικές συνθήκες για ελαιόδεντρα που παράγουν έλαιο εξαιρετικής ποιότητας.</p>
-        <p>Οι ελιές μας καλλιεργούνται σε παραδοσιακούς ελαιώνες, συχνά αιωνόβιους, διατηρώντας την αυθεντικότητα κάθε σταγόνας.</p>
+        <p>Η Μεσσηνία καλλιεργεί ελιές από τον 13ο αιώνα π.Χ. — η λέξη «ελιά» εμφανίζεται ήδη στις πινακίδες Γραμμικής Β του παλατιού του Νέστορα. Ανάμεσα στην Πύλο και τη Μεσσήνη, η Δροσιά — ένα μικρό χωριό με αμέτρητους ελαιώνες — αγναντεύει τον Μεσσηνιακό κόλπο από τα 300 μέτρα υψόμετρο.</p>
+        <p>Εδώ, οι έντονες εναλλαγές θερμοκρασίας και το μεσογειακό κλίμα δημιουργούν τις ιδανικές συνθήκες για τη βασίλισσα της μεσογειακής διατροφής: την Κορωνέικη ελιά.</p>
       </div>
       <div class="about-img">
-        <img src="two_bottles.jpeg" alt="Drosia Drops — Φιάλες Ελαιολάδου"/>
+        <img src="Olives.jpeg" alt="Drosia Drops — Ελαιώνες Μεσσηνίας"/>
       </div>
     </div>
 
-    <!-- ROW 2: Ποικιλία Κορωνέικη — image left, text right -->
+    <!-- ROW 2: Ποικιλία Κορωνέικη — olive drop image left, text right -->
     <div class="about-row reverse">
       <div class="about-text">
         <div class="about-eyebrow">02 · Ποικιλία</div>
         <h3>Ποικιλία <em>Κορωνέικη</em></h3>
-        <p>Η Κορωνέικη θεωρείται η «βασίλισσα» των ελληνικών ποικιλιών ελιάς. Παράγει έλαιο με εξαιρετικά υψηλή περιεκτικότητα σε πολυφαινόλες — τις φυσικές αντιοξειδωτικές ενώσεις που προστατεύουν τον οργανισμό.</p>
-        <p>Το έλαιο Κορωνέικης διακρίνεται για τον έντονο αρωματικό χαρακτήρα του, τις φρουτώδεις νότες και την χαρακτηριστική πικάντικη επίγευση.</p>
+        <p>Η Κορωνέικη θεωρείται η «βασίλισσα» των ελληνικών ποικιλιών ελιάς. Παράγει ελαιόλαδο με εξαιρετικά υψηλή περιεκτικότητα σε πολυφαινόλες — τις φυσικές αντιοξειδωτικές ενώσεις που προστατεύουν τον οργανισμό.</p>
+        <p>Το ελαιόλαδο Κορωνέικης διακρίνεται για τον έντονο αρωματικό χαρακτήρα του, τις φρουτώδεις νότες και την χαρακτηριστική πικάντικη επίγευση.</p>
       </div>
       <div class="about-img">
-        <img src="nutritionLabel.jpeg" alt="Drosia Drops — Διατροφικές Πληροφορίες"/>
+        <img src="SingleOliveDrop.jpeg" alt="Drosia Drops — Κορωνέικη Ποικιλία"/>
       </div>
     </div>
 
-    <!-- ROW 3: Διατροφική Αξία — text left, nutrition grid -->
+    <!-- ROW 3: Διατροφική Αξία -->
     <div class="about-row">
       <div class="about-text" style="grid-column: 1 / -1;">
         <div class="about-eyebrow">03 · Διατροφή</div>
         <h3>Διατροφική <em>Αξία</em></h3>
-        <p>Το έλαιό μας είναι φυσική πηγή απαραίτητων θρεπτικών συστατικών που συμβάλλουν στη διατήρηση της υγείας και της ευεξίας.</p>
+        <p>Το ελαιόλαδό μας είναι φυσική πηγή απαραίτητων θρεπτικών συστατικών που συμβάλλουν στη διατήρηση της υγείας και της ευεξίας.</p>
         <div class="nutrition-grid">
           <div class="nutrition-card">
             <h5>Μονοακόρεστα</h5>
-            <p>Ωφέλιμα λιπαρά που υποστηρίζουν την υγεία της καρδιάς και μειώνουν τη φλεγμονή.</p>
+            <p>Ωφέλιμα λιπαρά που υποστηρίζουν την υγεία της καρδιάς και συμβάλλουν στη διαχείριση της χοληστερόλης.</p>
           </div>
           <div class="nutrition-card">
             <h5>Πολυφαινόλες</h5>
-            <p>Ισχυρά αντιοξειδωτικά που προστατεύουν τα κύτταρα από το οξειδωτικό στρες.</p>
+            <p>Ισχυρά αντιοξειδωτικά με τεκμηριωμένη αντιφλεγμονώδη δράση — ιδίως η ελαιοκανθάλη και η υδροξυτυροσόλη, οι ενώσεις που κρύβονται πίσω από την χαρακτηριστική πικάντικη επίγευση.</p>
           </div>
           <div class="nutrition-card">
             <h5>Βιταμίνη Ε</h5>
-            <p>Λιποδιαλυτή βιταμίνη με αντιοξειδωτική δράση, απαραίτητη για το ανοσοποιητικό.</p>
+            <p>Ισχυρή αντιοξειδωτική δράση που προστατεύει τα κύτταρα και υποστηρίζει το ανοσοποιητικό — διαλυμένη ήδη στο φυσικό της περιβάλλον, απορροφάται από τον οργανισμό με τον καλύτερο δυνατό τρόπο.</p>
           </div>
           <div class="nutrition-card">
             <h5>Βιταμίνη Κ</h5>
@@ -906,30 +1016,34 @@
       </div>
     </div>
 
-    <!-- ROW 4: Επιστημονικοί Δείκτες — full width metrics -->
+    <!-- ROW 4: Επιστημονικοί Δείκτες -->
     <div class="about-row">
       <div class="about-text" style="grid-column: 1 / -1;">
         <div class="about-eyebrow">04 · Επιστήμη</div>
         <h3>Επιστημονικοί <em>Δείκτες</em></h3>
         <p>Κάθε παρτίδα αναλύεται σε πιστοποιημένα εργαστήρια. Τα αποτελέσματα επιβεβαιώνουν τη συνεχή δέσμευσή μας στην ανώτατη ποιότητα.</p>
+        <div class="health-claim-badge-wrap">
+          <span class="health-claim-badge">Health Claim EU 432/2012</span>
+          <span class="health-claim-text">Υπερκαλύπτει το όριο του Ευρωπαϊκού Κανονισμού 432/2012 για εγκεκριμένο Ισχυρισμό Υγείας — πολυφαινόλες >250 mg/kg. Δείκτης ισχυρής αντιοξειδωτικής δράσης.</span>
+        </div>
         <div class="metrics">
           <div class="metric">
             <div class="metric-number">76<span class="metric-unit">%</span></div>
             <div class="metric-label">Μονοακόρεστα Λιπαρά</div>
-            <div class="metric-desc">Εξαιρετικά υψηλή αναλογία ολεϊκού οξέος — ο βασικός δείκτης ποιότητας και καρδιαγγειακής προστασίας.</div>
+            <div class="metric-desc">Εξαιρετικά υψηλή αναλογία ελαϊκού οξέος — ο βασικός δείκτης ποιότητας και καρδιαγγειακής προστασίας.</div>
           </div>
           <div class="metric">
-            <div class="metric-number">658.9<span class="metric-unit"> mg/kg</span></div>
+            <div class="metric-number">658,9<span class="metric-unit"> mg/kg</span></div>
             <div class="metric-label">Πολυφαινόλες</div>
-            <div class="metric-desc">Τριπλάσιο από τον μέσο όρο εξαιρετικά παρθένων ελαιολάδων. Δείκτης ισχυρής αντιοξειδωτικής δράσης.</div>
+            <div class="metric-desc">Δείκτης ισχυρής αντιοξειδωτικής δράσης.</div>
           </div>
           <div class="metric">
-            <div class="metric-number">0.23<span class="metric-unit">%</span></div>
+            <div class="metric-number">0,23<span class="metric-unit">%</span></div>
             <div class="metric-label">Οξύτητα</div>
-            <div class="metric-desc">Πολύ κάτω από το όριο 0.8% για εξαιρετικά παρθένο ελαιόλαδο. Ενδείξη άριστης ποιότητας καρπού.</div>
+            <div class="metric-desc">Ένδειξη άριστης ποιότητας καρπού και εξαιρετικά παρθένου ελαιολάδου (όριο 0,80%).</div>
           </div>
           <div class="metric">
-            <div class="metric-number">3.36<span class="metric-unit"> mEq/kg</span></div>
+            <div class="metric-number">3,36<span class="metric-unit"> mEq/kg</span></div>
             <div class="metric-label">Υπεροξείδια</div>
             <div class="metric-desc">Εξαιρετικά χαμηλός δείκτης οξείδωσης. Πιστοποιεί τη φρεσκάδα και τη σωστή επεξεργασία.</div>
           </div>
@@ -937,32 +1051,35 @@
       </div>
     </div>
 
-    <!-- ROW 5: Γευστικό Προφίλ — text with taste bars -->
+    <!-- ROW 5: Γευστικό Προφίλ — taste bars left, olive tree in pot right -->
     <div class="about-row" id="taste-row">
       <div class="about-text">
         <div class="about-eyebrow">05 · Γεύση</div>
         <h3>Γευστικό <em>Προφίλ</em></h3>
-        <p>Η οργανοληπτική ανάλυση αποκαλύπτει ένα πλούσιο, πολυσύνθετο προφίλ γεύσης — χαρακτηριστικό των κορυφαίων ελαιολάδων Κορωνέικης.</p>
+        <p>Η οργανοληπτική ανάλυση από πιστοποιημένο εργαστήριο αποκαλύπτει ένα ισορροπημένο, πολυσύνθετο προφίλ γεύσης — χαρακτηριστικό των κορυφαίων ελαιολάδων Κορωνέικης.</p>
         <div class="taste-bars">
           <div class="taste-bar-row">
             <div class="taste-bar-label">Φρουτώδες</div>
             <div class="taste-bar-track"><div class="taste-bar-fill" data-target="100" data-value="5.0"></div></div>
             <div class="taste-bar-val">0.0</div>
           </div>
+          <div class="taste-bar-desc-line">Έντονο άρωμα φρέσκιας ελιάς</div>
           <div class="taste-bar-row">
             <div class="taste-bar-label">Πικρό</div>
             <div class="taste-bar-track"><div class="taste-bar-fill" data-target="70" data-value="3.5"></div></div>
             <div class="taste-bar-val">0.0</div>
           </div>
+          <div class="taste-bar-desc-line">Ένδειξη πλούσιας πολυφαινολικής σύνθεσης</div>
           <div class="taste-bar-row">
             <div class="taste-bar-label">Πικάντικο</div>
             <div class="taste-bar-track"><div class="taste-bar-fill" data-target="82" data-value="4.1"></div></div>
             <div class="taste-bar-val">0.0</div>
           </div>
+          <div class="taste-bar-desc-line">Χαρακτηριστική επίγευση από ελαιοκανθάλη</div>
         </div>
       </div>
       <div class="about-img">
-        <img src="two_bottles.jpeg" alt="Drosia Drops — Γευστικό Προφίλ"/>
+        <img src="OliveTreeInPot.jpeg" alt="Drosia Drops — Ελαιόδεντρο"/>
       </div>
     </div>
 
@@ -978,23 +1095,23 @@
   <p class="contact-intro">Επικοινωνήστε μαζί μας για συνεργασίες, πληροφορίες ή παραγγελίες.</p>
 
   <div class="contact-methods">
-    <a class="contact-card" href="tel:+300000000000">
+    <a class="contact-card" href="tel:+306972811357">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.47 11.47 0 00.57 3.58 1 1 0 01-.25 1.01l-2.2 2.2z"/>
       </svg>
       <div>
         <h4>Τηλέφωνο</h4>
-        <p>+30 000 000 0000<br>Δευτ–Σαβ, 9:00–18:00</p>
+        <p>+30 6972 811 357<br>+30 697 679 2851<br>+30 6946 416 442</p>
       </div>
     </a>
-    <a class="contact-card" href="/cdn-cgi/l/email-protection#b6d5d9d8c2d7d5c2f6d2c4d9c5dfd7d2c4d9c6c598d5d9db">
+    <a class="contact-card" href="mailto:contact@drosiadrops.com">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
         <polyline points="22,6 12,13 2,6"/>
       </svg>
       <div>
         <h4>Email</h4>
-        <p><span class="__cf_email__" data-cfemail="9cfff3f2e8fdffe8dcf8eef3eff5fdf8eef3ecefb2fff3f1">[email&#160;protected]</span><br>Απαντάμε εντός 24 ωρών</p>
+        <p>contact@drosiadrops.com</p>
       </div>
     </a>
     <a class="contact-card" href="https://instagram.com/drosia_drops" target="_blank">
@@ -1014,7 +1131,7 @@
 
   <div class="contact-form-wrap">
     <form id="contact-form">
-      <input type="hidden" name="access_key" value="1fd5cf26-daaf-438f-b9b4-3f6bc41cbe6e"/>
+      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE"/>
       <input type="hidden" name="subject" value="Νέο μήνυμα από Drosia Drops"/>
       <input type="hidden" name="from_name" value="Drosia Drops Website"/>
       <input type="checkbox" name="botcheck" style="display:none"/>
@@ -1026,7 +1143,7 @@
     </form>
   </div>
 
-  <p class="disclaimer">* Το προϊόν προορίζεται για χρήση σύμφωνα με τις οδηγίες. Συνιστάται η διαβούλευση με ειδικό επαγγελματία πριν από τη χρήση, εφόσον υπάρχουν ανησυχίες σχετικές με την υγεία σας. Οι πληροφορίες παρέχονται αποκλειστικά για γενική ενημέρωση.</p>
+
 </section>
 
 <!-- ══════════ FOOTER ══════════ -->
@@ -1036,7 +1153,7 @@
   <p class="footer-meta">Kalamata, Messinia · Greece</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 $(function () {
 
   /* ── Nav shadow ── */
@@ -1258,6 +1375,34 @@ $(function () {
       $btn.text('Αποστολή').prop('disabled', false);
     });
   });
+
+  /* \u2500\u2500 Smooth anchor scroll \u2500\u2500 */
+  $('a[href^="#"]').on('click', function (e) {
+    var $t = $(this.hash);
+    if ($t.length) { e.preventDefault(); $('html,body').animate({ scrollTop: $t.offset().top - 66 }, 700); }
+  });
+
+  var isMobile = window.innerWidth <= 860;
+
+  function doParallax() {
+    if (isMobile) return;
+    var scrollY = $(window).scrollTop();
+    $('[data-plx]').each(function () {
+      var speed  = parseFloat($(this).data('plx'));
+      var offset = scrollY * speed;
+      $(this).css('transform', 'translateY(' + offset + 'px)');
+    });
+  }
+
+  /* Use rAF for butter-smooth 60fps */
+  var ticking = false;
+  $(window).on('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(function () { doParallax(); ticking = false; });
+      ticking = true;
+    }
+  });
+  doParallax();
 
 });
 </script>
