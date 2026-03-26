@@ -87,18 +87,6 @@
       flex-shrink: 0;
     }
 
-    /* ════════════════════════════════════════════
-       HERO — the outermost wrapper is the stage
-       All parallax layers sit absolutely inside it
-    ════════════════════════════════════════════ */
-    #hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      overflow: hidden;                   /* clips layers that move outside */
-      background: var(--bg);
-    }
-
     /* ── Layer 0: deep background radial glow (moves slowest) ── */
     .plx-bg {
       position: absolute;
@@ -294,18 +282,7 @@
 
     /* ════════════════════════════════════════════
        PARALLAX BANNER — between hero and process
-       Full-width strip with fixed background = classic CSS parallax
     ════════════════════════════════════════════ */
-    .parallax-banner {
-      position: relative; z-index: 1;
-      background:
-        linear-gradient(#f0ede4f2, #f0ede4f2),
-        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle fill='%23c6a75e' cx='40' cy='40' r='1.5' opacity='.18'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='10' r='1' opacity='.12'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='10' r='1' opacity='.1'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='70' r='1' opacity='.1'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='70' r='1' opacity='.12'/%3E%3C/g%3E%3C/svg%3E");
-      background-attachment: fixed;
-      background-size: auto, 80px 80px;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
 
     /* ── Quote block ── */
     .parallax-banner-inner {
@@ -404,23 +381,68 @@
     }
 
     /* ════════════════════════════════════════════
-       GLOBAL TEXTURE — same fixed SVG grid runs
-       underneath every section, creating continuity
-       as the user scrolls through the page.
+       DIAGONAL SECTION TRANSITIONS
+       Each section clips its bottom edge at an angle.
+       Alternating direction creates a flowing, 
+       mediterranean hillside rhythm down the page.
+       z-index layering ensures each section slides
+       under the previous one's clipped edge.
     ════════════════════════════════════════════ */
-    .texture-layer {
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        url("data:image/svg+xml,%3Csvg width='340' height='340' viewBox='0 0 340 340' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='52' cy='38' r='28' fill='none' stroke='%23304625' stroke-width='.6' opacity='.07'/%3E%3Ccircle cx='180' cy='95' r='44' fill='none' stroke='%23304625' stroke-width='.5' opacity='.05'/%3E%3Ccircle cx='298' cy='52' r='18' fill='none' stroke='%23304625' stroke-width='.5' opacity='.06'/%3E%3Ccircle cx='88' cy='185' r='52' fill='none' stroke='%23304625' stroke-width='.6' opacity='.04'/%3E%3Ccircle cx='245' cy='200' r='30' fill='none' stroke='%23304625' stroke-width='.5' opacity='.06'/%3E%3Ccircle cx='320' cy='270' r='48' fill='none' stroke='%23304625' stroke-width='.6' opacity='.05'/%3E%3Ccircle cx='140' cy='295' r='22' fill='none' stroke='%23304625' stroke-width='.4' opacity='.07'/%3E%3Ccircle cx='30' cy='310' r='35' fill='none' stroke='%23304625' stroke-width='.5' opacity='.04'/%3E%3C/svg%3E");
-      background-attachment: fixed;
-      background-size: 340px 340px;
+
+    /* Hero (olive) → clips bottom-left to bottom-right ↘
+       next section (cream) slides underneath             */
+    #hero {
+      position: relative;
+      z-index: 5;
+      min-height: 100vh;
+      overflow: clip;
+      background: var(--bg);
+      padding-bottom: 80px;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%);
+      margin-bottom: -60px;
     }
 
-    /* ════════════════════════════════════════════
-       SECTION LABEL MOTIF — a short olive rule
-       before every section eyebrow, giving the
-       eye a repeating anchor across all sections.
-    ════════════════════════════════════════════ */
+    /* Parallax banner (cream) → clips ↗ (opposite direction) */
+    .parallax-banner {
+      position: relative; z-index: 4;
+      background:
+        linear-gradient(#f0ede4f2, #f0ede4f2),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle fill='%23c6a75e' cx='40' cy='40' r='1.5' opacity='.18'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='10' r='1' opacity='.12'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='10' r='1' opacity='.1'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='70' r='1' opacity='.1'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='70' r='1' opacity='.12'/%3E%3C/g%3E%3C/svg%3E");
+      background-attachment: fixed;
+      background-size: auto, 80px 80px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: visible;
+      padding-top: 80px;
+      padding-bottom: 80px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 60px));
+      margin-bottom: -60px;
+    }
+
+    /* Process/About (cream) → clips ↘ */
+    #process {
+      position: relative; z-index: 3;
+      background: var(--bg2);
+      padding: 110px 6vw 140px;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%);
+      margin-bottom: -60px;
+    }
+
+    /* Contact (olive) → clips ↗ */
+    #contact {
+      position: relative; z-index: 2;
+      background: var(--bg);
+      padding: 120px 6vw 140px;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 60px));
+      margin-bottom: -60px;
+    }
+
+    /* Footer (cream) — no clip needed, it's the last section */
+    footer {
+      position: relative; z-index: 1;
+      background: var(--bg2);
+      border-top: none;
+      padding-top: 80px;
+    }
     .section-label {
       font-size: .67rem; font-weight: 500; letter-spacing: .26em;
       text-transform: uppercase; color: var(--gold);
@@ -437,22 +459,8 @@
     }
 
     /* ════════════════════════════════════════════
-       SECTION DIVIDER
-    ════════════════════════════════════════════ */
-    .section-fade {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(48,70,37,.14), transparent);
-      position: relative; z-index: 1;
-    }
-
-    /* ════════════════════════════════════════════
        PROCESS / ABOUT
     ════════════════════════════════════════════ */
-    #process {
-      position: relative; z-index: 1;
-      background: var(--bg2);
-      padding: 110px 6vw 80px;
-    }
 
     .process-inner {
       position: relative; z-index: 1;
@@ -727,7 +735,6 @@
     /* ════════════════════════════════════════════
        CONTACT
     ════════════════════════════════════════════ */
-    #contact { position: relative; z-index: 1; background: var(--bg); padding: 100px 6vw; }
 
     #contact .section-label { color: var(--gold); }
     #contact h2 { color: #f0ede4; }
@@ -874,11 +881,6 @@
     /* ════════════════════════════════════════════
        FOOTER
     ════════════════════════════════════════════ */
-    footer {
-      position: relative; z-index: 1;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-    }
 
     .footer-main {
       position: relative; z-index: 1;
@@ -968,6 +970,18 @@
        RESPONSIVE ≤ 860px
     ════════════════════════════════════════════ */
     @media (max-width: 860px) {
+      /* Disable diagonal cuts on mobile — clip-path causes overflow/scroll issues */
+      #hero, .parallax-banner, #process, #contact {
+        clip-path: none;
+        margin-bottom: 0;
+        padding-bottom: inherit;
+      }
+      #hero { overflow: hidden; padding-bottom: 0; }
+      .parallax-banner { padding-top: 60px; padding-bottom: 60px; }
+      #process { padding: 70px 5vw 80px; }
+      #contact { padding: 70px 5vw 80px; }
+      footer { padding-top: 0; }
+
       .hero-content { grid-template-columns: 1fr; min-height: auto; padding: 100px 5vw 60px; gap: 0; text-align: center; }
       .hero-visual { order: -1; margin-bottom: 32px; }
       .bottle-wrap { padding-bottom: 48px; }
@@ -977,7 +991,6 @@
       .hero-ctas { justify-content: center; }
       .deco-line { margin-left: auto; margin-right: auto; }
       .parallax-banner { background-attachment: scroll; }
-      #process::before { background-attachment: scroll; }
       .about-row { grid-template-columns: 1fr; gap: 40px; margin-bottom: 80px; }
       .about-row.reverse .about-img { order: 0; }
       .nutrition-grid { grid-template-columns: repeat(2, 1fr); }
@@ -985,11 +998,7 @@
       .contact-methods { flex-direction: column; align-items: stretch; gap: 12px; }
       .contact-card { width: 100%; min-width: unset; }
       .contact-form-wrap { margin: 0 auto; }
-
-      /* ── Hero ring: shrink so it doesn't overwhelm small screens ── */
       .plx-ring { width: 320px; height: 320px; top: -20px; right: -60px; animation: none; }
-
-      /* ── Hero glow: disable animation, let JS parallax own the transform ── */
       .plx-bg { animation: none; }
     }
 
@@ -1054,7 +1063,6 @@
   <!-- Layer 1: ring — moves at medium speed via JS -->
   <div class="plx-ring" data-plx="-0.3"></div>
   <!-- Global texture -->
-  <div class="texture-layer"></div>
 
   <!-- Layer 2: content at normal scroll speed -->
   <div class="hero-content">
@@ -1083,7 +1091,6 @@
 
 <!-- ════ PARALLAX QUOTE BANNER (CSS background-attachment:fixed) ════ -->
 <div class="parallax-banner">
-  <div class="texture-layer"></div>
   <div class="parallax-banner-inner">
 
     <!-- 1. Quote -->
@@ -1107,7 +1114,6 @@
 
 <!-- ══════════ PROCESS / ABOUT ══════════ -->
 <section id="process">
-  <div class="texture-layer"></div>
   <div class="about-wrap">
 
     <!-- Section header -->
@@ -1249,11 +1255,8 @@
   </div>
 </section>
 
-<div class="section-fade"></div>
-
 <!-- ══════════ CONTACT ══════════ -->
 <section id="contact">
-  <div class="texture-layer"></div>
   <div class="section-label">Επικοινωνήστε μαζί μας</div>
   <h2>Είμαστε στη <em>Διάθεσή σας</em></h2>
   <p class="contact-intro">Επικοινωνήστε μαζί μας για συνεργασίες, πληροφορίες ή παραγγελίες.</p>
@@ -1268,14 +1271,14 @@
         <p>+30 6972 811 357<br>+30 697 679 2851<br>+30 6946 416 442</p>
       </div>
     </a>
-    <a class="contact-card" href="/cdn-cgi/l/email-protection#0a6965647e6b697e4a6e786579636b6e78657a7924696567">
+    <a class="contact-card" href="mailto:contact@drosiadrops.com">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
         <polyline points="22,6 12,13 2,6"/>
       </svg>
       <div>
         <h4>Email</h4>
-        <p><span class="__cf_email__" data-cfemail="4d2e2223392c2e390d293f223e242c293f223d3e632e2220">[email&#160;protected]</span></p>
+        <p>contact@drosiadrops.com</p>
       </div>
     </a>
     <a class="contact-card" href="https://instagram.com/drosia_drops" target="_blank">
@@ -1312,7 +1315,6 @@
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  <div class="texture-layer"></div>
   <div class="footer-main">
     <span class="footer-brand">Drosia Drops</span>
     <span class="footer-tagline">Premium εξαιρετικό παρθένο ελαιόλαδο από τους ελαιώνες της Δροσιάς, Μεσσηνία.</span>
@@ -1324,7 +1326,7 @@
           <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
         </svg>
       </a>
-      <a href="/cdn-cgi/l/email-protection#63000c0d170200172307110c100a0207110c13104d000c0e" aria-label="Email">
+      <a href="mailto:contact@drosiadrops.com" aria-label="Email">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
           <polyline points="22,6 12,13 2,6"/>
@@ -1338,7 +1340,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 $(function () {
 
   /* ── Award banner entrance ── */
