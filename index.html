@@ -11,16 +11,16 @@
     html, body { width: 100%; overflow-x: hidden; }
 
     :root {
-      --bg:       #111111;
-      --bg2:      #1a1a1a;
-      --surface:  #1f1f1f;
-      --surface2: #252525;
-      --border:   rgba(198,167,94,.13);
-      --gold:     #c6a75e;
-      --gold-lt:  #d9bc80;
+      --bg:       #9b9781;
+      --bg2:      #f0ede4f2;
+      --surface:  #f0ede4f2;
+      --surface2: #f0ede4f2;
+      --border:   rgba(198, 167, 94, .13);
+      --gold:     #304625;
+      --gold-lt:  #4a4639;
       --olive:    #3f5d3a;
-      --text:     #f5f5f5;
-      --mid:      #bdbdbd;
+      --text:     #252116f2;
+      --mid:      #9b9781;
       --dim:      #6e6e66;
     }
 
@@ -32,7 +32,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 6vw;
-      background: rgba(17,17,17,.92);
+      background: #f0ede4f2;
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
       transition: box-shadow .35s;
@@ -65,7 +65,7 @@
       align-items: center;
       gap: 6px;
       padding: 8px 16px;
-      border: 1px solid rgba(198,167,94,.35);
+      border: 1px solid rgba(48,70,37,.28);
       color: var(--gold);
       font-family: 'Noto Sans', sans-serif;
       font-size: .72rem;
@@ -79,7 +79,7 @@
     }
 
     .nav-btn:hover {
-      background: rgba(198,167,94,.09);
+      background: rgba(48,70,37,.07);
       border-color: var(--gold);
     }
 
@@ -191,32 +191,32 @@
     }
 
     .btn-primary {
-      display: inline-block; background: var(--gold); color: #111;
+      display: inline-block; background: var(--gold); color: #f0ede4;
       font-family: 'Noto Sans', sans-serif; font-size: .72rem; font-weight: 500;
       letter-spacing: .16em; text-transform: uppercase;
       padding: 14px 30px; border: none; border-radius: 2px;
       cursor: pointer; text-decoration: none;
       transition: background .25s, transform .2s, box-shadow .25s;
     }
-    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(198,167,94,.25); }
+    .btn-primary:hover { background: var(--olive); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(48,70,37,.35); }
 
     .btn-outline {
-      display: inline-block; background: transparent; color: var(--text);
+      display: inline-block; background: transparent; color: rgba(240,237,228,.82);
       font-family: 'Noto Sans', sans-serif; font-size: .72rem; font-weight: 400;
       letter-spacing: .16em; text-transform: uppercase;
-      padding: 14px 30px; border: 1px solid rgba(245,245,245,.18); border-radius: 2px;
+      padding: 14px 30px; border: 1px solid rgba(240,237,228,.28); border-radius: 2px;
       cursor: pointer; text-decoration: none;
-      transition: border-color .25s, color .25s, transform .2s;
+      transition: border-color .25s, color .25s, background .25s, transform .2s;
     }
-    .btn-outline:hover { border-color: rgba(245,245,245,.45); color: #fff; transform: translateY(-2px); }
+    .btn-outline:hover { border-color: rgba(240,237,228,.7); color: #f0ede4; background: rgba(240,237,228,.07); transform: translateY(-2px); }
 
     .deco-line { width: 50px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-top: 42px; }
     .health-claim-badge-wrap {
       display: flex; align-items: center; gap: 16px;
       margin: 20px 0 32px;
       padding: 14px 20px;
-      border: 1px solid rgba(198,167,94,.2);
-      background: rgba(198,167,94,.04);
+      border: 1px solid rgba(48,70,37,.18);
+      background: rgba(48,70,37,.04);
       border-radius: 2px;
       flex-wrap: wrap;
     }
@@ -299,7 +299,7 @@
     .parallax-banner {
       position: relative; z-index: 1;
       background:
-        linear-gradient(rgba(17,17,17,.82), rgba(17,17,17,.82)),
+        linear-gradient(#f0ede4f2, #f0ede4f2),
         url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle fill='%23c6a75e' cx='40' cy='40' r='1.5' opacity='.18'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='10' r='1' opacity='.12'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='10' r='1' opacity='.1'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='70' r='1' opacity='.1'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='70' r='1' opacity='.12'/%3E%3C/g%3E%3C/svg%3E");
       background-attachment: fixed;
       background-size: auto, 80px 80px;
@@ -323,7 +323,7 @@
       transform: translateY(14px);
       transition: opacity .7s ease, transform .7s ease;
     }
-    .parallax-banner-quote.visible { opacity: .35; transform: none; }
+    .parallax-banner-quote.visible { opacity: .25; transform: none; }
 
     .parallax-banner-inner > p {
       font-family: 'Playfair Display', serif;
@@ -339,7 +339,7 @@
     /* ── Divider between quote and award ── */
     .award-divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(198,167,94,.5), transparent);
+      background: linear-gradient(90deg, transparent, rgba(48,70,37,.25), transparent);
       margin: 28px auto 28px;
       width: 0; opacity: 0;
       transition: width .8s ease .1s, opacity .8s ease .1s;
@@ -368,8 +368,7 @@
       width: 130%; height: 130%;
       border-radius: 50%;
       background: radial-gradient(ellipse at center,
-        rgba(198,167,94,.18) 0%,
-        rgba(198,167,94,.06) 45%,
+        rgba(48,70,37,.06) 0%,
         transparent 70%);
       pointer-events: none; z-index: 0;
     }
@@ -378,23 +377,23 @@
       width: min(600px, 90vw); height: auto;
       border-radius: 4px;
       box-shadow:
-        0 4px 24px rgba(0,0,0,.55),
-        0 0 0 1px rgba(198,167,94,.12),
-        0 16px 60px rgba(0,0,0,.4);
+        0 2px 12px rgba(0,0,0,.08),
+        0 0 0 1px rgba(48,70,37,.08),
+        0 8px 32px rgba(0,0,0,.10);
     }
 
     /* ── Award caption ── */
     .award-caption {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: clamp(1rem, 1.8vw, 1.18rem); font-style: italic;
-      color: var(--mid); letter-spacing: .03em;
+      color: var(--dim); letter-spacing: .03em;
       max-width: 500px; text-align: center; line-height: 1.8;
       opacity: 0; transform: translateY(12px);
       transition: opacity .65s ease .2s, transform .65s ease .2s;
       margin-top: -12px;
     }
     .award-caption.visible { opacity: 1; transform: none; }
-    .award-caption em { color: var(--gold); font-style: normal; font-weight: 500; }
+    .award-caption em { color: var(--gold); font-style: normal; font-weight: 600; letter-spacing: .04em; }
 
     /* ── Mobile ── */
     @media (max-width: 600px) {
@@ -405,11 +404,44 @@
     }
 
     /* ════════════════════════════════════════════
+       GLOBAL TEXTURE — same fixed SVG grid runs
+       underneath every section, creating continuity
+       as the user scrolls through the page.
+    ════════════════════════════════════════════ */
+    .texture-layer {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        url("data:image/svg+xml,%3Csvg width='340' height='340' viewBox='0 0 340 340' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='52' cy='38' r='28' fill='none' stroke='%23304625' stroke-width='.6' opacity='.07'/%3E%3Ccircle cx='180' cy='95' r='44' fill='none' stroke='%23304625' stroke-width='.5' opacity='.05'/%3E%3Ccircle cx='298' cy='52' r='18' fill='none' stroke='%23304625' stroke-width='.5' opacity='.06'/%3E%3Ccircle cx='88' cy='185' r='52' fill='none' stroke='%23304625' stroke-width='.6' opacity='.04'/%3E%3Ccircle cx='245' cy='200' r='30' fill='none' stroke='%23304625' stroke-width='.5' opacity='.06'/%3E%3Ccircle cx='320' cy='270' r='48' fill='none' stroke='%23304625' stroke-width='.6' opacity='.05'/%3E%3Ccircle cx='140' cy='295' r='22' fill='none' stroke='%23304625' stroke-width='.4' opacity='.07'/%3E%3Ccircle cx='30' cy='310' r='35' fill='none' stroke='%23304625' stroke-width='.5' opacity='.04'/%3E%3C/svg%3E");
+      background-attachment: fixed;
+      background-size: 340px 340px;
+    }
+
+    /* ════════════════════════════════════════════
+       SECTION LABEL MOTIF — a short olive rule
+       before every section eyebrow, giving the
+       eye a repeating anchor across all sections.
+    ════════════════════════════════════════════ */
+    .section-label {
+      font-size: .67rem; font-weight: 500; letter-spacing: .26em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+      opacity: .7;
+    }
+
+    /* ════════════════════════════════════════════
        SECTION DIVIDER
     ════════════════════════════════════════════ */
     .section-fade {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(198,167,94,.16), transparent);
+      background: linear-gradient(90deg, transparent, rgba(48,70,37,.14), transparent);
       position: relative; z-index: 1;
     }
 
@@ -422,30 +454,70 @@
       padding: 110px 6vw 80px;
     }
 
-    /* second parallax banner INSIDE process — background-attachment:fixed */
-    #process::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23c6a75e' stroke-width='.4' opacity='.06'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23c6a75e' stroke-width='.3' opacity='.04'/%3E%3C/svg%3E");
-      background-attachment: fixed;
-      background-size: 120px 120px;
-    }
-
     .process-inner {
       position: relative; z-index: 1;
       display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
     }
 
-    .section-label { font-size: .67rem; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
-
     h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.6vw, 3rem); font-weight: 400; line-height: 1.16; color: var(--text); margin-bottom: 20px; }
     h2 em { font-style: italic; color: var(--gold); }
 
-    /* ── About container ── */
-    .about-wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+    /* ── About intro: family story ── */
+    .about-intro {
+      margin-bottom: 90px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(48,70,37,.12);
+    }
 
-    .about-intro { margin-bottom: 90px; }
+    /* Scroll-reveal initial states */
+    .about-intro .section-label,
+    .about-family-quote,
+    .about-family-body,
+    .about-family-closing {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+    }
+    .about-intro .section-label.visible,
+    .about-family-quote.visible,
+    .about-family-body.visible,
+    .about-family-closing.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .about-family-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+      font-weight: 400; font-style: italic;
+      line-height: 1.18; color: var(--text);
+      margin-bottom: 36px;
+      letter-spacing: -.01em;
+    }
+    .about-family-quote em { color: var(--gold); font-style: italic; }
+
+    .about-family-body {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.13rem; line-height: 2;
+      color: var(--dim); max-width: 680px;
+      margin-bottom: 28px;
+    }
+
+    .about-family-closing {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-style: italic;
+      letter-spacing: .03em; color: var(--text);
+      margin-bottom: 0;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .about-family-closing::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .about-family-closing em { color: var(--gold); font-style: italic; }
 
     /* ── Alternating rows ── */
     .about-row {
@@ -529,7 +601,7 @@
     }
 
     .nutrition-card {
-      border-top: 1px solid rgba(198,167,94,.25);
+      border-top: 1px solid rgba(48,70,37,.18);
       padding: 16px 0 0;
       opacity: 0;
       transform: translateY(20px);
@@ -560,7 +632,7 @@
     }
 
     .metric {
-      border-top: 1px solid rgba(198,167,94,.3);
+      border-top: 1px solid rgba(48,70,37,.18);
       padding-top: 20px;
       opacity: 0;
       transform: translateY(24px);
@@ -611,7 +683,7 @@
     }
 
     .taste-bar-track {
-      flex: 1; height: 3px; background: rgba(198,167,94,.12); position: relative;
+      flex: 1; height: 3px; background: rgba(48,70,37,.12); position: relative;
     }
 
     .taste-bar-fill {
@@ -657,6 +729,10 @@
     ════════════════════════════════════════════ */
     #contact { position: relative; z-index: 1; background: var(--bg); padding: 100px 6vw; }
 
+    #contact .section-label { color: var(--gold); }
+    #contact h2 { color: #f0ede4; }
+    #contact h2 em { color: var(--gold); }
+
     #contact .section-label,
     #contact h2,
     .contact-intro {
@@ -675,7 +751,7 @@
     .contact-intro {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 1rem;
-      color: var(--mid);
+      color: rgba(240,237,228,.65);
       margin-top: 12px;
       margin-bottom: 28px;
     }
@@ -699,7 +775,7 @@
     .contact-divider-line {
       height: 1px;
       margin: 50px auto;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      background: linear-gradient(90deg, transparent, rgba(240,237,228,.3), transparent);
       opacity: 0;
       width: 0;
       transition: opacity .8s ease, width .8s ease;
@@ -714,18 +790,19 @@
       width: auto;
       min-width: 220px;
       justify-content: flex-start;
-      background: transparent; padding: 18px 22px; text-align: left;
+      background: rgba(255,255,255,.08); padding: 18px 22px; text-align: left;
       text-decoration: none; display: flex; align-items: center; gap: 18px;
       transition: background .25s, opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1);
-      border: 1px solid rgba(198,167,94,.08);
+      border: 1px solid rgba(240,237,228,.22);
+      border-radius: 2px;
       opacity: 0;
       transform: translateY(20px);
     }
-    .contact-card:hover { background: var(--surface2); }
+    .contact-card:hover { background: rgba(255,255,255,.14); border-color: rgba(240,237,228,.4); }
 
     .contact-card svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--gold); }
-    .contact-card h4 { font-family: 'Playfair Display', serif; font-size: .95rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-    .contact-card p  { font-family: 'EB Garamond', Georgia, serif; font-size: .95rem; font-weight: 400; color: var(--mid); line-height: 1.5; }
+    .contact-card h4 { font-family: 'Playfair Display', serif; font-size: .95rem; font-weight: 600; color: #f0ede4; margin-bottom: 3px; }
+    .contact-card p  { font-family: 'EB Garamond', Georgia, serif; font-size: .95rem; font-weight: 400; color: rgba(240,237,228,.7); line-height: 1.5; }
 
     /* Contact form */
     .contact-form-wrap {
@@ -745,13 +822,20 @@
 
     .contact-form-wrap input,
     .contact-form-wrap textarea {
-      background: var(--bg); border: 1px solid var(--border);
-      color: var(--text); padding: 20px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(240,237,228,.18);
+      color: #f0ede4;
+      padding: 20px;
       font-family: 'Noto Sans', sans-serif; font-size: .95rem;
       border-radius: 2px;
       opacity: 0;
       transform: translateX(-40px);
       transition: opacity .6s ease, transform .6s cubic-bezier(.25,.46,.45,.94), border-color .25s;
+    }
+
+    .contact-form-wrap input::placeholder,
+    .contact-form-wrap textarea::placeholder {
+      color: rgba(240,237,228,.4);
     }
 
     .contact-form-wrap input.visible,
@@ -771,7 +855,7 @@
       background: var(--gold); border: none; padding: 16px;
       cursor: pointer; font-family: 'Noto Sans', sans-serif;
       font-size: .72rem; font-weight: 500; letter-spacing: .18em;
-      text-transform: uppercase; color: #111;
+      text-transform: uppercase; color: #f0ede4;
       border-radius: 2px;
       opacity: 0;
       transform: translateX(-40px);
@@ -783,7 +867,7 @@
       transform: translateX(0);
     }
 
-    .contact-form-wrap button:hover { background: var(--gold-lt); }
+    .contact-form-wrap button:hover { background: var(--olive); }
 
 
 
@@ -797,6 +881,7 @@
     }
 
     .footer-main {
+      position: relative; z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -829,7 +914,7 @@
     .footer-social a {
       display: flex; align-items: center; justify-content: center;
       width: 34px; height: 34px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(48,70,37,.28);
       color: var(--dim);
       border-radius: 2px;
       transition: border-color .2s, color .2s;
@@ -838,6 +923,7 @@
     .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
 
     .footer-bottom {
+      position: relative; z-index: 1;
       border-top: 1px solid var(--border);
       padding: 18px 6vw;
       display: flex; align-items: center; justify-content: space-between;
@@ -967,6 +1053,8 @@
   <div class="plx-bg" data-plx="-0.15"></div>
   <!-- Layer 1: ring — moves at medium speed via JS -->
   <div class="plx-ring" data-plx="-0.3"></div>
+  <!-- Global texture -->
+  <div class="texture-layer"></div>
 
   <!-- Layer 2: content at normal scroll speed -->
   <div class="hero-content">
@@ -985,7 +1073,7 @@
     <!-- Layer 3: bottle — moves fastest (rises most) via JS -->
     <div class="hero-visual">
       <div class="bottle-wrap">
-        <img id="bottleImg" class="bottle-img" src="Product_Photo_NoBackGround.png"
+        <img id="bottleImg" class="bottle-img" src="Two_Product_Photo_NoBackGround.png"
              alt="Drosia Drops — Εξαιρετικό Παρθένο Ελαιόλαδο 500ml" draggable="false"
              data-plx="-0.5"/>
       </div>
@@ -995,6 +1083,7 @@
 
 <!-- ════ PARALLAX QUOTE BANNER (CSS background-attachment:fixed) ════ -->
 <div class="parallax-banner">
+  <div class="texture-layer"></div>
   <div class="parallax-banner-inner">
 
     <!-- 1. Quote -->
@@ -1010,7 +1099,7 @@
         <img src="AwardWin.jpeg" alt="FoodExpo Gold Award — Drosia Drops"/>
       </div>
       <!-- 3. Caption -->
-      <p class="award-caption">Αξιολογήθηκε από διεθνές Panel γευσιγνωσίας και απέσπασε το <em>Χρυσό Βραβείο</em>.</p>
+      <p class="award-caption"><em>Χρυσό Βραβείο · KOTINOS 2026</em><br>Διεθνής Διαγωνισμός Εξαιρετικού Παρθένου Ελαιολάδου</p>
     </div>
 
   </div>
@@ -1018,12 +1107,15 @@
 
 <!-- ══════════ PROCESS / ABOUT ══════════ -->
 <section id="process">
+  <div class="texture-layer"></div>
   <div class="about-wrap">
 
     <!-- Section header -->
     <div class="about-intro">
       <div class="section-label">Σχετικά με Εμάς</div>
-      <h2>Αγνή Προέλευση.<br><em>Επιστημονική</em> Αξία.</h2>
+      <h2 class="about-family-quote">«Ξέρουμε ακριβώς από πού βγαίνει κάθε σταγόνα. <em>Κι εσύ.</em>»</h2>
+      <p class="about-family-body">Τρεις γενιές της οικογένειάς μας καλλιεργούν τους ελαιώνες Κορωνέικης στη Δροσιά Μεσσηνίας. Οι τρεις από τους πέντε είμαστε γεωπόνοι — όχι τυχαία, αλλά γιατί πιστεύουμε ότι η ποιότητα ξεκινά από το χώμα, πολύ πριν φτάσει στο μπουκάλι. Το όραμά μας είναι απλό: το λάδι μας να φτάνει απευθείας σε αυτόν που μας επιλέγει — αναλλοίωτο, αδιάσπαστο, με πλήρη διαφάνεια. Γιατί μόνο έτσι έχει νόημα να μιλάμε για ποιότητα και φρεσκάδα.</p>
+      <p class="about-family-closing">Ένα κτήμα. Μια ποικιλία. <em>Μια οικογένεια.</em></p>
     </div>
 
     <!-- ROW 1: Μεσσηνιακή Γη — text left, olive tree image right -->
@@ -1150,7 +1242,7 @@
         </div>
       </div>
       <div class="about-img">
-        <img src="OliveTreeInPot.jpeg" alt="Drosia Drops — Ελαιόδεντρο"/>
+        <img src="Oil_Drop.jpeg" alt="Drosia Drops — Ελαιόδεντρο"/>
       </div>
     </div>
 
@@ -1161,6 +1253,7 @@
 
 <!-- ══════════ CONTACT ══════════ -->
 <section id="contact">
+  <div class="texture-layer"></div>
   <div class="section-label">Επικοινωνήστε μαζί μας</div>
   <h2>Είμαστε στη <em>Διάθεσή σας</em></h2>
   <p class="contact-intro">Επικοινωνήστε μαζί μας για συνεργασίες, πληροφορίες ή παραγγελίες.</p>
@@ -1175,14 +1268,14 @@
         <p>+30 6972 811 357<br>+30 697 679 2851<br>+30 6946 416 442</p>
       </div>
     </a>
-    <a class="contact-card" href="mailto:contact@drosiadrops.com">
+    <a class="contact-card" href="/cdn-cgi/l/email-protection#0a6965647e6b697e4a6e786579636b6e78657a7924696567">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
         <polyline points="22,6 12,13 2,6"/>
       </svg>
       <div>
         <h4>Email</h4>
-        <p>contact@drosiadrops.com</p>
+        <p><span class="__cf_email__" data-cfemail="4d2e2223392c2e390d293f223e242c293f223d3e632e2220">[email&#160;protected]</span></p>
       </div>
     </a>
     <a class="contact-card" href="https://instagram.com/drosia_drops" target="_blank">
@@ -1219,6 +1312,7 @@
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
+  <div class="texture-layer"></div>
   <div class="footer-main">
     <span class="footer-brand">Drosia Drops</span>
     <span class="footer-tagline">Premium εξαιρετικό παρθένο ελαιόλαδο από τους ελαιώνες της Δροσιάς, Μεσσηνία.</span>
@@ -1230,7 +1324,7 @@
           <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
         </svg>
       </a>
-      <a href="mailto:contact@drosiadrops.com" aria-label="Email">
+      <a href="/cdn-cgi/l/email-protection#63000c0d170200172307110c100a0207110c13104d000c0e" aria-label="Email">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
           <polyline points="22,6 12,13 2,6"/>
@@ -1244,7 +1338,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 $(function () {
 
   /* ── Award banner entrance ── */
@@ -1289,6 +1383,22 @@ $(function () {
   }
   $(window).on('scroll', revealAboutRows);
   revealAboutRows();
+
+  /* ── Scroll reveal: about intro (staggered) ── */
+  var aboutIntroRevealed = false;
+  function revealAboutIntro() {
+    if (aboutIntroRevealed) return;
+    var $intro = $('.about-intro');
+    if ($intro.length && $intro[0].getBoundingClientRect().top < window.innerHeight - 60) {
+      aboutIntroRevealed = true;
+      setTimeout(function() { $intro.find('.section-label').addClass('visible'); }, 0);
+      setTimeout(function() { $intro.find('.about-family-quote').addClass('visible'); }, 140);
+      setTimeout(function() { $intro.find('.about-family-body').addClass('visible'); }, 320);
+      setTimeout(function() { $intro.find('.about-family-closing').addClass('visible'); }, 520);
+    }
+  }
+  $(window).on('scroll', revealAboutIntro);
+  revealAboutIntro();
 
   /* ── Nutrition cards: sequential reveal ── */
   var nutritionRevealed = false;
@@ -1424,14 +1534,7 @@ $(function () {
     });
   }
 
-  /* Use rAF for butter-smooth 60fps */
-  var ticking = false;
-  $(window).on('scroll', function () {
-    if (!ticking) {
-      requestAnimationFrame(function () { doParallax(); ticking = false; });
-      ticking = true;
-    }
-  });
+  $(window).on('scroll', doParallax);
   doParallax();
 
 });
