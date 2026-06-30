@@ -3327,8 +3327,8 @@ section.hero {
   inset: 0;
   background-attachment: fixed;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(232, 89, 12, 0.12) 0%, transparent 60%),
-    linear-gradient(135deg, rgba(18, 22, 26, 0.9) 0%, rgba(18, 22, 26, 0.8) 100%);
+    radial-gradient(ellipse at 20% 50%, rgba(232, 89, 12, 0.15) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(18, 22, 26, 0.65) 0%, rgba(18, 22, 26, 0.50) 100%);
   z-index: 1;
 }
 
@@ -3672,3 +3672,67 @@ section.hero {
   }
 }
 
+
+/* ============================================================
+   MOBILE HERO STATS FIX
+   ============================================================ */
+
+@media (max-width: 480px) {
+  /* ---- BUTTONS: horizontal side‑by‑side ---- */
+  .hero-cta {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .hero-cta .btn {
+    width: auto;           /* remove full‑width stacking */
+    flex: 0 1 auto;        /* shrink naturally, stay inline */
+    padding: 12px 18px;    /* comfortable tap targets */
+    font-size: 13px;       /* fit shorter screens */
+    white-space: nowrap;   /* text stays on one line */
+    min-height: 48px;      /* touch‑friendly */
+  }
+
+  /* ---- STATS GRID (already good, kept for context) ---- */
+  .hero-stats .wrap {
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+    gap: 0;
+  }
+
+  .hero-stats .st {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 8px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    min-height: 64px;
+  }
+
+  .hero-stats .st:nth-child(odd) {
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .hero-stats .st:nth-last-child(-n+2) {
+    border-bottom: 0;
+  }
+
+  .hero-stats .st i {
+    font-size: 20px;
+    flex: 0 0 auto;
+  }
+
+  .hero-stats .st .tt {
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .hero-stats .st .tt b {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 1px;
+  }
+}
