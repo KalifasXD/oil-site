@@ -791,57 +791,113 @@ section {
     padding: 6px
 }
 
-/* "Κατηγορίες" trigger */
+/* ============================================================
+   "Κατηγορίες" TRIGGER — Silky Smooth
+   All transitions unified for buttery fluid motion
+   ============================================================ */
+
 .cat-trigger {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     height: 46px;
     padding: 0 20px 0 16px;
-    background: rgba(255, 255, 255, .08);
+
+    background: rgba(255, 255, 255, 0.08);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, .16);
-    border-radius: var(--r-chip);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     border-left: 3px solid var(--orange);
+    border-radius: var(--r-chip);
+
     font-family: var(--font);
     font-size: 14px;
     font-weight: 700;
-    letter-spacing: -.01em;
+    letter-spacing: -0.01em;
     cursor: pointer;
-    transition: var(--t);
     flex: 0 0 auto;
+
+    /* ——— ONE RULE TO RULE THEM ALL ——— */
+    transition:
+        background 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        border-color 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        border-left-color 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        border-left-width 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
     -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px)
+    backdrop-filter: blur(8px);
 }
-.cat-trigger:hover {
-    background: rgba(255, 255, 255, .14);
-    border-color: rgba(255, 255, 255, .28);
-    border-left-color: var(--orange)
-}
-.cat-trigger[aria-expanded="true"] {
-    background: var(--orange);
-    border-color: var(--orange);
-    border-left-color: var(--orange-dk);
-    box-shadow: 0 0 0 1px var(--orange)
-}
-.cat-trigger .ti-grid-dots,
+
+/* ——— ICONS ——— */
 .cat-trigger .grid-i {
     font-size: 20px;
-    color: var(--orange)
-}
-.cat-trigger:hover .grid-i {
-    color: #fff
-}
-.cat-trigger[aria-expanded="true"] .grid-i {
-    color: #fff
+    color: var(--orange);
+    /* Match the button's timing */
+    transition:
+        transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        color 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .cat-trigger .chev {
     font-size: 16px;
-    transition: transform var(--t);
-    opacity: .9
+    opacity: 0.8;
+    /* Same consistent timing */
+    transition:
+        transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        color 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.cat-trigger span {
+    display: inline-block;
+    transition: color 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ——— HOVER ——— */
+.cat-trigger:hover {
+    transform: translateY(-1px) scale(1.005);
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.22);
+    border-left: 4px solid var(--orange);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.cat-trigger:hover .grid-i {
+    transform: rotate(45deg) scale(1.02);
+    color: var(--orange);
+}
+.cat-trigger:hover .chev {
+    transform: rotate(6deg);
+    color: var(--orange);
+}
+.cat-trigger:hover span {
+    color: #fff;
+}
+
+/* ——— ACTIVE ——— */
+.cat-trigger[aria-expanded="true"] {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.20);
+    border-left: 4px solid var(--orange);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.30);
+}
+
+.cat-trigger[aria-expanded="true"] .grid-i {
+    transform: rotate(45deg);
+    color: var(--orange);
 }
 .cat-trigger[aria-expanded="true"] .chev {
-    transform: rotate(180deg)
+    transform: rotate(180deg);
+    color: var(--orange);
+}
+.cat-trigger[aria-expanded="true"] span {
+    color: #fff;
+}
+
+/* ——— ACTIVE + HOVER ——— */
+.cat-trigger[aria-expanded="true"]:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.10);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
 }
 
 /* ============================================================
