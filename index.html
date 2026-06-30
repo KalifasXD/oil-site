@@ -1,1545 +1,504 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <title>Drosia Drops — Φυσικό Έλαιο Premium</title>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; overflow-x: hidden; }
-
-    :root {
-      --bg:       #9b9781;
-      --bg2:      #f0ede4f2;
-      --surface:  #f0ede4f2;
-      --surface2: #f0ede4f2;
-      --border:   rgba(198, 167, 94, .13);
-      --gold:     #304625;
-      --gold-lt:  #4a4639;
-      --olive:    #3f5d3a;
-      --text:     #252116f2;
-      --mid:      #9b9781;
-      --dim:      #6e6e66;
-    }
-
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Noto Sans', sans-serif; background: var(--bg); color: var(--text); }
-
-    /* ════════ NAV ════════ */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 6vw;
-      background: #f0ede4f2;
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-      transition: box-shadow .35s;
-    }
-    nav.scrolled { box-shadow: 0 4px 40px rgba(0,0,0,.7); }
-
-    .logo { display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-    .logo img { height: 42px; width: auto; display: block; }
-
-    .logo-text {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.3rem;
-      letter-spacing: .06em;
-      color: var(--gold);
-      text-decoration: none;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      padding-top: 6px; /* compensates for Great Vibes descender optical offset */
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border: 1px solid rgba(48,70,37,.28);
-      color: var(--gold);
-      font-family: 'Noto Sans', sans-serif;
-      font-size: .72rem;
-      font-weight: 500;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      background: transparent;
-      white-space: nowrap;
-      transition: background .25s, border-color .25s;
-    }
-
-    .nav-btn:hover {
-      background: rgba(48,70,37,.07);
-      border-color: var(--gold);
-    }
-
-    .nav-btn svg {
-      flex-shrink: 0;
-    }
-
-    /* ── Layer 0: deep background radial glow (moves slowest) ── */
-    .plx-bg {
-      position: absolute;
-      inset: -30% 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 70% 90% at 70% 45%, rgba(198,167,94,.13) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 60% at 15% 80%, rgba(63,93,58,.12) 0%, transparent 55%);
-      will-change: transform;
-      animation: glowPulse 9s ease-in-out infinite;
-    }
-
-    /* ── Layer 1: floating abstract ring / circle (moves medium) ── */
-    .plx-ring {
-      position: absolute;
-      width: 600px; height: 600px;
-      top: -60px; right: -100px;
-      border-radius: 50%;
-      border: 1px solid rgba(198,167,94,.12);
-      z-index: 0; pointer-events: none;
-      will-change: transform;
-      animation: orbDrift 26s ease-in-out infinite;
-    }
-    .plx-ring::after {
-      content: '';
-      position: absolute;
-      inset: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(198,167,94,.07);
-    }
-
-    /* ── Layer 2: foreground content grid (moves at full scroll speed = normal) ── */
-    .hero-content {
-      position: relative; z-index: 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 40px;
-      padding: 130px 6vw 100px;
-      min-height: 100vh;
-    }
-
-    /* vignette overlay */
-    #hero::after {
-      content: '';
-      position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: radial-gradient(ellipse 110% 110% at 50% 50%, transparent 45%, rgba(0,0,0,.6) 100%);
-    }
-
-    /* ── Text column ── */
-    .hero-text { position: relative; }
-
-    .hero-eyebrow {
-      display: inline-block; font-size: .68rem; font-weight: 500;
-      letter-spacing: .26em; text-transform: uppercase;
-      color: var(--gold); border-left: 2px solid var(--gold); padding-left: 12px;
-      margin-bottom: 28px;
-      opacity: 0; transform: translateY(16px);
-      animation: fadeUp .7s .1s forwards;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.2vw, 3.2rem); font-weight: 400; line-height: 1.13;
-      color: var(--text); margin-bottom: 24px;
-      opacity: 0; transform: translateY(22px);
-      animation: fadeUp .75s .25s forwards;
-    }
-    h1 em { font-style: italic; color: var(--gold); }
-
-    .hero-sub {
-      font-size: .94rem; font-weight: 300; color: var(--mid); line-height: 1.9;
-      max-width: 420px; margin-bottom: 40px;
-      opacity: 0; transform: translateY(22px);
-      animation: fadeUp .75s .42s forwards;
-    }
-
-    .hero-subheadline {
-      font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
-      opacity: 0; transform: translateY(22px);
-      animation: fadeUp .75s .35s forwards;
-    }
-
-    .hero-ctas {
-      display: flex; gap: 12px; flex-wrap: wrap;
-      opacity: 0; transform: translateY(22px);
-      animation: fadeUp .75s .58s forwards;
-    }
-
-    .btn-primary {
-      display: inline-block; background: var(--gold); color: #f0ede4;
-      font-family: 'Noto Sans', sans-serif; font-size: .72rem; font-weight: 500;
-      letter-spacing: .16em; text-transform: uppercase;
-      padding: 14px 30px; border: none; border-radius: 2px;
-      cursor: pointer; text-decoration: none;
-      transition: background .25s, transform .2s, box-shadow .25s;
-    }
-    .btn-primary:hover { background: var(--olive); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(48,70,37,.35); }
-
-    .btn-outline {
-      display: inline-block; background: transparent; color: rgba(240,237,228,.82);
-      font-family: 'Noto Sans', sans-serif; font-size: .72rem; font-weight: 400;
-      letter-spacing: .16em; text-transform: uppercase;
-      padding: 14px 30px; border: 1px solid rgba(240,237,228,.28); border-radius: 2px;
-      cursor: pointer; text-decoration: none;
-      transition: border-color .25s, color .25s, background .25s, transform .2s;
-    }
-    .btn-outline:hover { border-color: rgba(240,237,228,.7); color: #f0ede4; background: rgba(240,237,228,.07); transform: translateY(-2px); }
-
-    .deco-line { width: 50px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-top: 42px; }
-    .health-claim-badge-wrap {
-      display: flex; align-items: center; gap: 16px;
-      margin: 20px 0 32px;
-      padding: 14px 20px;
-      border: 1px solid rgba(48,70,37,.18);
-      background: rgba(48,70,37,.04);
-      border-radius: 2px;
-      flex-wrap: wrap;
-    }
-    .health-claim-badge {
-      font-family: 'Noto Sans', sans-serif;
-      font-size: .62rem; font-weight: 500;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid var(--gold);
-      padding: 5px 12px;
-      white-space: nowrap;
-      border-radius: 1px;
-    }
-    .health-claim-text {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: .95rem; color: var(--mid); line-height: 1.6;
-    }
-
-    /* ── Taste bar description lines ── */
-    .taste-bar-desc-line {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: .85rem; font-style: italic;
-      color: var(--dim); margin: -14px 0 20px 0;
-      padding-left: 2px;
-    }
-
-    /* ── About img object-fit for new images ── */
-    .about-img img { object-fit: cover; height: 460px; }
-    .about-row.reverse .about-img img { height: 400px; max-width: 560px; }
-    #taste-row .about-img img { height: 500px; object-position: center top; }
-
-    .deco-line { width: 50px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-top: 42px; }
-
-    /* ── Bottle column — the bottle itself is a parallax layer ── */
-    .hero-visual {
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; animation: fadeIn 1s .45s forwards;
-    }
-
-    .bottle-wrap {
-      position: relative;
-      display: inline-flex; flex-direction: column; align-items: center;
-      padding-bottom: 52px;
-    }
-
-    /* glow halo behind bottle */
-    .bottle-wrap::before {
-      content: '';
-      position: absolute; top: 40%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 340px; height: 500px;
-      background:
-        radial-gradient(ellipse 65% 75% at 50% 42%, rgba(198,167,94,.15) 0%, transparent 62%),
-        radial-gradient(ellipse 38% 50% at 50% 78%, rgba(63,93,58,.1) 0%, transparent 55%);
-      border-radius: 50%; pointer-events: none; z-index: 0;
-    }
-
-    /* ground shadow */
-    .bottle-wrap::after {
-      content: ''; position: absolute; bottom: 44px; left: 50%;
-      transform: translateX(-50%);
-      width: 160px; height: 28px;
-      background: radial-gradient(ellipse, rgba(0,0,0,.55) 0%, transparent 72%);
-      border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(7px);
-    }
-
-    /* The bottle image is the main parallax actor — JS moves this */
-    .bottle-img {
-      position: relative; z-index: 1;
-      max-height: 500px; max-width: 100%; width: auto;
-      display: block; object-fit: contain;
-      will-change: transform;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,.7)) drop-shadow(0 28px 52px rgba(0,0,0,.5));
-    }
-
-    /* ════════════════════════════════════════════
-       PARALLAX BANNER — between hero and process
-    ════════════════════════════════════════════ */
-
-    /* ── Quote block ── */
-    .parallax-banner-inner {
-      text-align: center;
-      padding: 80px 6vw 90px;
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
-      width: 100%;
-    }
-
-    .parallax-banner-quote {
-      font-size: 3rem; color: var(--gold); opacity: 0;
-      font-family: 'Playfair Display', serif;
-      display: block; line-height: 1; margin-bottom: 4px;
-      transform: translateY(14px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .parallax-banner-quote.visible { opacity: .25; transform: none; }
-
-    .parallax-banner-inner > p {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.2rem, 2.4vw, 1.9rem); font-weight: 400; font-style: italic;
-      color: var(--text); line-height: 1.6; max-width: 680px;
-      margin-bottom: 0;
-      opacity: 0; transform: translateY(16px);
-      transition: opacity .75s ease .12s, transform .75s ease .12s;
-    }
-    .parallax-banner-inner > p.visible { opacity: 1; transform: none; }
-    .parallax-banner-inner > p em { color: var(--gold); font-style: normal; }
-
-    /* ── Divider between quote and award ── */
-    .award-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(48,70,37,.25), transparent);
-      margin: 28px auto 28px;
-      width: 0; opacity: 0;
-      transition: width .8s ease .1s, opacity .8s ease .1s;
-    }
-    .award-divider.visible { width: 60px; opacity: 1; }
-
-    /* ── Award block ── */
-    .award-img-wrap {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 0; width: 100%;
-    }
-
-    /* Glow stage — positions the soft radial light behind the image */
-    .award-glow-stage {
-      position: relative;
-      display: inline-flex; align-items: center; justify-content: center;
-      margin-bottom: 16px;
-      opacity: 0; transform: scale(.92);
-      transition: opacity .9s cubic-bezier(.34,1.2,.64,1) .1s, transform .9s cubic-bezier(.34,1.2,.64,1) .1s;
-    }
-    .award-glow-stage.visible { opacity: 1; transform: scale(1); }
-
-    .award-glow-stage::before {
-      content: '';
-      position: absolute;
-      width: 130%; height: 130%;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center,
-        rgba(48,70,37,.06) 0%,
-        transparent 70%);
-      pointer-events: none; z-index: 0;
-    }
-    .award-glow-stage img {
-      position: relative; z-index: 1;
-      width: min(600px, 90vw); height: auto;
-      border-radius: 4px;
-      box-shadow:
-        0 2px 12px rgba(0,0,0,.08),
-        0 0 0 1px rgba(48,70,37,.08),
-        0 8px 32px rgba(0,0,0,.10);
-    }
-
-    /* ── Award caption ── */
-    .award-caption {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: clamp(1rem, 1.8vw, 1.18rem); font-style: italic;
-      color: var(--dim); letter-spacing: .03em;
-      max-width: 500px; text-align: center; line-height: 1.8;
-      opacity: 0; transform: translateY(12px);
-      transition: opacity .65s ease .2s, transform .65s ease .2s;
-      margin-top: -12px;
-    }
-    .award-caption.visible { opacity: 1; transform: none; }
-    .award-caption em { color: var(--gold); font-style: normal; font-weight: 600; letter-spacing: .04em; }
-
-    /* ── Mobile ── */
-    @media (max-width: 600px) {
-      .parallax-banner-inner { padding: 60px 5vw 70px; }
-      .award-divider { margin: 36px auto 40px; }
-      .award-glow-stage img { width: min(340px, 92vw); }
-      .award-caption { font-size: 1rem; }
-    }
-
-    /* ════════════════════════════════════════════
-       DIAGONAL SECTION TRANSITIONS
-       Each section clips its bottom edge at an angle.
-       Alternating direction creates a flowing, 
-       mediterranean hillside rhythm down the page.
-       z-index layering ensures each section slides
-       under the previous one's clipped edge.
-    ════════════════════════════════════════════ */
-
-    /* Hero (olive) → clips bottom-left to bottom-right ↘
-       next section (cream) slides underneath             */
-    #hero {
-      position: relative;
-      z-index: 5;
-      min-height: 100vh;
-      overflow: clip;
-      background: var(--bg);
-      padding-bottom: 80px;
-      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%);
-      margin-bottom: -60px;
-    }
-
-    /* Parallax banner (cream) → clips ↗ (opposite direction) */
-    .parallax-banner {
-      position: relative; z-index: 4;
-      background:
-        linear-gradient(#f0ede4f2, #f0ede4f2),
-        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle fill='%23c6a75e' cx='40' cy='40' r='1.5' opacity='.18'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='10' r='1' opacity='.12'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='10' r='1' opacity='.1'/%3E%3Ccircle fill='%233f5d3a' cx='10' cy='70' r='1' opacity='.1'/%3E%3Ccircle fill='%23c6a75e' cx='70' cy='70' r='1' opacity='.12'/%3E%3C/g%3E%3C/svg%3E");
-      background-attachment: fixed;
-      background-size: auto, 80px 80px;
-      display: flex; align-items: center; justify-content: center;
-      overflow: visible;
-      padding-top: 80px;
-      padding-bottom: 80px;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 60px));
-      margin-bottom: -60px;
-    }
-
-    /* Process/About (cream) → clips ↘ */
-    #process {
-      position: relative; z-index: 3;
-      background: var(--bg2);
-      padding: 110px 6vw 140px;
-      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%);
-      margin-bottom: -60px;
-    }
-
-    /* Contact (olive) → clips ↗ */
-    #contact {
-      position: relative; z-index: 2;
-      background: var(--bg);
-      padding: 120px 6vw 140px;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 60px));
-      margin-bottom: -60px;
-    }
-
-    /* Footer (cream) — no clip needed, it's the last section */
-    footer {
-      position: relative; z-index: 1;
-      background: var(--bg2);
-      border-top: none;
-      padding-top: 80px;
-    }
-    .section-label {
-      font-size: .67rem; font-weight: 500; letter-spacing: .26em;
-      text-transform: uppercase; color: var(--gold);
-      margin-bottom: 14px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .section-label::before {
-      content: '';
-      display: inline-block;
-      width: 24px; height: 1px;
-      background: var(--gold);
-      flex-shrink: 0;
-      opacity: .7;
-    }
-
-    /* ════════════════════════════════════════════
-       PROCESS / ABOUT
-    ════════════════════════════════════════════ */
-
-    .process-inner {
-      position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-    }
-
-    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.6vw, 3rem); font-weight: 400; line-height: 1.16; color: var(--text); margin-bottom: 20px; }
-    h2 em { font-style: italic; color: var(--gold); }
-
-    /* ── About intro: family story ── */
-    .about-intro {
-      margin-bottom: 90px;
-      padding-bottom: 60px;
-      border-bottom: 1px solid rgba(48,70,37,.12);
-    }
-
-    /* Scroll-reveal initial states */
-    .about-intro .section-label,
-    .about-family-quote,
-    .about-family-body,
-    .about-family-closing {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
-    }
-    .about-intro .section-label.visible,
-    .about-family-quote.visible,
-    .about-family-body.visible,
-    .about-family-closing.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .about-family-quote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
-      font-weight: 400; font-style: italic;
-      line-height: 1.18; color: var(--text);
-      margin-bottom: 36px;
-      letter-spacing: -.01em;
-    }
-    .about-family-quote em { color: var(--gold); font-style: italic; }
-
-    .about-family-body {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1.13rem; line-height: 2;
-      color: var(--dim); max-width: 680px;
-      margin-bottom: 28px;
-    }
-
-    .about-family-closing {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; font-style: italic;
-      letter-spacing: .03em; color: var(--text);
-      margin-bottom: 0;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .about-family-closing::before {
-      content: '';
-      display: inline-block;
-      width: 32px; height: 1px;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
-    .about-family-closing em { color: var(--gold); font-style: italic; }
-
-    /* ── Alternating rows ── */
-    .about-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      margin-bottom: 120px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity .85s ease, transform .85s ease;
-    }
-
-    .about-row.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .about-row.reverse .about-img { order: -1; }
-
-    /* ── Text side ── */
-    .about-text {}
-
-    .about-eyebrow {
-      font-size: .63rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase;
-      color: var(--gold); display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
-    }
-
-    .about-eyebrow::before {
-      content: ''; display: block; width: 28px; height: 1px;
-      background: var(--gold); flex-shrink: 0;
-    }
-
-    .about-text h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-      font-weight: 400;
-      line-height: 1.18;
-      color: var(--text);
-      margin-bottom: 20px;
-    }
-
-    .about-text h3 em { font-style: italic; color: var(--gold); }
-
-    .about-text p {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1.1rem;
-      line-height: 1.85;
-      color: var(--mid);
-      margin-bottom: 14px;
-    }
-
-    /* ── Image side ── */
-    .about-img {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity .85s ease .2s, transform .85s ease .2s;
-    }
-
-    .about-row.visible .about-img {
-      opacity: 1;
-      transform: none;
-    }
-
-    .about-img img {
-      width: 100%;
-      max-width: 480px;
-      border-radius: 2px;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Variety row (reverse) — nutrition label image should be visually dominant */
-    .about-row.reverse .about-img img {
-      max-width: 640px;
-    }
-
-    /* ── Nutrition grid ── */
-    .nutrition-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px;
-    }
-
-    .nutrition-card {
-      border-top: 1px solid rgba(48,70,37,.18);
-      padding: 16px 0 0;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-
-    .nutrition-card.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .nutrition-card h5 {
-      font-family: 'Playfair Display', serif; font-size: .9rem; font-weight: 600;
-      color: var(--gold); margin-bottom: 6px;
-    }
-
-    .nutrition-card p {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: .95rem; color: var(--mid); line-height: 1.6; max-width: none;
-    }
-
-    /* ── Scientific metrics ── */
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-      margin-top: 40px;
-    }
-
-    .metric {
-      border-top: 1px solid rgba(48,70,37,.18);
-      padding-top: 20px;
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-
-    .metric.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .metric-number {
-      font-family: 'Great Vibes', serif;
-      font-size: 2.6rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      font-variant-numeric: tabular-nums;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .metric-unit {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--gold-lt);
-    }
-
-    .metric-label {
-      font-size: .7rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--text); margin-bottom: 10px;
-    }
-
-    .metric-desc {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: .95rem; color: var(--mid); line-height: 1.6;
-    }
-
-    /* ── Taste bars ── */
-    .taste-bars { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
-
-    .taste-bar-row { display: flex; align-items: center; gap: 16px; }
-
-    .taste-bar-label {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1rem; color: var(--text); width: 110px; flex-shrink: 0;
-    }
-
-    .taste-bar-track {
-      flex: 1; height: 3px; background: rgba(48,70,37,.12); position: relative;
-    }
-
-    .taste-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
-      width: 0;
-      transition: width 2.2s cubic-bezier(.4,0,.2,1);
-    }
-
-    .taste-bar-val {
-      font-family: 'Great Vibes', cursive; font-size: 1.6rem; font-weight: 400;
-      color: var(--gold); width: 44px; text-align: right; flex-shrink: 0;
-    }
-
-    /* ── Two bottles visual ── */
-    .about-bottles {
-      text-align: center; margin-top: 20px;
-      opacity: 0; transform: translateY(40px);
-      transition: opacity .85s ease, transform .85s ease;
-    }
-
-    .about-bottles.visible { opacity: 1; transform: none; }
-
-    .about-bottles img {
-      width: 100%; max-width: 580px;
-      border-radius: 2px;
-      object-fit: cover;
-      display: block; margin: 0 auto;
-    }
-
-    .about-bottles-caption {
-      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--dim); margin-top: 16px;
-    }
-
-    /* old classes kept for safety */
-    .process-full { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
-    .process-block { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s ease; }
-    .process-block.visible { opacity: 1; transform: none; }
-
-    /* ════════════════════════════════════════════
-       CONTACT
-    ════════════════════════════════════════════ */
-
-    #contact .section-label { color: var(--gold); }
-    #contact h2 { color: #f0ede4; }
-    #contact h2 em { color: var(--gold); }
-
-    #contact .section-label,
-    #contact h2,
-    .contact-intro {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1);
-    }
-
-    #contact .section-label.visible,
-    #contact h2.visible,
-    .contact-intro.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .contact-intro {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1rem;
-      color: rgba(240,237,228,.65);
-      margin-top: 12px;
-      margin-bottom: 28px;
-    }
-
-    .contact-form-wrap input.visible,
-    .contact-form-wrap textarea.visible,
-    .contact-form-wrap button.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .contact-methods {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-      margin-bottom: 60px;
-    }
-
-    .contact-divider-line {
-      height: 1px;
-      margin: 50px auto;
-      background: linear-gradient(90deg, transparent, rgba(240,237,228,.3), transparent);
-      opacity: 0;
-      width: 0;
-      transition: opacity .8s ease, width .8s ease;
-    }
-
-    .contact-divider-line.visible {
-      opacity: 1;
-      width: 120px;
-    }
-
-    .contact-card {
-      width: auto;
-      min-width: 220px;
-      justify-content: flex-start;
-      background: rgba(255,255,255,.08); padding: 18px 22px; text-align: left;
-      text-decoration: none; display: flex; align-items: center; gap: 18px;
-      transition: background .25s, opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1);
-      border: 1px solid rgba(240,237,228,.22);
-      border-radius: 2px;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    .contact-card:hover { background: rgba(255,255,255,.14); border-color: rgba(240,237,228,.4); }
-
-    .contact-card svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--gold); }
-    .contact-card h4 { font-family: 'Playfair Display', serif; font-size: .95rem; font-weight: 600; color: #f0ede4; margin-bottom: 3px; }
-    .contact-card p  { font-family: 'EB Garamond', Georgia, serif; font-size: .95rem; font-weight: 400; color: rgba(240,237,228,.7); line-height: 1.5; }
-
-    /* Contact form */
-    .contact-form-wrap {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .contact-form-wrap.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .contact-form-wrap form {
-      display: flex; flex-direction: column; gap: 24px;
-      max-width: 720px;
-    }
-
-    .contact-form-wrap input,
-    .contact-form-wrap textarea {
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(240,237,228,.18);
-      color: #f0ede4;
-      padding: 20px;
-      font-family: 'Noto Sans', sans-serif; font-size: .95rem;
-      border-radius: 2px;
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: opacity .6s ease, transform .6s cubic-bezier(.25,.46,.45,.94), border-color .25s;
-    }
-
-    .contact-form-wrap input::placeholder,
-    .contact-form-wrap textarea::placeholder {
-      color: rgba(240,237,228,.4);
-    }
-
-    .contact-form-wrap input.visible,
-    .contact-form-wrap textarea.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .contact-form-wrap input:focus,
-    .contact-form-wrap textarea:focus {
-      outline: none; border-color: var(--gold);
-    }
-
-    .contact-form-wrap textarea { min-height: 160px; resize: vertical; }
-
-    .contact-form-wrap button {
-      background: var(--gold); border: none; padding: 16px;
-      cursor: pointer; font-family: 'Noto Sans', sans-serif;
-      font-size: .72rem; font-weight: 500; letter-spacing: .18em;
-      text-transform: uppercase; color: #f0ede4;
-      border-radius: 2px;
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: opacity .6s ease, transform .6s cubic-bezier(.25,.46,.45,.94), background .25s;
-    }
-
-    .contact-form-wrap button.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .contact-form-wrap button:hover { background: var(--olive); }
-
-
-
-    /* ════════════════════════════════════════════
-       FOOTER
-    ════════════════════════════════════════════ */
-
-    .footer-main {
-      position: relative; z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 60px 6vw 50px;
-      gap: 16px;
-    }
-
-    .footer-brand {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.8rem;
-      color: var(--gold);
-      letter-spacing: .06em;
-      line-height: 1;
-      padding-top: 6px;
-    }
-
-    .footer-tagline {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 1rem; font-style: italic;
-      color: var(--mid); line-height: 1.7;
-      max-width: 380px;
-    }
-
-    .footer-social {
-      display: flex; gap: 12px; align-items: center;
-      margin-top: 8px;
-    }
-
-    .footer-social a {
-      display: flex; align-items: center; justify-content: center;
-      width: 34px; height: 34px;
-      border: 1px solid rgba(48,70,37,.28);
-      color: var(--dim);
-      border-radius: 2px;
-      transition: border-color .2s, color .2s;
-      text-decoration: none;
-    }
-    .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
-
-    .footer-bottom {
-      position: relative; z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 18px 6vw;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 8px;
-    }
-
-    .footer-copy {
-      font-family: 'Noto Sans', sans-serif;
-      font-size: .62rem; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--dim);
-    }
-
-    .footer-meta {
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: .88rem; font-style: italic;
-      color: var(--dim);
-    }
-
-    @media (max-width: 480px) {
-      .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
-    }
-
-    /* ════════════════════════════════════════════
-       ANIMATIONS
-    ════════════════════════════════════════════ */
-    @keyframes fadeUp { to { opacity: 1; transform: none; } }
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    /* ── Ambient background motion ── */
-    @keyframes orbDrift {
-      0%   { transform: translate(0, 0) scale(1); }
-      33%  { transform: translate(40px, -30px) scale(1.08); }
-      66%  { transform: translate(-25px, 20px) scale(.95); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes glowPulse {
-      0%, 100% { opacity: .13; }
-      50%       { opacity: .22; }
-    }
-
-    /* ════════════════════════════════════════════
-       RESPONSIVE ≤ 860px
-    ════════════════════════════════════════════ */
-    @media (max-width: 860px) {
-      /* Disable diagonal cuts on mobile — clip-path causes overflow/scroll issues */
-      #hero, .parallax-banner, #process, #contact {
-        clip-path: none;
-        margin-bottom: 0;
-        padding-bottom: inherit;
-      }
-      #hero { overflow: hidden; padding-bottom: 0; }
-      .parallax-banner { padding-top: 60px; padding-bottom: 60px; }
-      #process { padding: 70px 5vw 80px; }
-      #contact { padding: 70px 5vw 80px; }
-      footer { padding-top: 0; }
-
-      .hero-content { grid-template-columns: 1fr; min-height: auto; padding: 100px 5vw 60px; gap: 0; text-align: center; }
-      .hero-visual { order: -1; margin-bottom: 32px; }
-      .bottle-wrap { padding-bottom: 48px; }
-      .bottle-wrap::before { width: 260px; height: 360px; }
-      .bottle-img { max-height: 300px; }
-      .hero-sub { margin: 0 auto 36px; }
-      .hero-ctas { justify-content: center; }
-      .deco-line { margin-left: auto; margin-right: auto; }
-      .parallax-banner { background-attachment: scroll; }
-      .about-row { grid-template-columns: 1fr; gap: 40px; margin-bottom: 80px; }
-      .about-row.reverse .about-img { order: 0; }
-      .nutrition-grid { grid-template-columns: repeat(2, 1fr); }
-      .metrics { grid-template-columns: repeat(2, 1fr); }
-      .contact-methods { flex-direction: column; align-items: stretch; gap: 12px; }
-      .contact-card { width: 100%; min-width: unset; }
-      .contact-form-wrap { margin: 0 auto; }
-      .plx-ring { width: 320px; height: 320px; top: -20px; right: -60px; animation: none; }
-      .plx-bg { animation: none; }
-    }
-
-    @media (max-width: 480px) {
-      nav { padding: 14px 5vw; }
-      .logo-text { font-size: 1.7rem; }
-      .nav-btn { font-size: .62rem; padding: 7px 10px; letter-spacing: .08em; }
-      h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
-      .hero-sub { font-size: .88rem; }
-      .btn-primary, .btn-outline { font-size: .68rem; padding: 12px 22px; }
-      #process, #contact { padding: 70px 5vw; }
-      .nutrition-grid { grid-template-columns: 1fr; }
-      .metrics { grid-template-columns: 1fr 1fr; gap: 20px; }
-
-      /* ── Process orbs: hide entirely on very small screens ── */
-      .process-orb { display: none; }
-    }
-
-    /* ── Respect reduced motion preference ── */
-    @media (prefers-reduced-motion: reduce) {
-      .plx-bg, .plx-ring { animation: none !important; }
-      .contact-card,
-      #contact .section-label,
-      #contact h2,
-      .contact-intro,
-      .contact-divider-line,
-      .contact-form-wrap input,
-      .contact-form-wrap textarea,
-      .contact-form-wrap button {
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafetyMaster | Επαγγελματικός Εξοπλισμός Ασφαλείας & ΜΑΠ</title>
+<meta name="description" content="Πιστοποιημένος εξοπλισμός ατομικής προστασίας (ΜΑΠ) για επαγγελματίες. Γάντια, υποδήματα, ρούχα εργασίας, προστασία κεφαλής, αναπνοής & πτώσης. EN/CE, τιμολόγια & χονδρική.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
-<!-- ══════════ NAV ══════════ -->
-<nav id="navbar">
-  <a class="logo-text" href="#">Drosia Drops</a>
-  <div class="nav-actions">
-    <a class="nav-btn" href="https://instagram.com/drosia_drops" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-      </svg>
-    </a>
-    <a class="nav-btn" href="#contact">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-        <polyline points="22,6 12,13 2,6"/>
-      </svg>
-      Επικοινωνία
-    </a>
-  </div>
-</nav>
+<!-- ============ BLOCK: Header (utility bar + main header + category nav) ============ -->
 
-<!-- ══════════ HERO ══════════ -->
-<section id="hero">
-  <!-- Layer 0: deep bg glow — moves slowest via JS -->
-  <div class="plx-bg" data-plx="-0.15"></div>
-  <!-- Layer 1: ring — moves at medium speed via JS -->
-  <div class="plx-ring" data-plx="-0.3"></div>
-  <!-- Global texture -->
-
-  <!-- Layer 2: content at normal scroll speed -->
-  <div class="hero-content">
-    <div class="hero-text">
-      <div class="hero-eyebrow">Premium EVOO · Μονοποικιλιακό Κορωνέικη · Single Grove · Limited</div>
-      <h1>Από τους ελαιώνες της Μεσσηνίας — η αγνότητα της ελληνικής φύσης σε κάθε σταγόνα.</h1>
-      <div class="hero-subheadline">Ψυχρής έκθλιψης · πλούσιο σε πολυφαινόλες και βιταμίνες</div>
-      <p class="hero-sub">Κορωνέικη Μεσσηνίας — από τον ελαιώνα στο μπουκάλι, χωρίς συμβιβασμούς.</p>
-      <div class="hero-ctas">
-        <a class="btn-primary" href="#contact">Επικοινωνήστε μαζί μας</a>
-        <a class="btn-outline" href="#process">Μάθετε Περισσότερα</a>
-      </div>
-      <div class="deco-line"></div>
+<!-- top utility bar — NON-sticky sibling ABOVE <header> (V1 architecture).
+     It scrolls away naturally; its height is never animated. This keeps the
+     sticky <header> a CONSTANT height, which is the root fix for the scroll flicker. -->
+<div class="util">
+  <div class="wrap">
+    <div class="left">
+      <span class="mono"><i class="ti ti-clock-hour-4" style="vertical-align:-2px"></i> ΔΕΥΤ–ΠΑΡ 09:00–17:00</span>
+      <span><i class="ti ti-truck-delivery" style="vertical-align:-2px"></i> Δωρεάν αποστολή σε παραγγελίες 100€+</span>
+      <span class="hl"><i class="ti ti-discount-2" style="vertical-align:-2px"></i> Τιμολόγια & Χονδρική για επαγγελματίες</span>
     </div>
-
-    <!-- Layer 3: bottle — moves fastest (rises most) via JS -->
-    <div class="hero-visual">
-      <div class="bottle-wrap">
-        <img id="bottleImg" class="bottle-img" src="Two_Product_Photo_NoBackGround.png"
-             alt="Drosia Drops — Εξαιρετικό Παρθένο Ελαιόλαδο 500ml" draggable="false"
-             data-plx="-0.5"/>
-      </div>
+    <div class="right">
+      <a href="tel:+306978526018" class="mono"><i class="ti ti-phone" style="vertical-align:-2px"></i> +30 697 852 6018</a>
+      <a href="#"><i class="ti ti-map-pin" style="vertical-align:-2px"></i> <span>Καταστήματα</span></a>
+      <a href="#"><i class="ti ti-help-circle" style="vertical-align:-2px"></i> <span>Βοήθεια</span></a>
     </div>
-  </div>
-</section>
-
-<!-- ════ PARALLAX QUOTE BANNER (CSS background-attachment:fixed) ════ -->
-<div class="parallax-banner">
-  <div class="parallax-banner-inner">
-
-    <!-- 1. Quote -->
-    <span class="parallax-banner-quote">"</span>
-    <p>Κάθε σταγόνα φέρει τη <em>φροντίδα</em> της φύσης και την ακρίβεια της επιστήμης.</p>
-
-    <!-- Divider -->
-    <div class="award-divider"></div>
-
-    <!-- 2. Award -->
-    <div class="award-img-wrap">
-      <div class="award-glow-stage">
-        <img src="AwardWin.jpeg" alt="FoodExpo Gold Award — Drosia Drops"/>
-      </div>
-      <!-- 3. Caption -->
-      <p class="award-caption"><em>Χρυσό Βραβείο · KOTINOS 2026</em><br>Διεθνής Διαγωνισμός Εξαιρετικού Παρθένου Ελαιολάδου</p>
-    </div>
-
   </div>
 </div>
 
-<!-- ══════════ PROCESS / ABOUT ══════════ -->
-<section id="process">
-  <div class="about-wrap">
+<header class="header" id="siteHeader">
 
-    <!-- Section header -->
-    <div class="about-intro">
-      <div class="section-label">Σχετικά με Εμάς</div>
-      <h2 class="about-family-quote">«Ξέρουμε ακριβώς από πού βγαίνει κάθε σταγόνα. <em>Κι εσύ.</em>»</h2>
-      <p class="about-family-body">Τρεις γενιές της οικογένειάς μας καλλιεργούν τους ελαιώνες Κορωνέικης στη Δροσιά Μεσσηνίας. Οι τρεις από τους πέντε είμαστε γεωπόνοι — όχι τυχαία, αλλά γιατί πιστεύουμε ότι η ποιότητα ξεκινά από το χώμα, πολύ πριν φτάσει στο μπουκάλι. Το όραμά μας είναι απλό: το λάδι μας να φτάνει απευθείας σε αυτόν που μας επιλέγει — αναλλοίωτο, αδιάσπαστο, με πλήρη διαφάνεια. Γιατί μόνο έτσι έχει νόημα να μιλάμε για ποιότητα και φρεσκάδα.</p>
-      <p class="about-family-closing">Ένα κτήμα. Μια ποικιλία. <em>Μια οικογένεια.</em></p>
-    </div>
-
-    <!-- ROW 1: Μεσσηνιακή Γη — text left, olive tree image right -->
-    <div class="about-row">
-      <div class="about-text">
-        <div class="about-eyebrow">01 · Προέλευση</div>
-        <h3>Μεσσηνιακή <em>Γη</em></h3>
-        <p>Η Μεσσηνία καλλιεργεί ελιές από τον 13ο αιώνα π.Χ. — η λέξη «ελιά» εμφανίζεται ήδη στις πινακίδες Γραμμικής Β του παλατιού του Νέστορα. Ανάμεσα στην Πύλο και τη Μεσσήνη, η Δροσιά — ένα μικρό χωριό με αμέτρητους ελαιώνες — αγναντεύει τον Μεσσηνιακό κόλπο από τα 300 μέτρα υψόμετρο.</p>
-        <p>Εδώ, οι έντονες εναλλαγές θερμοκρασίας και το μεσογειακό κλίμα δημιουργούν τις ιδανικές συνθήκες για τη βασίλισσα της μεσογειακής διατροφής: την Κορωνέικη ελιά.</p>
-      </div>
-      <div class="about-img">
-        <img src="Olives.jpeg" alt="Drosia Drops — Ελαιώνες Μεσσηνίας"/>
-      </div>
-    </div>
-
-    <!-- ROW 2: Ποικιλία Κορωνέικη — olive drop image left, text right -->
-    <div class="about-row reverse">
-      <div class="about-text">
-        <div class="about-eyebrow">02 · Ποικιλία</div>
-        <h3>Ποικιλία <em>Κορωνέικη</em></h3>
-        <p>Η Κορωνέικη θεωρείται η «βασίλισσα» των ελληνικών ποικιλιών ελιάς. Παράγει ελαιόλαδο με εξαιρετικά υψηλή περιεκτικότητα σε πολυφαινόλες — τις φυσικές αντιοξειδωτικές ενώσεις που προστατεύουν τον οργανισμό.</p>
-        <p>Το ελαιόλαδο Κορωνέικης διακρίνεται για τον έντονο αρωματικό χαρακτήρα του, τις φρουτώδεις νότες και την χαρακτηριστική πικάντικη επίγευση.</p>
-      </div>
-      <div class="about-img">
-        <img src="SingleOliveDrop.jpeg" alt="Drosia Drops — Κορωνέικη Ποικιλία"/>
-      </div>
-    </div>
-
-    <!-- ROW 3: Διατροφική Αξία -->
-    <div class="about-row">
-      <div class="about-text" style="grid-column: 1 / -1;">
-        <div class="about-eyebrow">03 · Διατροφή</div>
-        <h3>Διατροφική <em>Αξία</em></h3>
-        <p>Το ελαιόλαδό μας είναι φυσική πηγή απαραίτητων θρεπτικών συστατικών που συμβάλλουν στη διατήρηση της υγείας και της ευεξίας.</p>
-        <div class="nutrition-grid">
-          <div class="nutrition-card">
-            <h5>Μονοακόρεστα</h5>
-            <p>Ωφέλιμα λιπαρά που υποστηρίζουν την υγεία της καρδιάς και συμβάλλουν στη διαχείριση της χοληστερόλης.</p>
-          </div>
-          <div class="nutrition-card">
-            <h5>Πολυφαινόλες</h5>
-            <p>Ισχυρά αντιοξειδωτικά με τεκμηριωμένη αντιφλεγμονώδη δράση — ιδίως η ελαιοκανθάλη και η υδροξυτυροσόλη, οι ενώσεις που κρύβονται πίσω από την χαρακτηριστική πικάντικη επίγευση.</p>
-          </div>
-          <div class="nutrition-card">
-            <h5>Βιταμίνη Ε</h5>
-            <p>Ισχυρή αντιοξειδωτική δράση που προστατεύει τα κύτταρα και υποστηρίζει το ανοσοποιητικό — διαλυμένη ήδη στο φυσικό της περιβάλλον, απορροφάται από τον οργανισμό με τον καλύτερο δυνατό τρόπο.</p>
-          </div>
-          <div class="nutrition-card">
-            <h5>Βιταμίνη Κ</h5>
-            <p>Συμβάλλει στην πήξη του αίματος και στην υγεία των οστών.</p>
-          </div>
-          <div class="nutrition-card">
-            <h5>Σκουαλένιο</h5>
-            <p>Φυσικό αντιοξειδωτικό με προστατευτικές ιδιότητες για το δέρμα και τα κύτταρα.</p>
-          </div>
-          <div class="nutrition-card">
-            <h5>Φυτοστερόλες</h5>
-            <p>Φυτικές ενώσεις που βοηθούν στη μείωση της LDL χοληστερόλης στο αίμα.</p>
-          </div>
+  <!-- main header: logo + Κατηγορίες trigger + search + actions -->
+  <div class="header-main">
+    <div class="wrap">
+      <button class="burger" id="burger" aria-label="Άνοιγμα μενού"><i class="ti ti-menu-2"></i></button>
+      <a class="logo" href="index.html" aria-label="SafetyMaster αρχική">
+        <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster">
+      </a>
+      <button class="cat-trigger" id="catTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="megaMenu">
+        <i class="ti ti-grid-dots grid-i"></i>
+        <span>Κατηγορίες</span>
+        <i class="ti ti-chevron-down chev"></i>
+      </button>
+      <form class="header-search search-form" role="search">
+        <div class="searchwrap" data-search>
+          <i class="ti ti-search"></i>
+          <input class="inp" type="search" placeholder="Αναζητήστε προϊόν, κατηγορία ή κωδικό..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-label="Αναζήτηση">
         </div>
+      </form>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Αγαπημένα"><i class="ti ti-heart"></i><span class="lbl">Αγαπημένα</span></button>
+        <button class="icon-btn" aria-label="Καλάθι, 3 προϊόντα στο καλάθι"><i class="ti ti-shopping-cart"></i><span class="count" aria-hidden="true">3</span><span class="lbl">Καλάθι</span></button>
       </div>
     </div>
+  </div>
 
-    <!-- ROW 4: Επιστημονικοί Δείκτες -->
-    <div class="about-row">
-      <div class="about-text" style="grid-column: 1 / -1;">
-        <div class="about-eyebrow">04 · Επιστήμη</div>
-        <h3>Επιστημονικοί <em>Δείκτες</em></h3>
-        <p>Κάθε παρτίδα αναλύεται σε πιστοποιημένα εργαστήρια. Τα αποτελέσματα επιβεβαιώνουν τη συνεχή δέσμευσή μας στην ανώτατη ποιότητα.</p>
-        <div class="health-claim-badge-wrap">
-          <span class="health-claim-badge">Health Claim EU 432/2012</span>
-          <span class="health-claim-text">Υπερκαλύπτει το όριο του Ευρωπαϊκού Κανονισμού 432/2012 για εγκεκριμένο Ισχυρισμό Υγείας — πολυφαινόλες >250 mg/kg. Δείκτης ισχυρής αντιοξειδωτικής δράσης.</span>
+  <!-- single full-width mega panel host — direct child of .header (B1/B3) -->
+  <div class="mega" id="megaMenu">
+    <div class="mega-inner">
+        <div class="mega-rail" id="megaRail" role="tablist"></div>
+        <div class="mega-panes" id="megaPanes">
+            <div class="mega-panes-scroll-hint" id="scrollHint"><i class="ti ti-chevron-down"></i></div>
         </div>
-        <div class="metrics">
-          <div class="metric">
-            <div class="metric-number">76<span class="metric-unit">%</span></div>
-            <div class="metric-label">Μονοακόρεστα Λιπαρά</div>
-            <div class="metric-desc">Εξαιρετικά υψηλή αναλογία ελαϊκού οξέος — ο βασικός δείκτης ποιότητας και καρδιαγγειακής προστασίας.</div>
-          </div>
-          <div class="metric">
-            <div class="metric-number">658,9<span class="metric-unit"> mg/kg</span></div>
-            <div class="metric-label">Πολυφαινόλες</div>
-            <div class="metric-desc">Δείκτης ισχυρής αντιοξειδωτικής δράσης.</div>
-          </div>
-          <div class="metric">
-            <div class="metric-number">0,23<span class="metric-unit">%</span></div>
-            <div class="metric-label">Οξύτητα</div>
-            <div class="metric-desc">Ένδειξη άριστης ποιότητας καρπού και εξαιρετικά παρθένου ελαιολάδου (όριο 0,80%).</div>
-          </div>
-          <div class="metric">
-            <div class="metric-number">3,36<span class="metric-unit"> mEq/kg</span></div>
-            <div class="metric-label">Υπεροξείδια</div>
-            <div class="metric-desc">Εξαιρετικά χαμηλός δείκτης οξείδωσης. Πιστοποιεί τη φρεσκάδα και τη σωστή επεξεργασία.</div>
-          </div>
-        </div>
+    </div>
+</div>
+
+</header>
+
+<section class="hero">
+  <!-- Dramatic Background Image (Unsplash) -->
+  <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80');"></div>
+  <!-- Smart Overlay: Dark on the left for text, transparent on the right for the image -->
+  <div class="hero-overlay"></div>
+
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="eyebrow"><span>Βιομηχανική ασφάλεια</span></div>
+
+      <h1>
+        Βρείτε τον <span class="o">σωστό</span><br>
+        εξοπλισμό ασφαλείας
+      </h1>
+
+      <p class="lead">
+        Πάνω από 2.000 πιστοποιημένα προϊόντα ΜΑΠ – οργανωμένα ανά κίνδυνο, κλάδο και πρότυπο.
+      </p>
+
+      <div class="hero-chips">
+        <span class="lbl">Δημοφιλή</span>
+        <span class="chip"><i class="ti ti-protect"></i> Γάντια</span>
+        <span class="chip"><i class="ti ti-shoe"></i> Παπούτσια S3</span>
+        <span class="chip"><i class="ti ti-helmet"></i> Κράνη</span>
+        <span class="chip"><i class="ti ti-ladder"></i> Ύψος</span>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary btn-lg">ΟΛΕΣ ΟΙ ΚΑΤΗΓΟΡΙΕΣ</a>
+        <a href="#" class="btn btn-secondary btn-lg">B2B προσφορά</a>
       </div>
     </div>
+  </div>
 
-    <!-- ROW 5: Γευστικό Προφίλ — taste bars left, olive tree in pot right -->
-    <div class="about-row" id="taste-row">
-      <div class="about-text">
-        <div class="about-eyebrow">05 · Γεύση</div>
-        <h3>Γευστικό <em>Προφίλ</em></h3>
-        <p>Η οργανοληπτική ανάλυση από πιστοποιημένο εργαστήριο αποκαλύπτει ένα ισορροπημένο, πολυσύνθετο προφίλ γεύσης — χαρακτηριστικό των κορυφαίων ελαιολάδων Κορωνέικης.</p>
-        <div class="taste-bars">
-          <div class="taste-bar-row">
-            <div class="taste-bar-label">Φρουτώδες</div>
-            <div class="taste-bar-track"><div class="taste-bar-fill" data-target="100" data-value="5.0"></div></div>
-            <div class="taste-bar-val">0.0</div>
-          </div>
-          <div class="taste-bar-desc-line">Έντονο άρωμα φρέσκιας ελιάς</div>
-          <div class="taste-bar-row">
-            <div class="taste-bar-label">Πικρό</div>
-            <div class="taste-bar-track"><div class="taste-bar-fill" data-target="70" data-value="3.5"></div></div>
-            <div class="taste-bar-val">0.0</div>
-          </div>
-          <div class="taste-bar-desc-line">Ένδειξη πλούσιας πολυφαινολικής σύνθεσης</div>
-          <div class="taste-bar-row">
-            <div class="taste-bar-label">Πικάντικο</div>
-            <div class="taste-bar-track"><div class="taste-bar-fill" data-target="82" data-value="4.1"></div></div>
-            <div class="taste-bar-val">0.0</div>
-          </div>
-          <div class="taste-bar-desc-line">Χαρακτηριστική επίγευση από ελαιοκανθάλη</div>
-        </div>
-      </div>
-      <div class="about-img">
-        <img src="Oil_Drop.jpeg" alt="Drosia Drops — Ελαιόδεντρο"/>
-      </div>
+  <!-- Stats Strip - Fixed Misalignment -->
+  <div class="hero-stats">
+    <div class="wrap">
+      <div class="st"><i class="ti ti-package"></i><div class="tt"><b>2.000+</b>Προϊόντα</div></div>
+      <div class="st"><i class="ti ti-certificate"></i><div class="tt"><b>100%</b>Πιστοποιημένα</div></div>
+      <div class="st"><i class="ti ti-truck-delivery"></i><div class="tt"><b>Άμεση</b>Παράδοση</div></div>
+      <div class="st"><i class="ti ti-headset"></i><div class="tt"><b>Τεχνική</b>Υποστήριξη</div></div>
     </div>
-
   </div>
 </section>
 
-<!-- ══════════ CONTACT ══════════ -->
-<section id="contact">
-  <div class="section-label">Επικοινωνήστε μαζί μας</div>
-  <h2>Είμαστε στη <em>Διάθεσή σας</em></h2>
-  <p class="contact-intro">Επικοινωνήστε μαζί μας για συνεργασίες, πληροφορίες ή παραγγελίες.</p>
-
-  <div class="contact-methods">
-    <a class="contact-card" href="tel:+306972811357">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.47 11.47 0 00.57 3.58 1 1 0 01-.25 1.01l-2.2 2.2z"/>
-      </svg>
-      <div>
-        <h4>Τηλέφωνο</h4>
-        <p>+30 6972 811 357<br>+30 697 679 2851<br>+30 6946 416 442</p>
+<!-- ============ BLOCK: Category showcase (8 mains, asymmetric) ============ -->
+<section class="cat-section" id="categories">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="ht">
+        <div class="eyebrow"><span>Κατηγορίες</span></div>
+        <h2>Προστασία ανά κίνδυνο</h2>
+        <p class="sub">Οκτώ κύριες κατηγορίες, 99 υποκατηγορίες. Επιλέξτε σημείο σώματος ή τύπο κινδύνου και δείτε τις διαθέσιμες λύσεις.</p>
       </div>
-    </a>
-    <a class="contact-card" href="mailto:contact@drosiadrops.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-        <polyline points="22,6 12,13 2,6"/>
-      </svg>
-      <div>
-        <h4>Email</h4>
-        <p>contact@drosiadrops.com</p>
-      </div>
-    </a>
-    <a class="contact-card" href="https://instagram.com/drosia_drops" target="_blank">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-      </svg>
-      <div>
-        <h4>Instagram</h4>
-        <p>@drosia_drops</p>
-      </div>
-    </a>
+      <a class="btn btn-secondary" href="#">Δείτε όλες τις κατηγορίες <i class="ti ti-arrow-right"></i></a>
+    </div>
+    <div class="cat-grid" id="catGrid" data-aos="fade-up"></div>
   </div>
-
-  <div class="contact-divider-line"></div>
-
-  <div class="contact-form-wrap">
-    <form id="contact-form">
-      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE"/>
-      <input type="hidden" name="subject" value="Νέο μήνυμα από Drosia Drops"/>
-      <input type="hidden" name="from_name" value="Drosia Drops Website"/>
-      <input type="checkbox" name="botcheck" style="display:none"/>
-      <input type="text" name="name" placeholder="Όνομα" required/>
-      <input type="email" name="email" placeholder="Email" required/>
-      <textarea name="message" placeholder="Μήνυμα" required></textarea>
-      <button type="submit" id="submit-btn">Αποστολή</button>
-      <p id="form-result" style="display:none; font-family:'EB Garamond',Georgia,serif; font-size:1rem; margin-top:8px;"></p>
-    </form>
-  </div>
-
-
 </section>
 
-<!-- ══════════ FOOTER ══════════ -->
-<footer>
+<!-- ============ BLOCK: Use-case / Solutions (think in jobs, not taxonomy) ============ -->
+<section class="solutions" id="solutions">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="ht">
+        <div class="eyebrow"><span>Λύσεις ανά εργασία</span></div>
+        <h2>Σκέφτεστε σε δουλειές, όχι σε κατηγορίες;</h2>
+        <p class="sub">Συγκεντρώσαμε τον κατάλληλο εξοπλισμό ανά τύπο εργασίας, ώστε να τα βρίσκετε όλα όσα χρειάζεστε σε ένα σημείο.</p>
+      </div>
+    </div>
+    <div class="sol-grid">
+
+      <a class="sol-card" href="#" data-aos="fade-up">
+        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1000&q=80')"></div>
+        <div class="sol-body">
+          <div class="sol-ico"><i class="ti ti-building-skyscraper"></i></div>
+          <h3>Εργοτάξια</h3>
+          <p class="sol-desc">Κράνη, υποδήματα S3, γάντια κρούσης και ρούχα υψηλής ορατότητας.</p>
+          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="60">
+        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=1000&q=80')"></div>
+        <div class="sol-body">
+          <div class="sol-ico"><i class="ti ti-building-factory-2"></i></div>
+          <h3>Βιομηχανία</h3>
+          <p class="sol-desc">Προστασία ακοής, αναπνοής και χημικών για παραγωγή & αποθήκες.</p>
+          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="120">
+        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1567789884554-0b844b597180?w=1000&q=80')"></div>
+        <div class="sol-body">
+          <div class="sol-ico"><i class="ti ti-stairs-up"></i></div>
+          <h3>Εργασίες ύψους</h3>
+          <p class="sol-desc">Ολόσωμες εξαρτύσεις, ανακόπτες πτώσης και διατάξεις αγκύρωσης.</p>
+          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a class="sol-card" href="#" data-aos="fade-up">
+        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=1000&q=80')"></div>
+        <div class="sol-body">
+          <div class="sol-ico"><i class="ti ti-flame"></i></div>
+          <h3>Συγκόλληση</h3>
+          <p class="sol-desc">Μάσκες ηλεκτροσυγκόλλησης, γάντια & μπότες ανθεκτικά στη θερμότητα.</p>
+          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="60">
+        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&q=80')"></div>
+        <div class="sol-body">
+          <div class="sol-ico"><i class="ti ti-bolt"></i></div>
+          <h3>Ηλεκτρολόγοι</h3>
+          <p class="sol-desc">Ηλεκτρομονωτικά γάντια & υποδήματα, μονωμένα κράνη και εργαλεία.</p>
+          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="120">
+        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1000&q=80')"></div>
+        <div class="sol-body">
+          <div class="sol-ico"><i class="ti ti-tools"></i></div>
+          <h3>Επαγγελματίες</h3>
+          <p class="sol-desc">Καθημερινός εξοπλισμός για τεχνίτες, συνεργεία και ελεύθερους επαγγελματίες.</p>
+          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOCK: Featured products (tabs + B2C/B2B actions) ============ -->
+<section class="prod-section" id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="ht">
+        <div class="eyebrow"><span>Προϊόντα</span></div>
+        <h2>Επιλεγμένα προϊόντα</h2>
+        <p class="sub">Δημοφιλείς επιλογές επαγγελματιών, με πιστοποιήσεις και τιμές χονδρικής κατόπιν αιτήματος.</p>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-variant="popular" role="tab"><i class="ti ti-flame"></i> Δημοφιλή</button>
+        <button class="tab" data-variant="new" role="tab"><i class="ti ti-sparkles"></i> Νέα</button>
+        <button class="tab" data-variant="sale" role="tab"><i class="ti ti-discount-2"></i> Προσφορές</button>
+      </div>
+    </div>
+    <div class="prod-grid" id="prodGrid"></div>
+    <div style="text-align:center;margin-top:34px">
+      <a class="btn btn-secondary btn-lg" href="#">Δείτε όλα τα προϊόντα <i class="ti ti-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOCK: Brands (real logos, static trusted-brands row) ============ -->
+<section class="brands">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:24px">
+      <div class="ht">
+        <div class="eyebrow"><span>Συνεργασίες</span></div>
+        <h2>Συνεργαζόμαστε με κορυφαίες εταιρείες</h2>
+      </div>
+    </div>
+    <div class="trust-line"><i class="ti ti-rosette-discount-check"></i> Επίσημος συνεργάτης κορυφαίων ευρωπαϊκών κατασκευαστών ΜΑΠ.</div>
+    <div class="brand-carousel">
+      <div class="swiper" id="brandSwiper">
+        <div class="swiper-wrapper" id="brandWrapper"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOCK: Trust / Credibility (stats + EN/CE + B2B) ============ -->
+<section class="trust">
+  <div class="caution-stripe stripe-acc"></div>
+  <div class="blueprint bp"></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="ht">
+        <div class="eyebrow"><span>Γιατί SafetyMaster</span></div>
+        <h2>Σοβαρός προμηθευτής για σοβαρές δουλειές</h2>
+        <p class="sub">Δεν πουλάμε απλώς εξοπλισμό. Σας βοηθάμε να επιλέξετε γρήγορα το σωστό προϊόν, με τις πιστοποιήσεις και την τεκμηρίωση που απαιτεί κάθε σοβαρό εργοτάξιο.</p>
+      </div>
+    </div>
+
+    <div class="trust-stats" data-aos="fade-up">
+      <div class="ts"><div class="num">2.000<span class="o">+</span></div><div class="ben">προϊόντα σε απόθεμα, <b>για να βρίσκετε ό,τι χρειάζεστε άμεσα</b></div></div>
+      <div class="ts"><div class="num">99</div><div class="ben">υποκατηγορίες, <b>για να εντοπίζετε ακριβώς τον σωστό κωδικό</b></div></div>
+      <div class="ts"><div class="num">EN/CE</div><div class="ben">πιστοποιήσεις με τεκμηρίωση, <b>για συμμόρφωση χωρίς ρίσκο</b></div></div>
+      <div class="ts"><div class="num">1–3</div><div class="ben">ημέρες παράδοση πανελλαδικά, <b>για να μη σταματά η δουλειά σας</b></div></div>
+    </div>
+
+    <div class="trust-chips">
+      <div class="trust-chip">
+        <div class="ti-wrap"><i class="ti ti-certificate"></i></div>
+        <div><div class="tc-t">Πιστοποιήσεις EN / CE</div><div class="tc-d">Τεκμηρίωση & δηλώσεις συμμόρφωσης</div></div>
+      </div>
+      <div class="trust-chip">
+        <div class="ti-wrap"><i class="ti ti-file-invoice"></i></div>
+        <div><div class="tc-t">Τιμολόγια & Χονδρική</div><div class="tc-d">Ειδικές τιμές για επαγγελματίες</div></div>
+      </div>
+      <div class="trust-chip">
+        <div class="ti-wrap"><i class="ti ti-headset"></i></div>
+        <div><div class="tc-t">Τεχνική υποστήριξη</div><div class="tc-d">Καθοδήγηση επιλογής εξοπλισμού</div></div>
+      </div>
+      <div class="trust-chip">
+        <div class="ti-wrap"><i class="ti ti-truck-return"></i></div>
+        <div><div class="tc-t">Επιστροφές 14 ημερών</div><div class="tc-d">Ασφαλείς συναλλαγές & αποστολές</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOCK: Newsletter ============ -->
+<section class="newsletter">
+  <div class="wrap">
+    <div class="nl-box" data-aos="fade-up">
+      <div class="nl-stripe" aria-hidden="true"></div>
+      <div class="nl-grid" aria-hidden="true"></div>
+      <div class="nl-inner">
+        <div class="nl-text">
+          <div class="nl-mono mono">// ΕΝΗΜΕΡΩΣΗ ΕΠΑΓΓΕΛΜΑΤΙΩΝ</div>
+          <h2>Ενημερωθείτε πρώτοι</h2>
+          <p>Νέα προϊόντα, αλλαγές προτύπων ασφαλείας και προσφορές χονδρικής, στο email σας.</p>
+        </div>
+        <form class="nl-form" novalidate>
+          <div class="nl-field">
+            <input class="inp" type="email" placeholder="Το email σας" aria-label="Email" required>
+            <button class="btn btn-primary" type="submit">Εγγραφή</button>
+          </div>
+          <div class="nl-confirm" id="nlConfirm" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOCK: Footer (CTA + columns + payments + legal) ============ -->
+<footer class="site-footer">
+
+  <!-- dark closing CTA -->
+  <div class="footer-cta" id="b2b">
+    <div class="stripe-bg"></div>
+    <div class="wrap">
+      <h2>Εξοπλίστε ολόκληρη την ομάδα σας, σωστά.</h2>
+      <p>Ζητήστε προσφορά χονδρικής και τιμολόγηση για την επιχείρησή σας. Σας απαντάμε με συγκεκριμένη πρόταση εντός μίας εργάσιμης.</p>
+      <div class="row">
+        <a class="btn btn-primary btn-lg" href="#"><i class="ti ti-file-invoice"></i> Ζητήστε προσφορά B2B</a>
+        <a class="btn btn-secondary btn-lg" href="tel:+306978526018"><i class="ti ti-phone"></i> Καλέστε μας</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer columns -->
   <div class="footer-main">
-    <span class="footer-brand">Drosia Drops</span>
-    <span class="footer-tagline">Premium εξαιρετικό παρθένο ελαιόλαδο από τους ελαιώνες της Δροσιάς, Μεσσηνία.</span>
-    <div class="footer-social">
-      <a href="https://instagram.com/drosia_drops" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-      <a href="mailto:contact@drosiadrops.com" aria-label="Email">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-          <polyline points="22,6 12,13 2,6"/>
-        </svg>
-      </a>
+    <div class="wrap">
+      <div class="footer-cols">
+        <div class="footer-col footer-brand">
+          <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster">
+          <p>Επαγγελματικός εξοπλισμός ατομικής προστασίας (ΜΑΠ) για κάθε κλάδο. Πιστοποιημένα προϊόντα, τεχνική υποστήριξη και τιμές χονδρικής.</p>
+          <div class="biz">
+            SafetyMaster Μ.Ε.Π.Ε.<br>
+            ΑΦΜ: 000000000<br>
+            ΔΟΥ: ___<br>
+            Email: info@safetymaster.gr<br>
+            Τηλ: +30 697 852 6018
+          </div>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+            <a href="#" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Κατηγορίες</h4>
+          <a href="https://safetymaster.gr/product-category/head-protection">Προστασία Κεφαλής</a>
+          <a href="https://safetymaster.gr/product-category/eye-protection">Προστασία Ματιών</a>
+          <a href="https://safetymaster.gr/product-category/respiratory-protection">Προστασία Αναπνοής</a>
+          <a href="https://safetymaster.gr/product-category/hearing-protection">Προστασία Ακοής</a>
+          <a href="https://safetymaster.gr/product-category/hand-protection">Προστασία Χεριών</a>
+          <a href="https://safetymaster.gr/product-category/foot-protection">Προστασία Ποδιών</a>
+          <a href="https://safetymaster.gr/product-category/workwear-protection">Ρούχα Εργασίας</a>
+          <a href="https://safetymaster.gr/product-category/fall-protection">Προστασία Πτώσης</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Εξυπηρέτηση</h4>
+          <a href="#">Επικοινωνία</a>
+          <a href="#">Αποστολές & Παραδόσεις</a>
+          <a href="#">Επιστροφές & Εγγύηση</a>
+          <a href="#">Τρόποι Πληρωμής</a>
+          <a href="#">Συχνές Ερωτήσεις</a>
+          <a href="#">Παρακολούθηση Παραγγελίας</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Επιχειρήσεις</h4>
+          <a href="#">B2B / Χονδρική</a>
+          <a href="#">Ζητήστε Προσφορά</a>
+          <a href="#">Τιμολόγηση Εταιρειών</a>
+          <a href="#">Πιστοποιήσεις EN / CE</a>
+          <a href="#">Σχετικά με εμάς</a>
+          <a href="#">Όροι Χρήσης & Απορρήτου</a>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <p class="footer-copy">© 2026 Drosia Drops. All rights reserved.</p>
-    <p class="footer-meta">Kalamata, Messinia · Greece</p>
+
+  <!-- footer bottom: copy + payments + marks -->
+  <div class="footer-main" style="padding:0 0 0px">
+    <div class="wrap">
+      <div class="footer-bottom">
+        <div class="copy">© 2026 SafetyMaster. Με την επιφύλαξη παντός δικαιώματος.</div>
+        <div class="footer-pay">
+          <span class="mark">CE</span>
+          <span class="mark">EN ISO</span>
+          <div class="marks">
+            <span class="mark"><i class="ti ti-brand-visa"></i></span>
+            <span class="mark"><i class="ti ti-brand-mastercard"></i></span>
+            <span class="mark"><i class="ti ti-brand-paypal"></i></span>
+            <span class="mark"><i class="ti ti-cash"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </footer>
 
-<script>
-$(function () {
+<!-- ============ Mobile drawer (8 -> subcategory tree) ============ -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer" aria-label="Μενού κατηγοριών">
+  <div class="drawer-head">
+    <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster">
+    <button class="close" id="drawerClose" aria-label="Κλείσιμο"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="drawer-search">
+    <form class="search-form" role="search">
+      <div class="searchwrap">
+        <i class="ti ti-search"></i>
+        <input class="inp" type="search" placeholder="Αναζητήστε προϊόν, κατηγορία ή κωδικό...">
+      </div>
+    </form>
+  </div>
+  <div class="drawer-tree" id="drawerTree"></div>
+  <div class="drawer-foot">
+    <a class="btn btn-primary" href="#"><i class="ti ti-file-invoice"></i> Ζητήστε προσφορά B2B</a>
+    <a class="btn btn-secondary" href="tel:+306978526018"><i class="ti ti-phone"></i> +30 697 852 6018</a>
+  </div>
+</aside>
 
-  /* ── Award banner entrance ── */
-  var awardRevealed = false;
-  function revealAward() {
-    if (awardRevealed) return;
-    var $banner = $('.parallax-banner');
-    if ($banner.length && $banner[0].getBoundingClientRect().top < window.innerHeight - 60) {
-      awardRevealed = true;
-      setTimeout(function() { $('.parallax-banner-quote').addClass('visible'); }, 0);
-      setTimeout(function() { $('.parallax-banner-inner > p').addClass('visible'); }, 150);
-      setTimeout(function() { $('.award-divider').addClass('visible'); }, 350);
-      setTimeout(function() { $('.award-glow-stage').addClass('visible'); }, 520);
-      setTimeout(function() { $('.award-caption').addClass('visible'); }, 780);
-    }
-  }
-  $(window).on('scroll', revealAward);
-  revealAward();
+<!-- CDN libs -->
+ <script>
+    (function() {
+        'use strict';
 
-  /* ── Nav shadow ── */
-  $(window).on('scroll', function () {
-    $('#navbar').toggleClass('scrolled', $(this).scrollTop() > 40);
-  });
+        const section = document.querySelector('.newsletter');
+        if (!section) return;
 
-  /* ── Scroll reveal: feature items (legacy) ── */
-  function revealOnScroll() {
-    $('.feature-item').each(function () {
-      if ($(this)[0].getBoundingClientRect().top < window.innerHeight - 70)
-        $(this).addClass('visible');
-    });
-  }
-  $(window).on('scroll', revealOnScroll);
-  revealOnScroll();
+        // Bail on reduced motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  /* ── Scroll reveal: about rows ── */
-  function revealAboutRows() {
-    $('.about-row').each(function () {
-      if (this.getBoundingClientRect().top < window.innerHeight - 80) {
-        $(this).addClass('visible');
-      }
-    });
-  }
-  $(window).on('scroll', revealAboutRows);
-  revealAboutRows();
+        // Create the parallax grid element if it doesn't exist
+        let grid = section.querySelector('.parallax-grid');
+        if (!grid) {
+            grid = document.createElement('div');
+            grid.className = 'parallax-grid';
+            grid.setAttribute('aria-hidden', 'true');
+            section.prepend(grid);
+        }
 
-  /* ── Scroll reveal: about intro (staggered) ── */
-  var aboutIntroRevealed = false;
-  function revealAboutIntro() {
-    if (aboutIntroRevealed) return;
-    var $intro = $('.about-intro');
-    if ($intro.length && $intro[0].getBoundingClientRect().top < window.innerHeight - 60) {
-      aboutIntroRevealed = true;
-      setTimeout(function() { $intro.find('.section-label').addClass('visible'); }, 0);
-      setTimeout(function() { $intro.find('.about-family-quote').addClass('visible'); }, 140);
-      setTimeout(function() { $intro.find('.about-family-body').addClass('visible'); }, 320);
-      setTimeout(function() { $intro.find('.about-family-closing').addClass('visible'); }, 520);
-    }
-  }
-  $(window).on('scroll', revealAboutIntro);
-  revealAboutIntro();
+        let ticking = false;
+        let offsetY = 0;
 
-  /* ── Nutrition cards: sequential reveal ── */
-  var nutritionRevealed = false;
-  function revealNutritionCards() {
-    if (nutritionRevealed) return;
-    var $grid = $('.nutrition-grid');
-    if ($grid.length && $grid[0].getBoundingClientRect().top < window.innerHeight - 60) {
-      nutritionRevealed = true;
-      $grid.find('.nutrition-card').each(function (i) {
-        var $card = $(this);
-        setTimeout(function () {
-          $card.addClass('visible');
-        }, i * 120);
-      });
-    }
-  }
-  $(window).on('scroll', revealNutritionCards);
-  revealNutritionCards();
+        function updateParallax() {
+            const rect = section.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const sectionHeight = rect.height;
 
-  /* ── Metrics: sequential reveal ── */
-  var metricsRevealed = false;
-  function revealMetrics() {
-    if (metricsRevealed) return;
-    var $grid = $('.metrics');
-    if ($grid.length && $grid[0].getBoundingClientRect().top < window.innerHeight - 60) {
-      metricsRevealed = true;
-      $grid.find('.metric').each(function (i) {
-        var $m = $(this);
-        setTimeout(function () {
-          $m.addClass('visible');
-        }, i * 180);
-      });
-    }
-  }
-  $(window).on('scroll', revealMetrics);
-  revealMetrics();
+            // How much of the section is visible (0 = top hits, 1 = bottom hits)
+            const progress = Math.min(Math.max(
+                (viewportHeight - rect.top) / (viewportHeight + sectionHeight),
+                0
+            ), 1);
 
-  /* ── Taste bar animation (300ms delay after trigger) ── */
-  var tasteBarsAnimated = false;
-  function animateTasteBars() {
-    if (tasteBarsAnimated) return;
-    var $row = $('#taste-row');
-    if ($row.length && $row[0].getBoundingClientRect().top < window.innerHeight - 60) {
-      tasteBarsAnimated = true;
-      setTimeout(function () {
-        $('.taste-bar-fill').each(function () {
-          var $fill = $(this);
-          var targetW = $fill.data('target');
-          var targetV = parseFloat($fill.data('value'));
-          var $val = $fill.closest('.taste-bar-row').find('.taste-bar-val');
-          /* Animate bar width */
-          $fill.css('width', targetW + '%');
-          /* Count up number over 2.2s */
-          var duration = 2200;
-          var startTime = null;
-          function step(timestamp) {
-            if (!startTime) startTime = timestamp;
-            var progress = Math.min((timestamp - startTime) / duration, 1);
-            var eased = progress < 0.5 ? 2*progress*progress : -1+(4-2*progress)*progress;
-            $val.text((eased * targetV).toFixed(1));
-            if (progress < 1) requestAnimationFrame(step);
-            else $val.text(targetV.toFixed(1));
-          }
-          requestAnimationFrame(step);
-        });
-      }, 300);
-    }
-  }
-  $(window).on('scroll', animateTasteBars);
-  animateTasteBars();
+            // Map to a subtle movement: 0 → -4px, 1 → 4px
+            offsetY = -4 + (progress * 8);
+            grid.style.transform = `translate3d(0, ${offsetY}px, 0)`;
+        }
 
-  /* ── Contact section entrance animation ── */
-  var contactRevealed = false;
-  function revealContact() {
-    if (contactRevealed) return;
-    var $section = $('#contact');
-    if ($section.length && $section[0].getBoundingClientRect().top < window.innerHeight - 60) {
-      contactRevealed = true;
+        function onScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
 
-      // Header elements — quick stagger
-      setTimeout(function() { $('#contact .section-label').addClass('visible'); }, 0);
-      setTimeout(function() { $('#contact h2').addClass('visible'); }, 100);
-      setTimeout(function() { $('.contact-intro').addClass('visible'); }, 190);
+        // Initial position
+        updateParallax();
 
-      // Cards — after header
-      $('.contact-methods .contact-card').each(function(i) {
-        var $card = $(this);
-        setTimeout(function() { $card.css({ opacity: 1, transform: 'none' }); }, 300 + i * 100);
-      });
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
 
-      // Divider — fires at 560ms, transition 800ms → finishes at 1360ms
-      setTimeout(function() { $('.contact-divider-line').addClass('visible'); }, 560);
+        // Recalculate when the section becomes visible (for lazy-loaded content)
+        const observer = new IntersectionObserver(() => {
+            updateParallax();
+        }, { threshold: [0, 0.1, 0.5, 1] });
+        observer.observe(section);
 
-      // Form fields — start after divider finishes (1400ms), slide from left, overlap at 80ms stagger
-      var $fields = $('.contact-form-wrap input:not([type="hidden"]):not([type="checkbox"]), .contact-form-wrap textarea, #submit-btn');
-      $fields.each(function(i) {
-        var $el = $(this);
-        setTimeout(function() { $el.addClass('visible'); }, 1400 + i * 80);
-      });
-    }
-  }
-  $(window).on('scroll', revealContact);
-  revealContact();
-
-  /* ── Smooth anchor scroll ── */
-  $('a[href^="#"]').on('click', function (e) {
-    var $t = $(this.hash);
-    if ($t.length) { e.preventDefault(); $('html,body').animate({ scrollTop: $t.offset().top - 66 }, 700); }
-  });
-
-  /* ════════════════════════════════════════════
-     MULTI-LAYER PARALLAX
-     Each element has a data-plx speed multiplier.
-     Negative = moves up as you scroll down (rises)
-     Closer to 0 = barely moves (feels "behind")
-     Closer to -1 = moves almost as fast as scroll (feels "in front")
-
-     The result: standing in front of the hero,
-     background glows barely move → ring moves a bit →
-     bottle rises noticeably = real depth layering.
-  ════════════════════════════════════════════ */
-  var isMobile = window.innerWidth <= 860;
-
-  function doParallax() {
-    if (isMobile) return;
-    var scrollY = $(window).scrollTop();
-
-    /* Elements with data-plx inside the hero */
-    $('[data-plx]').each(function () {
-      var speed  = parseFloat($(this).data('plx'));
-      var offset = scrollY * speed;
-      $(this).css('transform', 'translateY(' + offset + 'px)');
-    });
-  }
-
-  $(window).on('scroll', doParallax);
-  doParallax();
-
-});
+    })();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="assets/js/main.js"></script>
+
 </body>
 </html>
