@@ -1263,11 +1263,8 @@ section {
     background-position: center;
     opacity: .45
 }
-.hero .overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, var(--ink) 28%, rgba(27, 33, 39, .78) 55%, rgba(27, 33, 39, .45) 100%)
-}
+
+
 .hero .grid-mask {
     position: absolute;
     inset: 0;
@@ -3321,15 +3318,56 @@ section.hero {
   z-index: 0;
 }
 
-/* Overlay – warm, broad glow from the left (feels like a sunrise in a workshop) */
+/* ===== HERO OVERLAY – SOFT STEEL SWEEP ===== */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background-attachment: fixed;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(232, 89, 12, 0.15) 0%, transparent 60%),
-    linear-gradient(135deg, rgba(18, 22, 26, 0.65) 0%, rgba(18, 22, 26, 0.50) 100%);
   z-index: 1;
+  pointer-events: none;
+  opacity: 0.50;
+
+  /* ——— SINGLE, BROAD, SOFT WAVE ———
+     Instead of two harsh peaks, we use one wide,
+     gentle highlight that smoothly fades into deep steel.
+  */
+  background: linear-gradient(
+    135deg,
+    #0D1115 0%,
+    #1A2128 18%,
+    #2C3740 35%,
+    rgba(232, 89, 12, 0.04) 48%,   /* ← just 4% orange warmth */
+    #2C3740 62%,
+    #1A2128 80%,
+    #0D1115 100%
+    );
+  background-size: 500% 500%;
+
+  /* ——— FLUID, NEVER-STOPPING SWEEP ——— */
+  animation: steelSweep 22s ease-in-out infinite alternate;
+  will-change: background-position;
+}
+
+@keyframes steelSweep {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 80% 80%; }
+  100% { background-position: 0% 0%; } /* returns gently, not abruptly */
+}
+
+/* ===== MOBILE OPTIMISATIONS ===== */
+@media (max-width: 768px) {
+  .hero-overlay {
+    opacity: 0.35;              /* lighter touch on small screens */
+    animation-duration: 28s;    /* slower → calmer, better battery */
+  }
+}
+
+/* ===== REDUCED MOTION (accessibility) ===== */
+@media (prefers-reduced-motion: reduce) {
+  .hero-overlay {
+    animation: none;
+    background-position: 50% 50%;
+    opacity: 0.45;
+  }
 }
 
 /* 2. Content – centred, but with a strong left‑anchor feel */
