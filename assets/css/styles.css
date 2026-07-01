@@ -17,7 +17,7 @@
     --hair: rgba(27, 33, 39, .08);
     --hair-2: rgba(27, 33, 39, .14);
     --orange: #E8590C;
-    --orange-dk: #D65A0C;
+    --orange-dk: #C44A08;
     --orange-lt: #FFF3EE;
     --green: #1F8A5B;
     --red: #D43B2F;
@@ -30,6 +30,8 @@
     --t: .18s cubic-bezier(.4, 0, .2, 1);
     --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+    --text-muted-accessible: #6B7280;
 }
 /* v2 extensions */
 :root {
@@ -458,7 +460,7 @@ section {
 .search-results .sr-meta {
     display: block;
     font-size: 11px;
-    color: var(--steel);
+    color: var(--text-muted-accessible);
     font-weight: 600;
     letter-spacing: .04em;
     text-transform: uppercase;
@@ -1925,7 +1927,7 @@ section {
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
-    color: var(--steel);
+    color: var(--text-muted-accessible);
     margin-bottom: 5px
 }
 .prod .pt {
@@ -1945,7 +1947,7 @@ section {
 .prod .sku {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--steel);
+    color: var(--text-muted-accessible);
     margin-bottom: 10px
 }
 .prod .swatches {
@@ -2011,7 +2013,7 @@ section {
 .prod .vat {
     flex-basis: 100%;
     font-size: 10.5px;
-    color: var(--muted)
+    color: var(--text-muted-accessible)
 }
 .prod .actions {
     display: flex;
@@ -3005,7 +3007,7 @@ footer.site-footer {
     color: var(--orange);
 }
 .dt-item.open .dt-head {
-    color: var(--orange);
+    color: var(--orange-dk);
     background: rgba(232, 89, 12, 0.06);
 }
 
@@ -3115,7 +3117,7 @@ footer.site-footer {
 
 
 /* responsive header */
-@media(max-width:980px) {
+@media(max-width:768px) {
     .cat-trigger {
         display: none
     }
@@ -3772,5 +3774,234 @@ section.hero {
     display: block;
     font-size: 16px;
     margin-bottom: 1px;
+  }
+}
+
+/* ---- Mobile search toggle: visible only on small screens ---- */
+.search-toggle {
+    display: none;
+}
+
+@media(max-width:768px) {
+    /* Show the search toggle button */
+    .search-toggle {
+        display: inline-flex !important;
+    }
+
+    /* Expandable search panel when toggled */
+    .header.search-open .header-search {
+        display: block !important;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 12px var(--gut, 20px);
+        background: #14181C;
+        border-bottom: 2px solid var(--orange, #E8590C);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        margin-left: 0;
+        max-width: 100%;
+    }
+    .header.search-open .header-search .inp {
+        height: 48px;
+        font-size: 15px;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+        color: #fff;
+    }
+    .header.search-open .header-search .inp::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    .search-toggle.active i {
+        color: var(--orange, #E8590C);
+    }
+}
+
+/* ---- Utility bar: larger tap targets ---- */
+.util a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+}
+
+
+/* ============================================================
+   HERO STATS — Distinct trust bar separation
+   ============================================================ */
+
+.hero-stats {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+    flex-shrink: 0;
+
+    /* ——— Enhanced separation: stronger top border ——— */
+    border-top: 2px solid rgba(255, 255, 255, 0.10);
+
+    /* ——— Subtle background shift ——— */
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+
+    /* ——— Extra breathing room ——— */
+    padding: 4px 0;
+}
+
+/* ——— Optional: a faint glow line above the stats to catch the eye ——— */
+.hero-stats::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 89, 12, 0.20), transparent);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* ——— Keep the grid layout clean ——— */
+.hero-stats .wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding: 10px 0 6px;
+}
+
+.hero-stats .st {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 24px;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    justify-content: center;
+}
+
+.hero-stats .st:last-child {
+    border-right: 0;
+}
+
+.hero-stats .st i {
+    font-size: 26px;
+    color: var(--orange);
+    opacity: 0.85;
+    flex: 0 0 auto;
+}
+
+.hero-stats .st .tt {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.2;
+    text-align: left;
+}
+
+.hero-stats .st .tt b {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+/* ============================================================
+   RESPONSIVE: stats grid & spacing
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .hero-stats .wrap {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hero-stats .st:nth-child(2) {
+        border-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-stats {
+        padding: 2px 0;
+        border-top-width: 1px;
+    }
+
+    .hero-stats .wrap {
+        grid-template-columns: 1fr 1fr;
+        padding: 6px 0 2px;
+    }
+
+    .hero-stats .st {
+        gap: 10px;
+        padding: 12px 8px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        min-height: 60px;
+    }
+
+    .hero-stats .st:nth-child(odd) {
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-stats .st:nth-last-child(-n+2) {
+        border-bottom: 0;
+    }
+
+    .hero-stats .st i {
+        font-size: 20px;
+    }
+
+    .hero-stats .st .tt {
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .hero-stats .st .tt b {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .hero-stats .wrap {
+        grid-template-columns: 1fr;
+    }
+    .hero-stats .st {
+        border-right: 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 10px 8px;
+        min-height: 52px;
+        justify-content: center;
+    }
+    .hero-stats .st:last-child {
+        border-bottom: 0;
+    }
+    .hero-stats .st .tt {
+        text-align: center;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .prod .prod-rail {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    right: 14px;      /* push inward a bit */
+    top: 14px;        /* optional, maintain spacing from top */
+    gap: 8px;         /* slightly more breathing */
+  }
+
+  .prod .prod-rail .rail-btn {
+    width: 44px;      /* larger tap target */
+    height: 44px;
+    font-size: 18px;  /* larger icon */
+  }
+
+  /* Ensure the rail doesn't overlap badges (like "ΝΕΟ" or "−%") */
+  .prod .badge {
+    left: 10px;       /* keep badges on the left */
+    top: 10px;
+  }
+
+  /* Optionally, you can also hide the tooltips on touch (they're not needed) */
+  .prod .prod-rail .rail-tip {
+    display: none;
   }
 }
