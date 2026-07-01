@@ -1,504 +1,542 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafetyMaster | Επαγγελματικός Εξοπλισμός Ασφαλείας & ΜΑΠ</title>
-<meta name="description" content="Πιστοποιημένος εξοπλισμός ατομικής προστασίας (ΜΑΠ) για επαγγελματίες. Γάντια, υποδήματα, ρούχα εργασίας, προστασία κεφαλής, αναπνοής & πτώσης. EN/CE, τιμολόγια & χονδρική.">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SafetyMaster | Επαγγελματικός Εξοπλισμός Ασφαλείας &amp; ΜΑΠ</title>
+    <meta name="description" content="Πιστοποιημένος εξοπλισμός ατομικής προστασίας (ΜΑΠ) για επαγγελματίες. Γάντια, υποδήματα, ρούχα εργασίας, προστασία κεφαλής, αναπνοής &amp; πτώσης. EN/CE, τιμολόγια &amp; χονδρική." />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-<link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
 
-<!-- ============ BLOCK: Header (utility bar + main header + category nav) ============ -->
+    <!-- ============ BLOCK: Header (utility bar + main header + category nav) ============ -->
 
-<!-- top utility bar — NON-sticky sibling ABOVE <header> (V1 architecture).
-     It scrolls away naturally; its height is never animated. This keeps the
-     sticky <header> a CONSTANT height, which is the root fix for the scroll flicker. -->
-<div class="util">
-  <div class="wrap">
-    <div class="left">
-      <span class="mono"><i class="ti ti-clock-hour-4" style="vertical-align:-2px"></i> ΔΕΥΤ–ΠΑΡ 09:00–17:00</span>
-      <span><i class="ti ti-truck-delivery" style="vertical-align:-2px"></i> Δωρεάν αποστολή σε παραγγελίες 100€+</span>
-      <span class="hl"><i class="ti ti-discount-2" style="vertical-align:-2px"></i> Τιμολόγια & Χονδρική για επαγγελματίες</span>
-    </div>
-    <div class="right">
-      <a href="tel:+306978526018" class="mono"><i class="ti ti-phone" style="vertical-align:-2px"></i> +30 697 852 6018</a>
-      <a href="#"><i class="ti ti-map-pin" style="vertical-align:-2px"></i> <span>Καταστήματα</span></a>
-      <a href="#"><i class="ti ti-help-circle" style="vertical-align:-2px"></i> <span>Βοήθεια</span></a>
-    </div>
-  </div>
-</div>
-
-<header class="header" id="siteHeader">
-
-  <!-- main header: logo + Κατηγορίες trigger + search + actions -->
-  <div class="header-main">
-    <div class="wrap">
-      <button class="burger" id="burger" aria-label="Άνοιγμα μενού"><i class="ti ti-menu-2"></i></button>
-      <a class="logo" href="index.html" aria-label="SafetyMaster αρχική">
-        <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster">
-      </a>
-      <button class="cat-trigger" id="catTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="megaMenu">
-        <i class="ti ti-grid-dots grid-i"></i>
-        <span>Κατηγορίες</span>
-        <i class="ti ti-chevron-down chev"></i>
-      </button>
-      <form class="header-search search-form" role="search">
-        <div class="searchwrap" data-search>
-          <i class="ti ti-search"></i>
-          <input class="inp" type="search" placeholder="Αναζητήστε προϊόν, κατηγορία ή κωδικό..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-label="Αναζήτηση">
-        </div>
-      </form>
-      <div class="header-actions">
-        <button class="icon-btn" aria-label="Αγαπημένα"><i class="ti ti-heart"></i><span class="lbl">Αγαπημένα</span></button>
-        <button class="icon-btn" aria-label="Καλάθι, 3 προϊόντα στο καλάθι"><i class="ti ti-shopping-cart"></i><span class="count" aria-hidden="true">3</span><span class="lbl">Καλάθι</span></button>
-      </div>
-    </div>
-  </div>
-
-  <!-- single full-width mega panel host — direct child of .header (B1/B3) -->
-  <div class="mega" id="megaMenu">
-    <div class="mega-inner">
-        <div class="mega-rail" id="megaRail" role="tablist"></div>
-        <div class="mega-panes" id="megaPanes">
-            <div class="mega-panes-scroll-hint" id="scrollHint"></div>
+    <!-- top utility bar — NON-sticky sibling ABOVE <header> -->
+    <div class="util">
+        <div class="wrap">
+            <div class="left">
+                <span class="mono"><i class="ti ti-clock-hour-4" style="vertical-align:-2px"></i> ΔΕΥΤ–ΠΑΡ 09:00–17:00</span>
+                <span><i class="ti ti-truck-delivery" style="vertical-align:-2px"></i> Δωρεάν αποστολή σε παραγγελίες 100€+</span>
+                <span class="hl"><i class="ti ti-discount-2" style="vertical-align:-2px"></i> Τιμολόγια &amp; Χονδρική για επαγγελματίες</span>
+            </div>
+            <div class="right">
+                <a href="tel:+306978526018" class="mono"><i class="ti ti-phone" style="vertical-align:-2px"></i> +30 697 852 6018</a>
+                <a href="#"><i class="ti ti-map-pin" style="vertical-align:-2px"></i> <span>Καταστήματα</span></a>
+                <a href="#"><i class="ti ti-help-circle" style="vertical-align:-2px"></i> <span>Βοήθεια</span></a>
+            </div>
         </div>
     </div>
-</div>
 
-</header>
+    <header class="header" id="siteHeader">
 
-<section class="hero">
-  <!-- Dramatic Background Image (Unsplash) -->
-  <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80');"></div>
-  <!-- Smart Overlay: Dark on the left for text, transparent on the right for the image -->
-  <div class="hero-overlay"></div>
-
-  <div class="wrap">
-    <div class="hero-content">
-      <div class="eyebrow"><span>Βιομηχανική ασφάλεια</span></div>
-
-      <h1>
-        Βρείτε τον <span class="o">σωστό</span><br>
-        εξοπλισμό ασφαλείας
-      </h1>
-
-      <p class="lead">
-        Πάνω από 2.000 πιστοποιημένα προϊόντα ΜΑΠ – οργανωμένα ανά κίνδυνο, κλάδο και πρότυπο.
-      </p>
-
-      <div class="hero-chips">
-        <span class="lbl">Δημοφιλή</span>
-        <span class="chip"><i class="ti ti-protect"></i> Γάντια</span>
-        <span class="chip"><i class="ti ti-shoe"></i> Παπούτσια S3</span>
-        <span class="chip"><i class="ti ti-helmet"></i> Κράνη</span>
-        <span class="chip"><i class="ti ti-ladder"></i> Ύψος</span>
-      </div>
-
-      <div class="hero-cta">
-        <a href="#" class="btn btn-primary btn-lg">ΟΛΕΣ ΟΙ ΚΑΤΗΓΟΡΙΕΣ</a>
-        <a href="#" class="btn btn-secondary btn-lg">B2B προσφορά</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Stats Strip - Fixed Misalignment -->
-  <div class="hero-stats">
-    <div class="wrap">
-      <div class="st"><i class="ti ti-package"></i><div class="tt"><b>2.000+</b>Προϊόντα</div></div>
-      <div class="st"><i class="ti ti-certificate"></i><div class="tt"><b>100%</b>Πιστοποιημένα</div></div>
-      <div class="st"><i class="ti ti-truck-delivery"></i><div class="tt"><b>Άμεση</b>Παράδοση</div></div>
-      <div class="st"><i class="ti ti-headset"></i><div class="tt"><b>Τεχνική</b>Υποστήριξη</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ BLOCK: Category showcase (8 mains, asymmetric) ============ -->
-<section class="cat-section" id="categories">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="ht">
-        <div class="eyebrow"><span>Κατηγορίες</span></div>
-        <h2>Προστασία ανά κίνδυνο</h2>
-        <p class="sub">Οκτώ κύριες κατηγορίες, 99 υποκατηγορίες. Επιλέξτε σημείο σώματος ή τύπο κινδύνου και δείτε τις διαθέσιμες λύσεις.</p>
-      </div>
-      <a class="btn btn-secondary" href="#">Δείτε όλες τις κατηγορίες <i class="ti ti-arrow-right"></i></a>
-    </div>
-    <div class="cat-grid" id="catGrid" data-aos="fade-up"></div>
-  </div>
-</section>
-
-<!-- ============ BLOCK: Use-case / Solutions (think in jobs, not taxonomy) ============ -->
-<section class="solutions" id="solutions">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="ht">
-        <div class="eyebrow"><span>Λύσεις ανά εργασία</span></div>
-        <h2>Σκέφτεστε σε δουλειές, όχι σε κατηγορίες;</h2>
-        <p class="sub">Συγκεντρώσαμε τον κατάλληλο εξοπλισμό ανά τύπο εργασίας, ώστε να τα βρίσκετε όλα όσα χρειάζεστε σε ένα σημείο.</p>
-      </div>
-    </div>
-    <div class="sol-grid">
-
-      <a class="sol-card" href="#" data-aos="fade-up">
-        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1000&q=80')"></div>
-        <div class="sol-body">
-          <div class="sol-ico"><i class="ti ti-building-skyscraper"></i></div>
-          <h3>Εργοτάξια</h3>
-          <p class="sol-desc">Κράνη, υποδήματα S3, γάντια κρούσης και ρούχα υψηλής ορατότητας.</p>
-          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="60">
-        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=1000&q=80')"></div>
-        <div class="sol-body">
-          <div class="sol-ico"><i class="ti ti-building-factory-2"></i></div>
-          <h3>Βιομηχανία</h3>
-          <p class="sol-desc">Προστασία ακοής, αναπνοής και χημικών για παραγωγή & αποθήκες.</p>
-          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="120">
-        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1567789884554-0b844b597180?w=1000&q=80')"></div>
-        <div class="sol-body">
-          <div class="sol-ico"><i class="ti ti-stairs-up"></i></div>
-          <h3>Εργασίες ύψους</h3>
-          <p class="sol-desc">Ολόσωμες εξαρτύσεις, ανακόπτες πτώσης και διατάξεις αγκύρωσης.</p>
-          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a class="sol-card" href="#" data-aos="fade-up">
-        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=1000&q=80')"></div>
-        <div class="sol-body">
-          <div class="sol-ico"><i class="ti ti-flame"></i></div>
-          <h3>Συγκόλληση</h3>
-          <p class="sol-desc">Μάσκες ηλεκτροσυγκόλλησης, γάντια & μπότες ανθεκτικά στη θερμότητα.</p>
-          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="60">
-        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&q=80')"></div>
-        <div class="sol-body">
-          <div class="sol-ico"><i class="ti ti-bolt"></i></div>
-          <h3>Ηλεκτρολόγοι</h3>
-          <p class="sol-desc">Ηλεκτρομονωτικά γάντια & υποδήματα, μονωμένα κράνη και εργαλεία.</p>
-          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="120">
-        <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1000&q=80')"></div>
-        <div class="sol-body">
-          <div class="sol-ico"><i class="ti ti-tools"></i></div>
-          <h3>Επαγγελματίες</h3>
-          <p class="sol-desc">Καθημερινός εξοπλισμός για τεχνίτες, συνεργεία και ελεύθερους επαγγελματίες.</p>
-          <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
-        </div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ BLOCK: Featured products (tabs + B2C/B2B actions) ============ -->
-<section class="prod-section" id="products">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="ht">
-        <div class="eyebrow"><span>Προϊόντα</span></div>
-        <h2>Επιλεγμένα προϊόντα</h2>
-        <p class="sub">Δημοφιλείς επιλογές επαγγελματιών, με πιστοποιήσεις και τιμές χονδρικής κατόπιν αιτήματος.</p>
-      </div>
-      <div class="tabs" role="tablist">
-        <button class="tab active" data-variant="popular" role="tab"><i class="ti ti-flame"></i> Δημοφιλή</button>
-        <button class="tab" data-variant="new" role="tab"><i class="ti ti-sparkles"></i> Νέα</button>
-        <button class="tab" data-variant="sale" role="tab"><i class="ti ti-discount-2"></i> Προσφορές</button>
-      </div>
-    </div>
-    <div class="prod-grid" id="prodGrid"></div>
-    <div style="text-align:center;margin-top:34px">
-      <a class="btn btn-secondary btn-lg" href="#">Δείτε όλα τα προϊόντα <i class="ti ti-arrow-right"></i></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ BLOCK: Brands (real logos, static trusted-brands row) ============ -->
-<section class="brands">
-  <div class="wrap">
-    <div class="sec-head" style="margin-bottom:24px">
-      <div class="ht">
-        <div class="eyebrow"><span>Συνεργασίες</span></div>
-        <h2>Συνεργαζόμαστε με κορυφαίες εταιρείες</h2>
-      </div>
-    </div>
-    <div class="trust-line"><i class="ti ti-rosette-discount-check"></i> Επίσημος συνεργάτης κορυφαίων ευρωπαϊκών κατασκευαστών ΜΑΠ.</div>
-    <div class="brand-carousel">
-      <div class="swiper" id="brandSwiper">
-        <div class="swiper-wrapper" id="brandWrapper"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ BLOCK: Trust / Credibility (stats + EN/CE + B2B) ============ -->
-<section class="trust">
-  <div class="caution-stripe stripe-acc"></div>
-  <div class="blueprint bp"></div>
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="ht">
-        <div class="eyebrow"><span>Γιατί SafetyMaster</span></div>
-        <h2>Σοβαρός προμηθευτής για σοβαρές δουλειές</h2>
-        <p class="sub">Δεν πουλάμε απλώς εξοπλισμό. Σας βοηθάμε να επιλέξετε γρήγορα το σωστό προϊόν, με τις πιστοποιήσεις και την τεκμηρίωση που απαιτεί κάθε σοβαρό εργοτάξιο.</p>
-      </div>
-    </div>
-
-    <div class="trust-stats" data-aos="fade-up">
-      <div class="ts"><div class="num">2.000<span class="o">+</span></div><div class="ben">προϊόντα σε απόθεμα, <b>για να βρίσκετε ό,τι χρειάζεστε άμεσα</b></div></div>
-      <div class="ts"><div class="num">99</div><div class="ben">υποκατηγορίες, <b>για να εντοπίζετε ακριβώς τον σωστό κωδικό</b></div></div>
-      <div class="ts"><div class="num">EN/CE</div><div class="ben">πιστοποιήσεις με τεκμηρίωση, <b>για συμμόρφωση χωρίς ρίσκο</b></div></div>
-      <div class="ts"><div class="num">1–3</div><div class="ben">ημέρες παράδοση πανελλαδικά, <b>για να μη σταματά η δουλειά σας</b></div></div>
-    </div>
-
-    <div class="trust-chips">
-      <div class="trust-chip">
-        <div class="ti-wrap"><i class="ti ti-certificate"></i></div>
-        <div><div class="tc-t">Πιστοποιήσεις EN / CE</div><div class="tc-d">Τεκμηρίωση & δηλώσεις συμμόρφωσης</div></div>
-      </div>
-      <div class="trust-chip">
-        <div class="ti-wrap"><i class="ti ti-file-invoice"></i></div>
-        <div><div class="tc-t">Τιμολόγια & Χονδρική</div><div class="tc-d">Ειδικές τιμές για επαγγελματίες</div></div>
-      </div>
-      <div class="trust-chip">
-        <div class="ti-wrap"><i class="ti ti-headset"></i></div>
-        <div><div class="tc-t">Τεχνική υποστήριξη</div><div class="tc-d">Καθοδήγηση επιλογής εξοπλισμού</div></div>
-      </div>
-      <div class="trust-chip">
-        <div class="ti-wrap"><i class="ti ti-truck-return"></i></div>
-        <div><div class="tc-t">Επιστροφές 14 ημερών</div><div class="tc-d">Ασφαλείς συναλλαγές & αποστολές</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ BLOCK: Newsletter ============ -->
-<section class="newsletter">
-  <div class="wrap">
-    <div class="nl-box" data-aos="fade-up">
-      <div class="nl-stripe" aria-hidden="true"></div>
-      <div class="nl-grid" aria-hidden="true"></div>
-      <div class="nl-inner">
-        <div class="nl-text">
-          <div class="nl-mono mono">// ΕΝΗΜΕΡΩΣΗ ΕΠΑΓΓΕΛΜΑΤΙΩΝ</div>
-          <h2>Ενημερωθείτε πρώτοι</h2>
-          <p>Νέα προϊόντα, αλλαγές προτύπων ασφαλείας και προσφορές χονδρικής, στο email σας.</p>
-        </div>
-        <form class="nl-form" novalidate>
-          <div class="nl-field">
-            <input class="inp" type="email" placeholder="Το email σας" aria-label="Email" required>
-            <button class="btn btn-primary" type="submit">Εγγραφή</button>
-          </div>
-          <div class="nl-confirm" id="nlConfirm" role="status" aria-live="polite"></div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ BLOCK: Footer (CTA + columns + payments + legal) ============ -->
-<footer class="site-footer">
-
-  <!-- dark closing CTA -->
-  <div class="footer-cta" id="b2b">
-    <div class="stripe-bg"></div>
-    <div class="wrap">
-      <h2>Εξοπλίστε ολόκληρη την ομάδα σας, σωστά.</h2>
-      <p>Ζητήστε προσφορά χονδρικής και τιμολόγηση για την επιχείρησή σας. Σας απαντάμε με συγκεκριμένη πρόταση εντός μίας εργάσιμης.</p>
-      <div class="row">
-        <a class="btn btn-primary btn-lg" href="#"><i class="ti ti-file-invoice"></i> Ζητήστε προσφορά B2B</a>
-        <a class="btn btn-secondary btn-lg" href="tel:+306978526018"><i class="ti ti-phone"></i> Καλέστε μας</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- footer columns -->
-  <div class="footer-main">
-    <div class="wrap">
-      <div class="footer-cols">
-        <div class="footer-col footer-brand">
-          <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster">
-          <p>Επαγγελματικός εξοπλισμός ατομικής προστασίας (ΜΑΠ) για κάθε κλάδο. Πιστοποιημένα προϊόντα, τεχνική υποστήριξη και τιμές χονδρικής.</p>
-          <div class="biz">
-            SafetyMaster Μ.Ε.Π.Ε.<br>
-            ΑΦΜ: 000000000<br>
-            ΔΟΥ: ___<br>
-            Email: info@safetymaster.gr<br>
-            Τηλ: +30 697 852 6018
-          </div>
-          <div class="footer-social">
-            <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
-            <a href="#" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
-            <a href="#" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
-          </div>
+        <!-- main header: logo + Κατηγορίες trigger + search + actions -->
+        <div class="header-main">
+            <div class="wrap">
+                <button class="burger" id="burger" aria-label="Άνοιγμα μενού"><i class="ti ti-menu-2"></i></button>
+                <a class="logo" href="index.html" aria-label="SafetyMaster αρχική">
+                    <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster" />
+                </a>
+                <button class="cat-trigger" id="catTrigger" aria-haspopup="true" aria-expanded="false" aria-controls="megaMenu">
+                    <i class="ti ti-grid-dots grid-i"></i>
+                    <span>Κατηγορίες</span>
+                    <i class="ti ti-chevron-down chev"></i>
+                </button>
+                <form class="header-search search-form" role="search">
+                    <div class="searchwrap" data-search>
+                        <i class="ti ti-search"></i>
+                        <input class="inp" type="search" placeholder="Αναζητήστε προϊόν, κατηγορία ή κωδικό..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-label="Αναζήτηση" />
+                        <!-- search results container injected by JS -->
+                    </div>
+                </form>
+                <div class="header-actions">
+                    <!-- 🔍 Mobile search toggle (visible only on small screens) -->
+                    <button class="icon-btn search-toggle" id="searchToggle" aria-label="Αναζήτηση">
+                        <i class="ti ti-search"></i>
+                        <span class="lbl">Αναζήτηση</span>
+                    </button>
+                    <button class="icon-btn" aria-label="Αγαπημένα"><i class="ti ti-heart"></i><span class="lbl">Αγαπημένα</span></button>
+                    <button class="icon-btn" aria-label="Καλάθι, 3 προϊόντα στο καλάθι"><i class="ti ti-shopping-cart"></i><span class="count" aria-hidden="true">3</span><span class="lbl">Καλάθι</span></button>
+                </div>
+            </div>
         </div>
 
-        <div class="footer-col">
-          <h4>Κατηγορίες</h4>
-          <a href="https://safetymaster.gr/product-category/head-protection">Προστασία Κεφαλής</a>
-          <a href="https://safetymaster.gr/product-category/eye-protection">Προστασία Ματιών</a>
-          <a href="https://safetymaster.gr/product-category/respiratory-protection">Προστασία Αναπνοής</a>
-          <a href="https://safetymaster.gr/product-category/hearing-protection">Προστασία Ακοής</a>
-          <a href="https://safetymaster.gr/product-category/hand-protection">Προστασία Χεριών</a>
-          <a href="https://safetymaster.gr/product-category/foot-protection">Προστασία Ποδιών</a>
-          <a href="https://safetymaster.gr/product-category/workwear-protection">Ρούχα Εργασίας</a>
-          <a href="https://safetymaster.gr/product-category/fall-protection">Προστασία Πτώσης</a>
+        <!-- single full-width mega panel host — direct child of .header -->
+        <div class="mega" id="megaMenu">
+            <div class="mega-inner">
+                <div class="mega-rail" id="megaRail" role="tablist"></div>
+                <div class="mega-panes" id="megaPanes">
+                    <div class="mega-panes-scroll-hint" id="scrollHint"></div>
+                </div>
+            </div>
         </div>
 
-        <div class="footer-col">
-          <h4>Εξυπηρέτηση</h4>
-          <a href="#">Επικοινωνία</a>
-          <a href="#">Αποστολές & Παραδόσεις</a>
-          <a href="#">Επιστροφές & Εγγύηση</a>
-          <a href="#">Τρόποι Πληρωμής</a>
-          <a href="#">Συχνές Ερωτήσεις</a>
-          <a href="#">Παρακολούθηση Παραγγελίας</a>
+    </header>
+
+    <section class="hero">
+        <!-- Dramatic Background Image (Unsplash) -->
+        <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80');"></div>
+        <!-- Smart Overlay: Dark on the left for text, transparent on the right for the image -->
+        <div class="hero-overlay"></div>
+
+        <div class="wrap">
+            <div class="hero-content">
+                <div class="eyebrow"><span>Βιομηχανική ασφάλεια</span></div>
+
+                <h1>
+                    Βρείτε τον <span class="o">σωστό</span><br />
+                    εξοπλισμό ασφαλείας
+                </h1>
+
+                <p class="lead">
+                    Πάνω από 2.000 πιστοποιημένα προϊόντα ΜΑΠ – οργανωμένα ανά κίνδυνο, κλάδο και πρότυπο.
+                </p>
+
+                <div class="hero-chips">
+                    <span class="lbl">Δημοφιλή</span>
+                    <span class="chip"><i class="ti ti-protect"></i> Γάντια</span>
+                    <span class="chip"><i class="ti ti-shoe"></i> Παπούτσια S3</span>
+                    <span class="chip"><i class="ti ti-helmet"></i> Κράνη</span>
+                    <span class="chip"><i class="ti ti-ladder"></i> Ύψος</span>
+                </div>
+
+                <div class="hero-cta">
+                    <a href="#" class="btn btn-primary btn-lg">ΟΛΕΣ ΟΙ ΚΑΤΗΓΟΡΙΕΣ</a>
+                    <a href="#" class="btn btn-secondary btn-lg">B2B προσφορά</a>
+                </div>
+            </div>
         </div>
 
-        <div class="footer-col">
-          <h4>Επιχειρήσεις</h4>
-          <a href="#">B2B / Χονδρική</a>
-          <a href="#">Ζητήστε Προσφορά</a>
-          <a href="#">Τιμολόγηση Εταιρειών</a>
-          <a href="#">Πιστοποιήσεις EN / CE</a>
-          <a href="#">Σχετικά με εμάς</a>
-          <a href="#">Όροι Χρήσης & Απορρήτου</a>
+        <!-- Stats Strip - Fixed Misalignment -->
+        <div class="hero-stats">
+            <div class="wrap">
+                <div class="st"><i class="ti ti-package"></i><div class="tt"><b>2.000+</b>Προϊόντα</div></div>
+                <div class="st"><i class="ti ti-certificate"></i><div class="tt"><b>100%</b>Πιστοποιημένα</div></div>
+                <div class="st"><i class="ti ti-truck-delivery"></i><div class="tt"><b>Άμεση</b>Παράδοση</div></div>
+                <div class="st"><i class="ti ti-headset"></i><div class="tt"><b>Τεχνική</b>Υποστήριξη</div></div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- footer bottom: copy + payments + marks -->
-  <div class="footer-main" style="padding:0 0 0px">
-    <div class="wrap">
-      <div class="footer-bottom">
-        <div class="copy">© 2026 SafetyMaster. Με την επιφύλαξη παντός δικαιώματος.</div>
-        <div class="footer-pay">
-          <span class="mark">CE</span>
-          <span class="mark">EN ISO</span>
-          <div class="marks">
-            <span class="mark"><i class="ti ti-brand-visa"></i></span>
-            <span class="mark"><i class="ti ti-brand-mastercard"></i></span>
-            <span class="mark"><i class="ti ti-brand-paypal"></i></span>
-            <span class="mark"><i class="ti ti-cash"></i></span>
-          </div>
+    <!-- ============ BLOCK: Category showcase (8 mains, asymmetric) ============ -->
+    <section class="cat-section" id="categories">
+        <div class="wrap">
+            <div class="sec-head">
+                <div class="ht">
+                    <div class="eyebrow"><span>Κατηγορίες</span></div>
+                    <h2>Προστασία ανά κίνδυνο</h2>
+                    <p class="sub">Οκτώ κύριες κατηγορίες, 99 υποκατηγορίες. Επιλέξτε σημείο σώματος ή τύπο κινδύνου και δείτε τις διαθέσιμες λύσεις.</p>
+                </div>
+                <a class="btn btn-secondary" href="#">Δείτε όλες τις κατηγορίες <i class="ti ti-arrow-right"></i></a>
+            </div>
+            <div class="cat-grid" id="catGrid" data-aos="fade-up"></div>
         </div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-</footer>
+    <!-- ============ BLOCK: Use-case / Solutions ============ -->
+    <section class="solutions" id="solutions">
+        <div class="wrap">
+            <div class="sec-head">
+                <div class="ht">
+                    <div class="eyebrow"><span>Λύσεις ανά εργασία</span></div>
+                    <h2>Σκέφτεστε σε δουλειές, όχι σε κατηγορίες;</h2>
+                    <p class="sub">Συγκεντρώσαμε τον κατάλληλο εξοπλισμό ανά τύπο εργασίας, ώστε να τα βρίσκετε όλα όσα χρειάζεστε σε ένα σημείο.</p>
+                </div>
+            </div>
+            <div class="sol-grid">
 
-<!-- ============ Mobile drawer (8 -> subcategory tree) ============ -->
-<div class="drawer-overlay" id="drawerOverlay"></div>
-<aside class="drawer" id="drawer" aria-label="Μενού κατηγοριών">
-  <div class="drawer-head">
-    <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster">
-    <button class="close" id="drawerClose" aria-label="Κλείσιμο"><i class="ti ti-x"></i></button>
-  </div>
-  <div class="drawer-search">
-    <form class="search-form" role="search">
-      <div class="searchwrap">
-        <i class="ti ti-search"></i>
-        <input class="inp" type="search" placeholder="Αναζητήστε προϊόν, κατηγορία ή κωδικό...">
-      </div>
-    </form>
-  </div>
-  <div class="drawer-tree" id="drawerTree"></div>
-  <div class="drawer-foot">
-    <a class="btn btn-primary" href="#"><i class="ti ti-file-invoice"></i> Ζητήστε προσφορά B2B</a>
-    <a class="btn btn-secondary" href="tel:+306978526018"><i class="ti ti-phone"></i> +30 697 852 6018</a>
-  </div>
-</aside>
+                <a class="sol-card" href="#" data-aos="fade-up">
+                    <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1000&q=80')"></div>
+                    <div class="sol-body">
+                        <div class="sol-ico"><i class="ti ti-building-skyscraper"></i></div>
+                        <h3>Εργοτάξια</h3>
+                        <p class="sol-desc">Κράνη, υποδήματα S3, γάντια κρούσης και ρούχα υψηλής ορατότητας.</p>
+                        <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+                    </div>
+                </a>
 
-<!-- CDN libs -->
- <script>
-    (function() {
-        'use strict';
+                <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="60">
+                    <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=1000&q=80')"></div>
+                    <div class="sol-body">
+                        <div class="sol-ico"><i class="ti ti-building-factory-2"></i></div>
+                        <h3>Βιομηχανία</h3>
+                        <p class="sol-desc">Προστασία ακοής, αναπνοής και χημικών για παραγωγή &amp; αποθήκες.</p>
+                        <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+                    </div>
+                </a>
 
-        const section = document.querySelector('.newsletter');
-        if (!section) return;
+                <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="120">
+                    <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1567789884554-0b844b597180?w=1000&q=80')"></div>
+                    <div class="sol-body">
+                        <div class="sol-ico"><i class="ti ti-stairs-up"></i></div>
+                        <h3>Εργασίες ύψους</h3>
+                        <p class="sol-desc">Ολόσωμες εξαρτύσεις, ανακόπτες πτώσης και διατάξεις αγκύρωσης.</p>
+                        <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+                    </div>
+                </a>
 
-        // Bail on reduced motion
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                <a class="sol-card" href="#" data-aos="fade-up">
+                    <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=1000&q=80')"></div>
+                    <div class="sol-body">
+                        <div class="sol-ico"><i class="ti ti-flame"></i></div>
+                        <h3>Συγκόλληση</h3>
+                        <p class="sol-desc">Μάσκες ηλεκτροσυγκόλλησης, γάντια &amp; μπότες ανθεκτικά στη θερμότητα.</p>
+                        <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+                    </div>
+                </a>
 
-        // Create the parallax grid element if it doesn't exist
-        let grid = section.querySelector('.parallax-grid');
-        if (!grid) {
-            grid = document.createElement('div');
-            grid.className = 'parallax-grid';
-            grid.setAttribute('aria-hidden', 'true');
-            section.prepend(grid);
-        }
+                <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="60">
+                    <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&q=80')"></div>
+                    <div class="sol-body">
+                        <div class="sol-ico"><i class="ti ti-bolt"></i></div>
+                        <h3>Ηλεκτρολόγοι</h3>
+                        <p class="sol-desc">Ηλεκτρομονωτικά γάντια &amp; υποδήματα, μονωμένα κράνη και εργαλεία.</p>
+                        <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+                    </div>
+                </a>
 
-        let ticking = false;
-        let offsetY = 0;
+                <a class="sol-card" href="#" data-aos="fade-up" data-aos-delay="120">
+                    <div class="sol-bg" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1000&q=80')"></div>
+                    <div class="sol-body">
+                        <div class="sol-ico"><i class="ti ti-tools"></i></div>
+                        <h3>Επαγγελματίες</h3>
+                        <p class="sol-desc">Καθημερινός εξοπλισμός για τεχνίτες, συνεργεία και ελεύθερους επαγγελματίες.</p>
+                        <span class="sol-link">Δείτε τον εξοπλισμό <i class="ti ti-arrow-right"></i></span>
+                    </div>
+                </a>
 
-        function updateParallax() {
-            const rect = section.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            const sectionHeight = rect.height;
+            </div>
+        </div>
+    </section>
 
-            // How much of the section is visible (0 = top hits, 1 = bottom hits)
-            const progress = Math.min(Math.max(
-                (viewportHeight - rect.top) / (viewportHeight + sectionHeight),
-                0
-            ), 1);
+    <!-- ============ BLOCK: Featured products ============ -->
+    <section class="prod-section" id="products">
+        <div class="wrap">
+            <div class="sec-head">
+                <div class="ht">
+                    <div class="eyebrow"><span>Προϊόντα</span></div>
+                    <h2>Επιλεγμένα προϊόντα</h2>
+                    <p class="sub">Δημοφιλείς επιλογές επαγγελματιών, με πιστοποιήσεις και τιμές χονδρικής κατόπιν αιτήματος.</p>
+                </div>
+                <div class="tabs" role="tablist">
+                    <button class="tab active" data-variant="popular" role="tab"><i class="ti ti-flame"></i> Δημοφιλή</button>
+                    <button class="tab" data-variant="new" role="tab"><i class="ti ti-sparkles"></i> Νέα</button>
+                    <button class="tab" data-variant="sale" role="tab"><i class="ti ti-discount-2"></i> Προσφορές</button>
+                </div>
+            </div>
+            <div class="prod-grid" id="prodGrid"></div>
+            <div style="text-align:center;margin-top:34px">
+                <a class="btn btn-secondary btn-lg" href="#">Δείτε όλα τα προϊόντα <i class="ti ti-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
 
-            // Map to a subtle movement: 0 → -4px, 1 → 4px
-            offsetY = -4 + (progress * 8);
-            grid.style.transform = `translate3d(0, ${offsetY}px, 0)`;
-        }
+    <!-- ============ BLOCK: Brands ============ -->
+    <section class="brands">
+        <div class="wrap">
+            <div class="sec-head" style="margin-bottom:24px">
+                <div class="ht">
+                    <div class="eyebrow"><span>Συνεργασίες</span></div>
+                    <h2>Συνεργαζόμαστε με κορυφαίες εταιρείες</h2>
+                </div>
+            </div>
+            <div class="trust-line"><i class="ti ti-rosette-discount-check"></i> Επίσημος συνεργάτης κορυφαίων ευρωπαϊκών κατασκευαστών ΜΑΠ.</div>
+            <div class="brand-carousel">
+                <div class="swiper" id="brandSwiper">
+                    <div class="swiper-wrapper" id="brandWrapper"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function onScroll() {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    updateParallax();
-                    ticking = false;
+    <!-- ============ BLOCK: Trust / Credibility ============ -->
+    <section class="trust">
+        <div class="caution-stripe stripe-acc"></div>
+        <div class="blueprint bp"></div>
+        <div class="wrap">
+            <div class="sec-head">
+                <div class="ht">
+                    <div class="eyebrow"><span>Γιατί SafetyMaster</span></div>
+                    <h2>Σοβαρός προμηθευτής για σοβαρές δουλειές</h2>
+                    <p class="sub">Δεν πουλάμε απλώς εξοπλισμό. Σας βοηθάμε να επιλέξετε γρήγορα το σωστό προϊόν, με τις πιστοποιήσεις και την τεκμηρίωση που απαιτεί κάθε σοβαρό εργοτάξιο.</p>
+                </div>
+            </div>
+
+            <div class="trust-stats" data-aos="fade-up">
+                <div class="ts"><div class="num">2.000<span class="o">+</span></div><div class="ben">προϊόντα σε απόθεμα, <b>για να βρίσκετε ό,τι χρειάζεστε άμεσα</b></div></div>
+                <div class="ts"><div class="num">99</div><div class="ben">υποκατηγορίες, <b>για να εντοπίζετε ακριβώς τον σωστό κωδικό</b></div></div>
+                <div class="ts"><div class="num">EN/CE</div><div class="ben">πιστοποιήσεις με τεκμηρίωση, <b>για συμμόρφωση χωρίς ρίσκο</b></div></div>
+                <div class="ts"><div class="num">1–3</div><div class="ben">ημέρες παράδοση πανελλαδικά, <b>για να μη σταματά η δουλειά σας</b></div></div>
+            </div>
+
+            <div class="trust-chips">
+                <div class="trust-chip">
+                    <div class="ti-wrap"><i class="ti ti-certificate"></i></div>
+                    <div><div class="tc-t">Πιστοποιήσεις EN / CE</div><div class="tc-d">Τεκμηρίωση &amp; δηλώσεις συμμόρφωσης</div></div>
+                </div>
+                <div class="trust-chip">
+                    <div class="ti-wrap"><i class="ti ti-file-invoice"></i></div>
+                    <div><div class="tc-t">Τιμολόγια &amp; Χονδρική</div><div class="tc-d">Ειδικές τιμές για επαγγελματίες</div></div>
+                </div>
+                <div class="trust-chip">
+                    <div class="ti-wrap"><i class="ti ti-headset"></i></div>
+                    <div><div class="tc-t">Τεχνική υποστήριξη</div><div class="tc-d">Καθοδήγηση επιλογής εξοπλισμού</div></div>
+                </div>
+                <div class="trust-chip">
+                    <div class="ti-wrap"><i class="ti ti-truck-return"></i></div>
+                    <div><div class="tc-t">Επιστροφές 14 ημερών</div><div class="tc-d">Ασφαλείς συναλλαγές &amp; αποστολές</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ BLOCK: Newsletter ============ -->
+    <section class="newsletter">
+        <div class="wrap">
+            <div class="nl-box" data-aos="fade-up">
+                <div class="nl-stripe" aria-hidden="true"></div>
+                <div class="nl-grid" aria-hidden="true"></div>
+                <div class="nl-inner">
+                    <div class="nl-text">
+                        <div class="nl-mono mono">// ΕΝΗΜΕΡΩΣΗ ΕΠΑΓΓΕΛΜΑΤΙΩΝ</div>
+                        <h2>Ενημερωθείτε πρώτοι</h2>
+                        <p>Νέα προϊόντα, αλλαγές προτύπων ασφαλείας και προσφορές χονδρικής, στο email σας.</p>
+                    </div>
+                    <form class="nl-form" novalidate>
+                        <div class="nl-field">
+                            <input class="inp" type="email" placeholder="Το email σας" aria-label="Email" required />
+                            <button class="btn btn-primary" type="submit">Εγγραφή</button>
+                        </div>
+                        <div class="nl-confirm" id="nlConfirm" role="status" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ BLOCK: Footer ============ -->
+    <footer class="site-footer">
+
+        <!-- dark closing CTA -->
+        <div class="footer-cta" id="b2b">
+            <div class="stripe-bg"></div>
+            <div class="wrap">
+                <h2>Εξοπλίστε ολόκληρη την ομάδα σας, σωστά.</h2>
+                <p>Ζητήστε προσφορά χονδρικής και τιμολόγηση για την επιχείρησή σας. Σας απαντάμε με συγκεκριμένη πρόταση εντός μίας εργάσιμης.</p>
+                <div class="row">
+                    <a class="btn btn-primary btn-lg" href="#"><i class="ti ti-file-invoice"></i> Ζητήστε προσφορά B2B</a>
+                    <a class="btn btn-secondary btn-lg" href="tel:+306978526018"><i class="ti ti-phone"></i> Καλέστε μας</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer columns -->
+        <div class="footer-main">
+            <div class="wrap">
+                <div class="footer-cols">
+                    <div class="footer-col footer-brand">
+                        <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster" />
+                        <p>Επαγγελματικός εξοπλισμός ατομικής προστασίας (ΜΑΠ) για κάθε κλάδο. Πιστοποιημένα προϊόντα, τεχνική υποστήριξη και τιμές χονδρικής.</p>
+                        <div class="biz">
+                            SafetyMaster Μ.Ε.Π.Ε.<br />
+                            ΑΦΜ: 000000000<br />
+                            ΔΟΥ: ___<br />
+                            Email: info@safetymaster.gr<br />
+                            Τηλ: +30 697 852 6018
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Κατηγορίες</h4>
+                        <a href="https://safetymaster.gr/product-category/head-protection">Προστασία Κεφαλής</a>
+                        <a href="https://safetymaster.gr/product-category/eye-protection">Προστασία Ματιών</a>
+                        <a href="https://safetymaster.gr/product-category/respiratory-protection">Προστασία Αναπνοής</a>
+                        <a href="https://safetymaster.gr/product-category/hearing-protection">Προστασία Ακοής</a>
+                        <a href="https://safetymaster.gr/product-category/hand-protection">Προστασία Χεριών</a>
+                        <a href="https://safetymaster.gr/product-category/foot-protection">Προστασία Ποδιών</a>
+                        <a href="https://safetymaster.gr/product-category/workwear-protection">Ρούχα Εργασίας</a>
+                        <a href="https://safetymaster.gr/product-category/fall-protection">Προστασία Πτώσης</a>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Εξυπηρέτηση</h4>
+                        <a href="#">Επικοινωνία</a>
+                        <a href="#">Αποστολές &amp; Παραδόσεις</a>
+                        <a href="#">Επιστροφές &amp; Εγγύηση</a>
+                        <a href="#">Τρόποι Πληρωμής</a>
+                        <a href="#">Συχνές Ερωτήσεις</a>
+                        <a href="#">Παρακολούθηση Παραγγελίας</a>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Επιχειρήσεις</h4>
+                        <a href="#">B2B / Χονδρική</a>
+                        <a href="#">Ζητήστε Προσφορά</a>
+                        <a href="#">Τιμολόγηση Εταιρειών</a>
+                        <a href="#">Πιστοποιήσεις EN / CE</a>
+                        <a href="#">Σχετικά με εμάς</a>
+                        <a href="#">Όροι Χρήσης &amp; Απορρήτου</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer bottom -->
+        <div class="footer-main" style="padding:0 0 0px">
+            <div class="wrap">
+                <div class="footer-bottom">
+                    <div class="copy">© 2026 SafetyMaster. Με την επιφύλαξη παντός δικαιώματος.</div>
+                    <div class="footer-pay">
+                        <span class="mark">CE</span>
+                        <span class="mark">EN ISO</span>
+                        <div class="marks">
+                            <span class="mark"><i class="ti ti-brand-visa"></i></span>
+                            <span class="mark"><i class="ti ti-brand-mastercard"></i></span>
+                            <span class="mark"><i class="ti ti-brand-paypal"></i></span>
+                            <span class="mark"><i class="ti ti-cash"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- ============ Mobile drawer ============ -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <aside class="drawer" id="drawer" aria-label="Μενού κατηγοριών">
+        <div class="drawer-head">
+            <img src="assets/img/safetymaster-logo-transparent.png" alt="SafetyMaster" />
+            <button class="close" id="drawerClose" aria-label="Κλείσιμο"><i class="ti ti-x"></i></button>
+        </div>
+        <div class="drawer-search">
+            <form class="search-form" role="search">
+                <div class="searchwrap">
+                    <i class="ti ti-search"></i>
+                    <input class="inp" type="search" placeholder="Αναζητήστε προϊόν, κατηγορία ή κωδικό..." />
+                </div>
+            </form>
+        </div>
+        <div class="drawer-tree" id="drawerTree"></div>
+        <div class="drawer-foot">
+            <a class="btn btn-primary" href="#"><i class="ti ti-file-invoice"></i> Ζητήστε προσφορά B2B</a>
+            <a class="btn btn-secondary" href="tel:+306978526018"><i class="ti ti-phone"></i> +30 697 852 6018</a>
+        </div>
+    </aside>
+
+    <!-- CDN libs -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================
+            //  MOBILE SEARCH TOGGLE
+            // ============================
+            const header = document.getElementById('siteHeader');
+            const searchToggle = document.getElementById('searchToggle');
+            const searchForm = header.querySelector('.header-search');
+            let searchOpen = false;
+
+            if (searchToggle && searchForm) {
+                // On mobile, we want the search input to appear below the header
+                // We'll add a class to the header that makes the search visible
+                searchToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    searchOpen = !searchOpen;
+                    header.classList.toggle('search-open', searchOpen);
+                    searchToggle.classList.toggle('active', searchOpen);
+                    if (searchOpen) {
+                        // Focus the input after a tiny delay for the animation
+                        const inp = searchForm.querySelector('.inp');
+                        if (inp) setTimeout(() => inp.focus(), 150);
+                    }
                 });
-                ticking = true;
+
+                // Close search when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (searchOpen && !header.contains(e.target)) {
+                        searchOpen = false;
+                        header.classList.remove('search-open');
+                        searchToggle.classList.remove('active');
+                    }
+                });
+
+                // Close search on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && searchOpen) {
+                        searchOpen = false;
+                        header.classList.remove('search-open');
+                        searchToggle.classList.remove('active');
+                        const inp = searchForm.querySelector('.inp');
+                        if (inp) inp.blur();
+                    }
+                });
             }
-        }
 
-        // Initial position
-        updateParallax();
+            // ============================
+            //  NEWSLETTER PARALLAX (unchanged)
+            // ============================
+            const section = document.querySelector('.newsletter');
+            if (section) {
+                if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    let grid = section.querySelector('.parallax-grid');
+                    if (!grid) {
+                        grid = document.createElement('div');
+                        grid.className = 'parallax-grid';
+                        grid.setAttribute('aria-hidden', 'true');
+                        section.prepend(grid);
+                    }
+                    let ticking = false;
+                    let offsetY = 0;
 
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll, { passive: true });
+                    function updateParallax() {
+                        const rect = section.getBoundingClientRect();
+                        const viewportHeight = window.innerHeight;
+                        const sectionHeight = rect.height;
+                        const progress = Math.min(Math.max((viewportHeight - rect.top) / (viewportHeight + sectionHeight), 0), 1);
+                        offsetY = -4 + (progress * 8);
+                        grid.style.transform = 'translate3d(0, ' + offsetY + 'px, 0)';
+                    }
+                    updateParallax();
+                    window.addEventListener('scroll', function() {
+                        if (!ticking) {
+                            window.requestAnimationFrame(function() {
+                                updateParallax();
+                                ticking = false;
+                            });
+                            ticking = true;
+                        }
+                    }, { passive: true });
+                    window.addEventListener('resize', updateParallax, { passive: true });
+                    const observer = new IntersectionObserver(function() {
+                        updateParallax();
+                    }, { threshold: [0, 0.1, 0.5, 1] });
+                    observer.observe(section);
+                }
+            }
 
-        // Recalculate when the section becomes visible (for lazy-loaded content)
-        const observer = new IntersectionObserver(() => {
-            updateParallax();
-        }, { threshold: [0, 0.1, 0.5, 1] });
-        observer.observe(section);
-
-    })();
-</script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="assets/js/main.js"></script>
+        })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js">
+    </script>
+    <script src="assets/js/main.js">
+    </script>
 
 </body>
 </html>
